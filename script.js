@@ -1,0 +1,97 @@
+let transactions = [];
+
+const balanceElement = document.getElementById("balance");
+const incomeElement = document.getElementById("income");
+const expensesElement = document.getElementById("expenses");
+const transactionList = document.getElementById("transactionList");
+
+const descriptionInput = document.getElementById("description");
+const amountInput = document.getElementById("amount");
+const typeInput = document.getElementById("type");
+const addButton = document.getElementById("addTransaction");
+
+addButton.addEventListener("click", addTransaction);
+
+function addTransaction() {
+    const description = descriptionInput.value.trim();
+    const amount = Number(amountInput.value);
+    const type = typeInput.value;
+
+    if (description === "" || amount <= 0) {
+        alert("Please enter a description and a valid amount.");
+        return;
+    }
+
+    const transaction = {
+        id: Date.now(),
+        description: description,
+        amount: amount,
+        type: type
+    };
+
+    transactions.push(transaction);
+
+    descriptionInput.value = "";
+    amountInput.value = "";
+
+    updateTracker();
+}
+
+function updateTracker() {
+    let income = 0;
+    let expenses = 0;
+
+    transactions.forEach(function(transaction) {
+        if (transaction.type === "income") {
+            income += transaction.amount;
+        } else {
+            expenses += transaction.amount;
+        }
+    });
+
+    const balance = income - expenses;
+
+    incomeElement.textContent = "UGX " + income.toLocaleString();
+    expensesElement.textContent = "UGX " + expenses.toLocaleString();
+    balanceElement.textContent = "UGX " + balance.toLocaleString();
+
+    displayTransactions();
+}
+
+function displayTransactions() {
+    transactionList.innerHTML = "";
+
+    if (transactions.length === 0) {
+        transactionList.innerHTML =
+            '<li class="empty-message">No transactions yet.</li>';
+        return;
+    }
+
+    transactions.forEach(function(transaction) {
+        const li = document.createElement("li");
+
+        li.innerHTML = `
+            <span>
+                ${transaction.description}
+                <strong>${transaction.type}</strong>
+            </span>
+
+            <span>
+                UGX ${transaction.amount.toLocaleString()}
+                <button onclick="deleteTransaction(${transaction.id})">
+                    Delete
+                </button>
+            </span>
+        `;
+
+        transactionList.appendChild(li);
+    });
+}
+
+function deleteTransaction(id) {
+    transactions = transactions.filter(function(transaction) {
+        return transaction.id !== id;
+    });
+
+    updateTracker();
+}

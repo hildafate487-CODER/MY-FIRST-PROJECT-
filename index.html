@@ -1,17 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My To-Do List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Budget Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>My To-Do List 📝</h1>
+    <div class="container">
 
-    <input type="text" placeholder="Enter a task">
+        <header>
+            <h1>💰 Student Budget Tracker</h1>
+            <p>Manage your money. Track your spending. Reach your goals.</p>
+        </header>
 
-    <button>Add Task</button>
+        <section class="balance-card">
+            <h2>Current Balance</h2>
+            <h3 id="balance">UGX 0</h3>
+        </section>
+
+        <section class="summary">
+            <div class="summary-card">
+                <h3>Income</h3>
+                <p id="income">UGX 0</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Expenses</h3>
+                <p id="expenses">UGX 0</p>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h2>Add Transaction</h2>
+
+            <input
+                type="text"
+                id="description"
+                placeholder="Description (e.g. Food)"
+            >
+
+            <input
+                type="number"
+                id="amount"
+                placeholder="Amount in UGX"
+            >
+
+            <select id="type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+
+            <button id="addTransaction">Add Transaction</button>
+        </section>
+
+        <section class="transactions-section">
+            <h2>Transactions</h2>
+
+            <ul id="transactionList">
+                <li class="empty-message">No transactions yet.</li>
+            </ul>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>

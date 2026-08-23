@@ -10,7 +10,17 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>THE FATE Student Budget Tracker</title>
+    <title>THE FATE BUDGET TRACKER</title>
+
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
+
+    <meta
+        name="theme-color"
+        content="#1e3a8a"
+    >
 
     <link
         rel="stylesheet"
@@ -35,7 +45,9 @@
 
     <header>
 
-        <h1>💰 THE FATE Student Budget Tracker</h1>
+        <h1>
+            💰 THE FATE BUDGET TRACKER
+        </h1>
 
         <p>
             Manage your money. Track your spending.
@@ -46,7 +58,7 @@
 
 
     <!-- =====================================
-         DARK MODE BUTTON
+         DARK MODE
     ====================================== -->
 
     <button
@@ -159,7 +171,7 @@
 
 
     <!-- =====================================
-         DASHBOARD INSIGHTS
+         INSIGHTS
     ====================================== -->
 
     <section
@@ -344,9 +356,7 @@
             id="saveButton"
             onclick="saveTransaction()"
         >
-
             ➕ Add Transaction
-
         </button>
 
 
@@ -355,9 +365,7 @@
             onclick="cancelEdit()"
             style="display:none;"
         >
-
             ❌ Cancel Edit
-
         </button>
 
     </section>
@@ -376,6 +384,8 @@
             📋 Transactions
         </h2>
 
+
+        <!-- SEARCH & FILTER -->
 
         <div class="filter-section">
 
@@ -478,7 +488,9 @@
 
         <div class="export-section">
 
-            <button onclick="exportTransactions()">
+            <button
+                onclick="exportTransactions()"
+            >
                 📥 Export Transactions
             </button>
 
@@ -488,7 +500,7 @@
 
 
     <!-- =====================================
-         SAVINGS GOALS
+         SAVINGS GOAL
     ====================================== -->
 
     <section
@@ -647,7 +659,7 @@
     <footer>
 
         <p>
-            © 2026 THE FATE Student Budget Tracker
+            © 2026 THE FATE BUDGET TRACKER
         </p>
 
         <p>
@@ -661,7 +673,6 @@
 
 
 <script>
-
 
 /* =========================================
    LOAD TRANSACTIONS
@@ -716,9 +727,7 @@ function saveTransaction() {
 
     const description =
         document
-        .getElementById(
-            "description"
-        )
+        .getElementById("description")
         .value
         .trim();
 
@@ -726,34 +735,26 @@ function saveTransaction() {
     const amount =
         Number(
             document
-            .getElementById(
-                "amount"
-            )
+            .getElementById("amount")
             .value
         );
 
 
     const date =
         document
-        .getElementById(
-            "date"
-        )
+        .getElementById("date")
         .value;
 
 
     const type =
         document
-        .getElementById(
-            "type"
-        )
+        .getElementById("type")
         .value;
 
 
     const category =
         document
-        .getElementById(
-            "category"
-        )
+        .getElementById("category")
         .value;
 
 
@@ -853,9 +854,7 @@ function saveTransaction() {
    EDIT TRANSACTION
 ========================================= */
 
-function editTransaction(
-    index
-) {
+function editTransaction(index) {
 
     const transaction =
         transactions[index];
@@ -1003,21 +1002,21 @@ function updateTracker() {
 
     const categoryTotals = {
 
-        "Food": 0,
+        Food: 0,
 
-        "Transport": 0,
+        Transport: 0,
 
-        "School": 0,
+        School: 0,
 
         "Airtime/Data": 0,
 
-        "Rent": 0,
+        Rent: 0,
 
-        "Utilities": 0,
+        Utilities: 0,
 
-        "Shopping": 0,
+        Shopping: 0,
 
-        "Other": 0
+        Other: 0
 
     };
 
@@ -1036,8 +1035,7 @@ function updateTracker() {
                 "income"
             ) {
 
-                income +=
-                    amount;
+                income += amount;
 
             }
 
@@ -1047,8 +1045,7 @@ function updateTracker() {
                 "expense"
             ) {
 
-                expenses +=
-                    amount;
+                expenses += amount;
 
 
                 if (
@@ -1061,8 +1058,7 @@ function updateTracker() {
 
                     categoryTotals[
                         transaction.category
-                    ] +=
-                        amount;
+                    ] += amount;
 
                 }
 
@@ -1122,7 +1118,7 @@ function updateTracker() {
 
 
 /* =========================================
-   DASHBOARD INSIGHTS
+   INSIGHTS
 ========================================= */
 
 function updateInsights(
@@ -1131,8 +1127,7 @@ function updateInsights(
     categoryTotals
 ) {
 
-    let topCategory =
-        "None";
+    let topCategory = "None";
 
     let topAmount = 0;
 
@@ -1172,8 +1167,7 @@ function updateInsights(
           topAmount.toLocaleString();
 
 
-    let largestExpense =
-        null;
+    let largestExpense = null;
 
 
     transactions.forEach(
@@ -1205,30 +1199,19 @@ function updateInsights(
     );
 
 
-    if (
+    document.getElementById(
+        "largestExpense"
+    ).textContent =
+
         largestExpense
-    ) {
 
-        document.getElementById(
-            "largestExpense"
-        ).textContent =
+        ? largestExpense.description +
+          " — UGX " +
+          Number(
+              largestExpense.amount
+          ).toLocaleString()
 
-            largestExpense.description +
-            " — UGX " +
-            Number(
-                largestExpense.amount
-            ).toLocaleString();
-
-    }
-
-    else {
-
-        document.getElementById(
-            "largestExpense"
-        ).textContent =
-            "UGX 0";
-
-    }
+        : "UGX 0";
 
 
     document.getElementById(
@@ -1352,15 +1335,13 @@ function renderTransactions() {
     const category =
         document.getElementById(
             "categoryFilter"
-        )
-        .value;
+        ).value;
 
 
     const type =
         document.getElementById(
             "typeFilter"
-        )
-        .value;
+        ).value;
 
 
     let count = 0;
@@ -1376,8 +1357,7 @@ function renderTransactions() {
                 String(
                     transaction.description ||
                     ""
-                )
-                .toLowerCase();
+                ).toLowerCase();
 
 
             const matchesSearch =
@@ -1477,7 +1457,6 @@ function renderTransactions() {
                                 1
                             );
 
-
                             saveTransactions();
 
                             updateTracker();
@@ -1544,7 +1523,7 @@ function renderTransactions() {
 
 
 /* =========================================
-   SEARCH & FILTER
+   SEARCH & FILTER EVENTS
 ========================================= */
 
 document.getElementById(
@@ -1798,7 +1777,7 @@ function updateChart(
 
 
 /* =========================================
-   EXPORT TRANSACTIONS
+   EXPORT
 ========================================= */
 
 function exportTransactions() {
@@ -1887,7 +1866,7 @@ function exportTransactions() {
 
 
     link.download =
-        "THE_FATE_Budget_Transactions.csv";
+        "THE_FATE_BUDGET_TRACKER.csv";
 
 
     document.body.appendChild(
@@ -1928,8 +1907,7 @@ function saveGoal() {
         Number(
             document.getElementById(
                 "goalTarget"
-            )
-            .value
+            ).value
         );
 
 
@@ -1937,8 +1915,7 @@ function saveGoal() {
         Number(
             document.getElementById(
                 "goalSaved"
-            )
-            .value
+            ).value
         );
 
 
@@ -1997,13 +1974,10 @@ function saveGoal() {
 
 
     localStorage.setItem(
-
         "fateSavingsGoal",
-
         JSON.stringify(
             savingsGoal
         )
-
     );
 
 
@@ -2013,7 +1987,7 @@ function saveGoal() {
 
 
 /* =========================================
-   DISPLAY SAVINGS GOAL
+   DISPLAY GOAL
 ========================================= */
 
 function displayGoal() {
@@ -2197,8 +2171,7 @@ function deleteGoal() {
         )
     ) {
 
-        savingsGoal =
-            null;
+        savingsGoal = null;
 
 
         localStorage.removeItem(
@@ -2208,20 +2181,17 @@ function deleteGoal() {
 
         document.getElementById(
             "goalName"
-        ).value =
-            "";
+        ).value = "";
 
 
         document.getElementById(
             "goalTarget"
-        ).value =
-            "";
+        ).value = "";
 
 
         document.getElementById(
             "goalSaved"
-        ).value =
-            "";
+        ).value = "";
 
 
         displayGoal();
@@ -2260,7 +2230,7 @@ function toggleTheme() {
 
 
 /* =========================================
-   THEME BUTTON
+   UPDATE THEME BUTTON
 ========================================= */
 
 function updateThemeButton() {
@@ -2271,9 +2241,7 @@ function updateThemeButton() {
         );
 
 
-    if (
-        !button
-    ) {
+    if (!button) {
 
         return;
 
@@ -2322,7 +2290,7 @@ updateThemeButton();
 
 
 /* =========================================
-   START APPLICATION
+   START APP
 ========================================= */
 
 updateTracker();

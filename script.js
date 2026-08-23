@@ -11,6 +11,10 @@ const dateInput = document.getElementById("date");
 const typeInput = document.getElementById("type");
 const addButton = document.getElementById("addTransaction");
 
+const chartCanvas = document.getElementById("spendingChart");
+
+let spendingChart;
+
 addButton.addEventListener("click", addTransaction);
 
 function addTransaction() {
@@ -66,6 +70,7 @@ function updateTracker() {
     balanceElement.textContent = "UGX " + balance.toLocaleString();
 
     displayTransactions();
+    updateChart();
 }
 
 function displayTransactions() {
@@ -106,6 +111,43 @@ function deleteTransaction(id) {
 
     saveTransactions();
     updateTracker();
+}
+
+function updateChart() {
+    const expenses = transactions.filter(function(transaction) {
+        return transaction.type === "expense";
+    });
+
+    const labels = expenses.map(function(transaction) {
+        return transaction.description;
+    });
+
+    const amounts = expenses.map(function(transaction) {
+        return transaction.amount;
+    });
+
+    if (spendingChart) {
+        spendingChart.destroy();
+    }
+
+    spendingChart = new Chart(chartCanvas, {
+        type: "doughnut",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Expenses",
+                data: amounts
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
 }
 
 updateTracker();

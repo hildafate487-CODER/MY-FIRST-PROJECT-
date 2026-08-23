@@ -43,9 +43,35 @@
     </header>
 
 
-    <!-- CURRENT BALANCE -->
+    <!-- NAVIGATION -->
 
-    <section class="balance-card">
+    <nav class="dashboard-nav">
+
+        <a href="#dashboard">
+            🏠 Dashboard
+        </a>
+
+        <a href="#transactions">
+            💳 Transactions
+        </a>
+
+        <a href="#analytics">
+            📊 Analytics
+        </a>
+
+        <a href="#monthly">
+            📅 Monthly
+        </a>
+
+    </nav>
+
+
+    <!-- DASHBOARD -->
+
+    <section
+        class="balance-card"
+        id="dashboard"
+    >
 
         <h2>Current Balance</h2>
 
@@ -56,10 +82,9 @@
     </section>
 
 
-    <!-- MAIN SUMMARY -->
+    <!-- SUMMARY -->
 
     <section class="summary">
-
 
         <div class="summary-card">
 
@@ -92,7 +117,6 @@
             </p>
 
         </div>
-
 
     </section>
 
@@ -195,9 +219,7 @@
 
 
         <button onclick="addTransaction()">
-
             ➕ Add Transaction
-
         </button>
 
     </section>
@@ -205,7 +227,10 @@
 
     <!-- TRANSACTIONS -->
 
-    <section class="transactions">
+    <section
+        class="transactions"
+        id="transactions"
+    >
 
         <h2>
             📋 Transactions
@@ -218,7 +243,10 @@
 
     <!-- MONTHLY SUMMARY -->
 
-    <section class="monthly-summary">
+    <section
+        class="monthly-summary"
+        id="monthly"
+    >
 
         <h2>
             📅 Monthly Summary
@@ -228,7 +256,6 @@
         <label for="monthFilter">
             Select Month
         </label>
-
 
         <input
             type="month"
@@ -284,9 +311,12 @@
     </section>
 
 
-    <!-- SPENDING CHART -->
+    <!-- ANALYTICS -->
 
-    <section class="chart-section">
+    <section
+        class="chart-section"
+        id="analytics"
+    >
 
         <h2>
             📊 Spending by Category
@@ -326,11 +356,9 @@
 let transactions =
 
     JSON.parse(
-
         localStorage.getItem(
             "budgetTransactions"
         )
-
     ) || [];
 
 
@@ -341,9 +369,7 @@ let transactions =
 
 function addTransaction() {
 
-
     const description =
-
         document
         .getElementById("description")
         .value
@@ -351,36 +377,29 @@ function addTransaction() {
 
 
     const amount =
-
         Number(
-
             document
             .getElementById("amount")
             .value
-
         );
 
 
     const date =
-
         document
         .getElementById("date")
         .value;
 
 
     const type =
-
         document
         .getElementById("type")
         .value;
 
 
     const category =
-
         document
         .getElementById("category")
         .value;
-
 
 
     if (description === "") {
@@ -390,9 +409,7 @@ function addTransaction() {
         );
 
         return;
-
     }
-
 
 
     if (amount <= 0) {
@@ -402,9 +419,7 @@ function addTransaction() {
         );
 
         return;
-
     }
-
 
 
     if (date === "") {
@@ -414,9 +429,7 @@ function addTransaction() {
         );
 
         return;
-
     }
-
 
 
     transactions.push({
@@ -434,9 +447,7 @@ function addTransaction() {
     });
 
 
-
     saveTransactions();
-
 
 
     document
@@ -452,7 +463,6 @@ function addTransaction() {
     document
     .getElementById("date")
     .value = "";
-
 
 
     updateTracker();
@@ -484,20 +494,17 @@ function saveTransactions() {
 
 
 /* =====================================
-   UPDATE MAIN DASHBOARD
+   UPDATE DASHBOARD
 ===================================== */
 
 function updateTracker() {
-
 
     let income = 0;
 
     let expenses = 0;
 
 
-
     const categoryTotals = {
-
 
         "Food": 0,
 
@@ -518,28 +525,21 @@ function updateTracker() {
     };
 
 
-
     const transactionList =
-
-        document
-        .getElementById(
+        document.getElementById(
             "transactionList"
         );
-
 
 
     transactionList.innerHTML = "";
 
 
-
     transactions.forEach(
-
         function(transaction, index) {
 
 
             if (
-                transaction.type ===
-                "income"
+                transaction.type === "income"
             ) {
 
                 income +=
@@ -548,27 +548,20 @@ function updateTracker() {
             }
 
 
-
             if (
-                transaction.type ===
-                "expense"
+                transaction.type === "expense"
             ) {
-
 
                 expenses +=
                     transaction.amount;
 
 
-
                 if (
-
                     categoryTotals
                     .hasOwnProperty(
                         transaction.category
                     )
-
                 ) {
-
 
                     categoryTotals[
                         transaction.category
@@ -580,69 +573,57 @@ function updateTracker() {
             }
 
 
-
             const li =
-
-                document.createElement(
-                    "li"
-                );
-
+                document.createElement("li");
 
 
             li.textContent =
 
                 transaction.description +
-
                 " — UGX " +
-
                 transaction.amount
-                .toLocaleString() +
-
+                    .toLocaleString() +
                 " — " +
-
                 transaction.category +
-
                 " — " +
-
                 transaction.date;
-
 
 
             /* DELETE BUTTON */
 
             const deleteButton =
-
                 document.createElement(
                     "button"
                 );
 
 
             deleteButton.textContent =
-                " 🗑️ Delete";
-
+                "🗑️ Delete";
 
 
             deleteButton.onclick =
-
                 function() {
 
+                    if (
+                        confirm(
+                            "Delete this transaction?"
+                        )
+                    ) {
 
-                    transactions.splice(
-                        index,
-                        1
-                    );
+                        transactions.splice(
+                            index,
+                            1
+                        );
 
+                        saveTransactions();
 
-                    saveTransactions();
+                        updateTracker();
 
+                        updateMonthlySummary();
 
-                    updateTracker();
-
-
-                    updateMonthlySummary();
+                    }
 
                 };
-
 
 
             li.appendChild(
@@ -655,55 +636,42 @@ function updateTracker() {
             );
 
         }
-
     );
-
 
 
     const balance =
         income - expenses;
 
 
-
     document
     .getElementById("income")
     .textContent =
-
         "UGX " +
         income.toLocaleString();
-
 
 
     document
     .getElementById("expenses")
     .textContent =
-
         "UGX " +
         expenses.toLocaleString();
-
 
 
     document
     .getElementById("totalSpending")
     .textContent =
-
         "UGX " +
         expenses.toLocaleString();
-
 
 
     document
     .getElementById("balance")
     .textContent =
-
         "UGX " +
         balance.toLocaleString();
 
 
-
-    updateChart(
-        categoryTotals
-    );
+    updateChart(categoryTotals);
 
 }
 
@@ -715,9 +683,7 @@ function updateTracker() {
 
 function updateMonthlySummary() {
 
-
     const selectedMonth =
-
         document
         .getElementById(
             "monthFilter"
@@ -725,68 +691,50 @@ function updateMonthlySummary() {
         .value;
 
 
-
     let monthlyIncome = 0;
 
     let monthlyExpenses = 0;
 
 
-
-    if (
-        selectedMonth === ""
-    ) {
-
+    if (selectedMonth === "") {
 
         document
         .getElementById(
             "monthlyIncome"
         )
-        .textContent =
-            "UGX 0";
+        .textContent = "UGX 0";
 
 
         document
         .getElementById(
             "monthlyExpenses"
         )
-        .textContent =
-            "UGX 0";
+        .textContent = "UGX 0";
 
 
         document
         .getElementById(
             "monthlyBalance"
         )
-        .textContent =
-            "UGX 0";
+        .textContent = "UGX 0";
 
 
         return;
-
     }
 
 
-
     transactions.forEach(
-
         function(transaction) {
 
 
             if (
-
                 transaction.date
-                .startsWith(
-                    selectedMonth
-                )
-
+                .startsWith(selectedMonth)
             ) {
 
 
                 if (
-
-                    transaction.type ===
-                    "income"
-
+                    transaction.type === "income"
                 ) {
 
                     monthlyIncome +=
@@ -796,10 +744,7 @@ function updateMonthlySummary() {
 
 
                 if (
-
-                    transaction.type ===
-                    "expense"
-
+                    transaction.type === "expense"
                 ) {
 
                     monthlyExpenses +=
@@ -810,16 +755,12 @@ function updateMonthlySummary() {
             }
 
         }
-
     );
 
 
-
     const monthlyBalance =
-
         monthlyIncome -
         monthlyExpenses;
-
 
 
     document
@@ -827,10 +768,8 @@ function updateMonthlySummary() {
         "monthlyIncome"
     )
     .textContent =
-
         "UGX " +
         monthlyIncome.toLocaleString();
-
 
 
     document
@@ -838,10 +777,8 @@ function updateMonthlySummary() {
         "monthlyExpenses"
     )
     .textContent =
-
         "UGX " +
         monthlyExpenses.toLocaleString();
-
 
 
     document
@@ -849,7 +786,6 @@ function updateMonthlySummary() {
         "monthlyBalance"
     )
     .textContent =
-
         "UGX " +
         monthlyBalance.toLocaleString();
 
@@ -864,19 +800,12 @@ function updateMonthlySummary() {
 let spendingChart;
 
 
-
-function updateChart(
-    categoryTotals
-) {
-
+function updateChart(categoryTotals) {
 
     const canvas =
-
-        document
-        .getElementById(
+        document.getElementById(
             "spendingChart"
         );
-
 
 
     if (spendingChart) {
@@ -886,62 +815,42 @@ function updateChart(
     }
 
 
+    spendingChart = new Chart(
+        canvas,
+        {
 
-    spendingChart =
+            type: "doughnut",
 
-        new Chart(
+            data: {
 
-            canvas,
+                labels:
+                    Object.keys(
+                        categoryTotals
+                    ),
 
-            {
+                datasets: [{
 
-                type:
-                    "doughnut",
+                    label:
+                        "Spending by Category",
 
-
-                data: {
-
-
-                    labels:
-
-                        Object.keys(
+                    data:
+                        Object.values(
                             categoryTotals
-                        ),
+                        )
 
+                }]
 
-                    datasets: [{
+            },
 
-                        label:
-                            "Spending by Category",
+            options: {
 
+                responsive: true,
 
-                        data:
+                plugins: {
 
-                            Object.values(
-                                categoryTotals
-                            )
+                    legend: {
 
-                    }]
-
-                },
-
-
-                options: {
-
-
-                    responsive:
-                        true,
-
-
-                    plugins: {
-
-
-                        legend: {
-
-                            position:
-                                "bottom"
-
-                        }
+                        position: "bottom"
 
                     }
 
@@ -949,14 +858,15 @@ function updateChart(
 
             }
 
-        );
+        }
+    );
 
 }
 
 
 
 /* =====================================
-   START APPLICATION
+   START APP
 ===================================== */
 
 updateTracker();

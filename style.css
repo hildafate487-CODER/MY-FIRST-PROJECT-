@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: Arial, sans-serif;
     background: #f3f6fb;
@@ -17,6 +21,7 @@ body {
     margin: 20px auto;
 }
 
+
 /* =========================
    HEADER
 ========================= */
@@ -27,20 +32,52 @@ header {
     padding: 28px 18px;
     border-radius: 20px;
     text-align: center;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 header h1 {
     font-size: 32px;
-    line-height: 1.2;
+    line-height: 1.25;
     margin-bottom: 10px;
 }
 
 header p {
     font-size: 16px;
-    opacity: 0.95;
 }
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.dashboard-nav {
+    background: white;
+    padding: 10px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+}
+
+.dashboard-nav a {
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: bold;
+    padding: 10px 13px;
+    border-radius: 10px;
+}
+
+.dashboard-nav a:hover {
+    background: #2563eb;
+    color: white;
+}
+
 
 /* =========================
    BALANCE
@@ -64,6 +101,7 @@ header p {
     font-size: 40px;
     margin-top: 8px;
 }
+
 
 /* =========================
    SUMMARY
@@ -95,8 +133,9 @@ header p {
     font-weight: bold;
 }
 
+
 /* =========================
-   GENERAL SECTIONS
+   SECTIONS
 ========================= */
 
 .form-section,
@@ -117,6 +156,7 @@ header p {
     margin-bottom: 20px;
     font-size: 24px;
 }
+
 
 /* =========================
    FORM
@@ -145,25 +185,26 @@ select:focus {
     border: 2px solid #2563eb;
 }
 
+
 /* =========================
-   BUTTON
+   GENERAL BUTTONS
 ========================= */
 
 button {
     border: none;
-    border-radius: 12px;
-    padding: 13px 20px;
+    border-radius: 10px;
+    padding: 12px 18px;
     background: #2563eb;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 18px;
 }
 
 button:hover {
     opacity: 0.88;
 }
+
 
 /* =========================
    TRANSACTIONS
@@ -176,17 +217,50 @@ button:hover {
 #transactionList li {
     background: #f8fafc;
     border-radius: 14px;
-    padding: 15px;
-    margin-bottom: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
     border-left: 4px solid #2563eb;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
 }
 
-#transactionList button {
-    background: #dc2626;
-    margin-top: 12px;
-    padding: 9px 14px;
+
+/* Transaction text */
+
+#transactionList li {
+    font-size: 15px;
+}
+
+
+/* =========================
+   EDIT BUTTON
+========================= */
+
+#transactionList li button {
+    display: inline-block;
+    width: auto;
+    margin: 5px 4px 0 0;
+    padding: 10px 14px;
+    border-radius: 8px;
     font-size: 14px;
 }
+
+
+/* First button = EDIT */
+
+#transactionList li button:first-of-type {
+    background: #2563eb;
+}
+
+
+/* Second button = DELETE */
+
+#transactionList li button:last-of-type {
+    background: #dc2626;
+}
+
 
 /* =========================
    MONTHLY SUMMARY
@@ -195,6 +269,7 @@ button:hover {
 .monthly-summary input {
     margin-bottom: 20px;
 }
+
 
 /* =========================
    CHART
@@ -209,6 +284,7 @@ button:hover {
     max-height: 430px;
 }
 
+
 /* =========================
    FOOTER
 ========================= */
@@ -219,6 +295,7 @@ footer {
     color: #6b7280;
     font-size: 14px;
 }
+
 
 /* =========================
    MOBILE
@@ -238,12 +315,28 @@ footer {
     header h1 {
         font-size: 24px;
         line-height: 1.25;
-        word-break: normal;
     }
 
     header p {
         font-size: 14px;
     }
+
+
+    /* Navigation */
+
+    .dashboard-nav {
+        overflow-x: auto;
+        justify-content: flex-start;
+        white-space: nowrap;
+    }
+
+    .dashboard-nav a {
+        font-size: 14px;
+        padding: 9px 11px;
+    }
+
+
+    /* Balance */
 
     .balance-card {
         padding: 25px 15px;
@@ -258,6 +351,9 @@ footer {
         word-break: break-word;
     }
 
+
+    /* Summary */
+
     .summary {
         grid-template-columns: 1fr;
         gap: 14px;
@@ -267,9 +363,8 @@ footer {
         padding: 20px 15px;
     }
 
-    .summary-card p {
-        font-size: 22px;
-    }
+
+    /* Sections */
 
     .form-section,
     .transactions,
@@ -278,12 +373,8 @@ footer {
         padding: 20px 16px;
     }
 
-    .form-section h2,
-    .transactions h2,
-    .monthly-summary h2,
-    .chart-section h2 {
-        font-size: 22px;
-    }
+
+    /* Form */
 
     input,
     select {
@@ -291,17 +382,42 @@ footer {
         padding: 13px;
     }
 
-    button {
+
+    /* Add button */
+
+    #saveButton {
         width: 100%;
-        font-size: 16px;
+        margin-top: 20px;
     }
+
+
+    /* Cancel button */
+
+    #cancelButton {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+
+    /* Transactions */
 
     #transactionList li {
-        font-size: 15px;
+        display: block;
+        font-size: 14px;
     }
 
-    #transactionList button {
+
+    #transactionList li button {
+        display: inline-block;
         width: auto;
+        margin-top: 12px;
+    }
+
+
+    /* Chart */
+
+    #spendingChart {
+        max-height: 350px;
     }
 
 }

@@ -2,15 +2,15 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
-<title>THE FATE BUDGET TRACKER 🚦</title>
-    
+
+    <title>THE FATE BUDGET TRACKER</title>
+
     <link
         rel="manifest"
         href="manifest.json"
@@ -26,21 +26,15 @@
         href="style.css"
     >
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/chart.js"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
-
 
 <body>
 
 <div class="container">
 
-
-    <!-- =====================================
-         HEADER
-    ====================================== -->
+    <!-- HEADER -->
 
     <header>
 
@@ -56,9 +50,7 @@
     </header>
 
 
-    <!-- =====================================
-         DARK MODE
-    ====================================== -->
+    <!-- DARK MODE -->
 
     <button
         id="themeToggle"
@@ -69,9 +61,7 @@
     </button>
 
 
-    <!-- =====================================
-         NAVIGATION
-    ====================================== -->
+    <!-- NAVIGATION -->
 
     <nav class="dashboard-nav">
 
@@ -81,6 +71,10 @@
 
         <a href="#transactions">
             💳 Transactions
+        </a>
+
+        <a href="#budgets">
+            🚦 Budget Limits
         </a>
 
         <a href="#goals">
@@ -102,9 +96,7 @@
     </nav>
 
 
-    <!-- =====================================
-         DASHBOARD
-    ====================================== -->
+    <!-- DASHBOARD -->
 
     <section
         class="balance-card"
@@ -122,9 +114,7 @@
     </section>
 
 
-    <!-- =====================================
-         SUMMARY
-    ====================================== -->
+    <!-- SUMMARY -->
 
     <section class="summary">
 
@@ -169,9 +159,7 @@
     </section>
 
 
-    <!-- =====================================
-         INSIGHTS
-    ====================================== -->
+    <!-- INSIGHTS -->
 
     <section
         class="summary"
@@ -232,9 +220,7 @@
     </section>
 
 
-    <!-- =====================================
-         SPENDING ADVICE
-    ====================================== -->
+    <!-- SPENDING ADVICE -->
 
     <section class="form-section">
 
@@ -250,9 +236,7 @@
     </section>
 
 
-    <!-- =====================================
-         ADD / EDIT TRANSACTION
-    ====================================== -->
+    <!-- ADD TRANSACTION -->
 
     <section class="form-section">
 
@@ -371,8 +355,152 @@
 
 
     <!-- =====================================
-         TRANSACTIONS
+         BUDGET LIMITS
     ====================================== -->
+
+    <section
+        class="form-section"
+        id="budgets"
+    >
+
+        <h2>
+            🚦 Monthly Budget Limits
+        </h2>
+
+        <p>
+            Set a monthly spending limit for each
+            category and monitor your progress.
+        </p>
+
+
+        <label for="budgetMonth">
+            📅 Budget Month
+        </label>
+
+        <input
+            type="month"
+            id="budgetMonth"
+        >
+
+
+        <label for="foodLimit">
+            🍔 Food Limit
+        </label>
+
+        <input
+            type="number"
+            id="foodLimit"
+            min="0"
+            placeholder="e.g. 100000"
+        >
+
+
+        <label for="transportLimit">
+            🚌 Transport Limit
+        </label>
+
+        <input
+            type="number"
+            id="transportLimit"
+            min="0"
+            placeholder="e.g. 50000"
+        >
+
+
+        <label for="schoolLimit">
+            📚 School Limit
+        </label>
+
+        <input
+            type="number"
+            id="schoolLimit"
+            min="0"
+            placeholder="e.g. 200000"
+        >
+
+
+        <label for="airtimeLimit">
+            📱 Airtime/Data Limit
+        </label>
+
+        <input
+            type="number"
+            id="airtimeLimit"
+            min="0"
+            placeholder="e.g. 50000"
+        >
+
+
+        <label for="rentLimit">
+            🏠 Rent Limit
+        </label>
+
+        <input
+            type="number"
+            id="rentLimit"
+            min="0"
+            placeholder="e.g. 300000"
+        >
+
+
+        <label for="utilitiesLimit">
+            💡 Utilities Limit
+        </label>
+
+        <input
+            type="number"
+            id="utilitiesLimit"
+            min="0"
+            placeholder="e.g. 100000"
+        >
+
+
+        <label for="shoppingLimit">
+            🛍️ Shopping Limit
+        </label>
+
+        <input
+            type="number"
+            id="shoppingLimit"
+            min="0"
+            placeholder="e.g. 100000"
+        >
+
+
+        <label for="otherLimit">
+            📦 Other Limit
+        </label>
+
+        <input
+            type="number"
+            id="otherLimit"
+            min="0"
+            placeholder="e.g. 50000"
+        >
+
+
+        <button
+            onclick="saveBudgetLimits()"
+        >
+            💾 Save Budget Limits
+        </button>
+
+
+        <button
+            onclick="clearBudgetLimits()"
+        >
+            🗑️ Clear Limits
+        </button>
+
+
+        <div id="budgetAlerts"></div>
+
+        <div id="budgetStatus"></div>
+
+    </section>
+
+
+    <!-- TRANSACTIONS -->
 
     <section
         class="transactions"
@@ -383,8 +511,6 @@
             📋 Transactions
         </h2>
 
-
-        <!-- SEARCH & FILTER -->
 
         <div class="filter-section">
 
@@ -498,9 +624,7 @@
     </section>
 
 
-    <!-- =====================================
-         SAVINGS GOAL
-    ====================================== -->
+    <!-- SAVINGS GOAL -->
 
     <section
         class="form-section"
@@ -564,9 +688,7 @@
     </section>
 
 
-    <!-- =====================================
-         MONTHLY SUMMARY
-    ====================================== -->
+    <!-- MONTHLY SUMMARY -->
 
     <section
         class="monthly-summary"
@@ -633,9 +755,7 @@
     </section>
 
 
-    <!-- =====================================
-         ANALYTICS
-    ====================================== -->
+    <!-- ANALYTICS -->
 
     <section
         class="chart-section"
@@ -651,9 +771,7 @@
     </section>
 
 
-    <!-- =====================================
-         FOOTER
-    ====================================== -->
+    <!-- FOOTER -->
 
     <footer>
 
@@ -667,14 +785,13 @@
 
     </footer>
 
-
 </div>
 
 
 <script>
 
 /* =========================================
-   LOAD TRANSACTIONS
+   TRANSACTIONS
 ========================================= */
 
 let transactions =
@@ -691,7 +808,7 @@ let spendingChart = null;
 
 
 /* =========================================
-   LOAD SAVINGS GOAL
+   SAVINGS GOAL
 ========================================= */
 
 let savingsGoal =
@@ -700,6 +817,59 @@ let savingsGoal =
             "fateSavingsGoal"
         )
     ) || null;
+
+
+/* =========================================
+   BUDGET LIMITS
+========================================= */
+
+let budgetLimits =
+    JSON.parse(
+        localStorage.getItem(
+            "fateBudgetLimits"
+        )
+    ) || {};
+
+
+const budgetCategories = [
+    "Food",
+    "Transport",
+    "School",
+    "Airtime/Data",
+    "Rent",
+    "Utilities",
+    "Shopping",
+    "Other"
+];
+
+
+const budgetInputIds = {
+
+    "Food":
+        "foodLimit",
+
+    "Transport":
+        "transportLimit",
+
+    "School":
+        "schoolLimit",
+
+    "Airtime/Data":
+        "airtimeLimit",
+
+    "Rent":
+        "rentLimit",
+
+    "Utilities":
+        "utilitiesLimit",
+
+    "Shopping":
+        "shoppingLimit",
+
+    "Other":
+        "otherLimit"
+
+};
 
 
 /* =========================================
@@ -719,47 +889,785 @@ function saveTransactions() {
 
 
 /* =========================================
-   ADD / EDIT TRANSACTION
+   BUDGET MONTH
+========================================= */
+
+function getCurrentMonth() {
+
+    const date =
+        new Date();
+
+    return (
+        date.getFullYear() +
+        "-" +
+        String(
+            date.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        )
+    );
+
+}
+
+
+/* =========================================
+   SAVE BUDGET LIMITS
+========================================= */
+
+function saveBudgetLimits() {
+
+    const month =
+        document.getElementById(
+            "budgetMonth"
+        ).value;
+
+
+    if (!month) {
+
+        alert(
+            "Please select a budget month."
+        );
+
+        return;
+
+    }
+
+
+    const limits = {};
+
+
+    budgetCategories.forEach(
+        function(category) {
+
+            const input =
+                document.getElementById(
+                    budgetInputIds[
+                        category
+                    ]
+                );
+
+
+            limits[category] =
+                Number(
+                    input.value
+                ) || 0;
+
+        }
+    );
+
+
+    budgetLimits[month] =
+        limits;
+
+
+    localStorage.setItem(
+        "fateBudgetLimits",
+        JSON.stringify(
+            budgetLimits
+        )
+    );
+
+
+    updateBudgetStatus();
+
+
+    alert(
+        "✅ Budget limits saved successfully!"
+    );
+
+}
+
+
+/* =========================================
+   LOAD BUDGET LIMITS
+========================================= */
+
+function loadBudgetLimits() {
+
+    const month =
+        document.getElementById(
+            "budgetMonth"
+        ).value;
+
+
+    const limits =
+        budgetLimits[month] || {};
+
+
+    budgetCategories.forEach(
+        function(category) {
+
+            document.getElementById(
+                budgetInputIds[
+                    category
+                ]
+            ).value =
+                limits[category] || "";
+
+        }
+    );
+
+
+    updateBudgetStatus();
+
+}
+
+
+/* =========================================
+   GET MONTHLY SPENDING
+========================================= */
+
+function getMonthlySpending(
+    month
+) {
+
+    const spending = {
+
+        Food: 0,
+
+        Transport: 0,
+
+        School: 0,
+
+        "Airtime/Data": 0,
+
+        Rent: 0,
+
+        Utilities: 0,
+
+        Shopping: 0,
+
+        Other: 0
+
+    };
+
+
+    transactions.forEach(
+        function(transaction) {
+
+            if (
+                transaction.type !==
+                "expense"
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                !String(
+                    transaction.date
+                ).startsWith(
+                    month
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                spending[
+                    transaction.category
+                ] !== undefined
+            ) {
+
+                spending[
+                    transaction.category
+                ] +=
+                    Number(
+                        transaction.amount
+                    ) || 0;
+
+            }
+
+        }
+    );
+
+
+    return spending;
+
+}
+
+
+/* =========================================
+   CATEGORY ICON
+========================================= */
+
+function categoryIcon(
+    category
+) {
+
+    const icons = {
+
+        Food:
+            "🍔",
+
+        Transport:
+            "🚌",
+
+        School:
+            "📚",
+
+        "Airtime/Data":
+            "📱",
+
+        Rent:
+            "🏠",
+
+        Utilities:
+            "💡",
+
+        Shopping:
+            "🛍️",
+
+        Other:
+            "📦"
+
+    };
+
+
+    return icons[
+        category
+    ] || "📦";
+
+}
+
+
+/* =========================================
+   UPDATE BUDGET STATUS
+========================================= */
+
+function updateBudgetStatus() {
+
+    const month =
+        document.getElementById(
+            "budgetMonth"
+        ).value;
+
+
+    const alerts =
+        document.getElementById(
+            "budgetAlerts"
+        );
+
+
+    const status =
+        document.getElementById(
+            "budgetStatus"
+        );
+
+
+    alerts.innerHTML = "";
+
+    status.innerHTML = "";
+
+
+    if (!month) {
+
+        return;
+
+    }
+
+
+    const limits =
+        budgetLimits[month];
+
+
+    if (!limits) {
+
+        status.innerHTML = `
+
+            <div
+                style="
+                    margin-top:20px;
+                    padding:15px;
+                    border-radius:12px;
+                    background:#eff6ff;
+                "
+            >
+
+                ℹ️ No budget limits have been
+                saved for ${month}.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const spending =
+        getMonthlySpending(
+            month
+        );
+
+
+    let totalLimit = 0;
+
+    let totalSpent = 0;
+
+
+    budgetCategories.forEach(
+        function(category) {
+
+            const limit =
+                Number(
+                    limits[category]
+                ) || 0;
+
+
+            const spent =
+                Number(
+                    spending[category]
+                ) || 0;
+
+
+            if (
+                limit <= 0
+            ) {
+
+                return;
+
+            }
+
+
+            totalLimit +=
+                limit;
+
+            totalSpent +=
+                spent;
+
+
+            const percentage =
+                (
+                    spent /
+                    limit
+                ) *
+                100;
+
+
+            const remaining =
+                Math.max(
+                    0,
+                    limit - spent
+                );
+
+
+            let message;
+
+            let borderColor;
+
+
+            if (
+                percentage >= 100
+            ) {
+
+                message =
+                    "🚨 OVER LIMIT";
+
+                borderColor =
+                    "#dc2626";
+
+            }
+
+            else if (
+                percentage >= 80
+            ) {
+
+                message =
+                    "⚠️ CLOSE TO LIMIT";
+
+                borderColor =
+                    "#f59e0b";
+
+            }
+
+            else {
+
+                message =
+                    "✅ WITHIN LIMIT";
+
+                borderColor =
+                    "#16a34a";
+
+            }
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.style.marginTop =
+                "15px";
+
+            card.style.padding =
+                "16px";
+
+            card.style.borderRadius =
+                "12px";
+
+            card.style.background =
+                "white";
+
+            card.style.borderLeft =
+                "6px solid " +
+                borderColor;
+
+
+            card.innerHTML = `
+
+                <h3>
+                    ${categoryIcon(category)}
+                    ${category}
+                </h3>
+
+                <p>
+                    Spent:
+                    <strong>
+                        UGX ${spent.toLocaleString()}
+                    </strong>
+                </p>
+
+                <p>
+                    Limit:
+                    <strong>
+                        UGX ${limit.toLocaleString()}
+                    </strong>
+                </p>
+
+                <p>
+                    Remaining:
+                    <strong>
+                        UGX ${remaining.toLocaleString()}
+                    </strong>
+                </p>
+
+                <p>
+                    <strong>
+                        ${message}
+                    </strong>
+                    —
+                    ${Math.min(
+                        percentage,
+                        100
+                    ).toFixed(1)}%
+                </p>
+
+                <div
+                    style="
+                        width:100%;
+                        height:14px;
+                        background:#e2e8f0;
+                        border-radius:20px;
+                        overflow:hidden;
+                    "
+                >
+
+                    <div
+                        style="
+                            width:${Math.min(
+                                percentage,
+                                100
+                            )}%;
+                            height:100%;
+                            background:${borderColor};
+                        "
+                    ></div>
+
+                </div>
+
+            `;
+
+
+            status.appendChild(
+                card
+            );
+
+
+            if (
+                percentage >= 100
+            ) {
+
+                const alert =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                alert.style.marginTop =
+                    "10px";
+
+                alert.style.padding =
+                    "12px";
+
+                alert.style.borderRadius =
+                    "10px";
+
+                alert.style.background =
+                    "#fee2e2";
+
+
+                alert.innerHTML =
+
+                    "🚨 " +
+                    categoryIcon(
+                        category
+                    ) +
+                    " <strong>" +
+                    category +
+                    "</strong> has exceeded " +
+                    "its monthly budget limit!";
+
+
+                alerts.appendChild(
+                    alert
+                );
+
+            }
+
+            else if (
+                percentage >= 80
+            ) {
+
+                const alert =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                alert.style.marginTop =
+                    "10px";
+
+                alert.style.padding =
+                    "12px";
+
+                alert.style.borderRadius =
+                    "10px";
+
+                alert.style.background =
+                    "#fef3c7";
+
+
+                alert.innerHTML =
+
+                    "⚠️ " +
+                    categoryIcon(
+                        category
+                    ) +
+                    " <strong>" +
+                    category +
+                    "</strong> is getting close " +
+                    "to its monthly limit.";
+
+
+                alerts.appendChild(
+                    alert
+                );
+
+            }
+
+        }
+    );
+
+
+    if (
+        totalLimit > 0
+    ) {
+
+        const totalRemaining =
+            Math.max(
+                0,
+                totalLimit -
+                totalSpent
+            );
+
+
+        const totalPercentage =
+            (
+                totalSpent /
+                totalLimit
+            ) *
+            100;
+
+
+        const overall =
+            document.createElement(
+                "div"
+            );
+
+
+        overall.style.marginTop =
+            "20px";
+
+        overall.style.padding =
+            "18px";
+
+        overall.style.borderRadius =
+            "15px";
+
+        overall.style.background =
+            "#f8fafc";
+
+
+        overall.innerHTML = `
+
+            <h3>
+                📊 Overall Budget
+            </h3>
+
+            <p>
+                Total Budget:
+                <strong>
+                    UGX ${totalLimit.toLocaleString()}
+                </strong>
+            </p>
+
+            <p>
+                Total Spent:
+                <strong>
+                    UGX ${totalSpent.toLocaleString()}
+                </strong>
+            </p>
+
+            <p>
+                Remaining:
+                <strong>
+                    UGX ${totalRemaining.toLocaleString()}
+                </strong>
+            </p>
+
+            <p>
+                Used:
+                <strong>
+                    ${totalPercentage.toFixed(1)}%
+                </strong>
+            </p>
+
+        `;
+
+
+        status.insertBefore(
+            overall,
+            status.firstChild
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   CLEAR BUDGETS
+========================================= */
+
+function clearBudgetLimits() {
+
+    const month =
+        document.getElementById(
+            "budgetMonth"
+        ).value;
+
+
+    if (!month) {
+
+        alert(
+            "Please select a month."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !budgetLimits[month]
+    ) {
+
+        alert(
+            "No saved budget limits for this month."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !confirm(
+            "Clear all budget limits for " +
+            month +
+            "?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    delete budgetLimits[month];
+
+
+    localStorage.setItem(
+        "fateBudgetLimits",
+        JSON.stringify(
+            budgetLimits
+        )
+    );
+
+
+    loadBudgetLimits();
+
+}
+
+
+/* =========================================
+   SAVE TRANSACTION
 ========================================= */
 
 function saveTransaction() {
 
     const description =
-        document
-        .getElementById("description")
-        .value
-        .trim();
+        document.getElementById(
+            "description"
+        ).value.trim();
 
 
     const amount =
         Number(
-            document
-            .getElementById("amount")
-            .value
+            document.getElementById(
+                "amount"
+            ).value
         );
 
 
     const date =
-        document
-        .getElementById("date")
-        .value;
+        document.getElementById(
+            "date"
+        ).value;
 
 
     const type =
-        document
-        .getElementById("type")
-        .value;
+        document.getElementById(
+            "type"
+        ).value;
 
 
     const category =
-        document
-        .getElementById("category")
-        .value;
+        document.getElementById(
+            "category"
+        ).value;
 
 
-    if (
-        description === ""
-    ) {
+    if (!description) {
 
         alert(
             "Please enter a description."
@@ -784,9 +1692,7 @@ function saveTransaction() {
     }
 
 
-    if (
-        date === ""
-    ) {
+    if (!date) {
 
         alert(
             "Please select a date."
@@ -831,9 +1737,11 @@ function saveTransaction() {
 
         transactions[
             editingIndex
-        ] = transaction;
+        ] =
+            transaction;
 
-        editingIndex = -1;
+        editingIndex =
+            -1;
 
     }
 
@@ -846,6 +1754,8 @@ function saveTransaction() {
 
     updateMonthlySummary();
 
+    updateBudgetStatus();
+
 }
 
 
@@ -853,7 +1763,9 @@ function saveTransaction() {
    EDIT TRANSACTION
 ========================================= */
 
-function editTransaction(index) {
+function editTransaction(
+    index
+) {
 
     const transaction =
         transactions[index];
@@ -928,7 +1840,8 @@ function editTransaction(index) {
 
 function cancelEdit() {
 
-    editingIndex = -1;
+    editingIndex =
+        -1;
 
     clearForm();
 
@@ -1034,7 +1947,8 @@ function updateTracker() {
                 "income"
             ) {
 
-                income += amount;
+                income +=
+                    amount;
 
             }
 
@@ -1044,20 +1958,20 @@ function updateTracker() {
                 "expense"
             ) {
 
-                expenses += amount;
+                expenses +=
+                    amount;
 
 
                 if (
-                    Object.prototype
-                    .hasOwnProperty.call(
-                        categoryTotals,
+                    categoryTotals[
                         transaction.category
-                    )
+                    ] !== undefined
                 ) {
 
                     categoryTotals[
                         transaction.category
-                    ] += amount;
+                    ] +=
+                        amount;
 
                 }
 
@@ -1065,10 +1979,6 @@ function updateTracker() {
 
         }
     );
-
-
-    const balance =
-        income - expenses;
 
 
     document.getElementById(
@@ -1096,7 +2006,10 @@ function updateTracker() {
         "balance"
     ).textContent =
         "UGX " +
-        balance.toLocaleString();
+        (
+            income -
+            expenses
+        ).toLocaleString();
 
 
     updateInsights(
@@ -1126,9 +2039,11 @@ function updateInsights(
     categoryTotals
 ) {
 
-    let topCategory = "None";
+    let topCategory =
+        "None";
 
-    let topAmount = 0;
+    let topAmount =
+        0;
 
 
     Object.keys(
@@ -1137,12 +2052,15 @@ function updateInsights(
         function(category) {
 
             if (
-                categoryTotals[category] >
-                topAmount
+                categoryTotals[
+                    category
+                ] > topAmount
             ) {
 
                 topAmount =
-                    categoryTotals[category];
+                    categoryTotals[
+                        category
+                    ];
 
                 topCategory =
                     category;
@@ -1158,15 +2076,15 @@ function updateInsights(
     ).textContent =
 
         topCategory === "None"
-
         ? "None"
+        :
+        topCategory +
+        " — UGX " +
+        topAmount.toLocaleString();
 
-        : topCategory +
-          " — UGX " +
-          topAmount.toLocaleString();
 
-
-    let largestExpense = null;
+    let largestExpense =
+        null;
 
 
     transactions.forEach(
@@ -1203,14 +2121,14 @@ function updateInsights(
     ).textContent =
 
         largestExpense
-
-        ? largestExpense.description +
-          " — UGX " +
-          Number(
-              largestExpense.amount
-          ).toLocaleString()
-
-        : "UGX 0";
+        ?
+        largestExpense.description +
+        " — UGX " +
+        Number(
+            largestExpense.amount
+        ).toLocaleString()
+        :
+        "UGX 0";
 
 
     document.getElementById(
@@ -1219,7 +2137,8 @@ function updateInsights(
         transactions.length;
 
 
-    let savingsRate = 0;
+    let savingsRate =
+        0;
 
 
     if (
@@ -1308,7 +2227,7 @@ function updateInsights(
 
 
 /* =========================================
-   RENDER TRANSACTIONS
+   TRANSACTIONS
 ========================================= */
 
 function renderTransactions() {
@@ -1325,8 +2244,7 @@ function renderTransactions() {
     const search =
         document.getElementById(
             "searchInput"
-        )
-        .value
+        ).value
         .trim()
         .toLowerCase();
 
@@ -1343,7 +2261,8 @@ function renderTransactions() {
         ).value;
 
 
-    let count = 0;
+    let count =
+        0;
 
 
     transactions.forEach(
@@ -1359,129 +2278,140 @@ function renderTransactions() {
                 ).toLowerCase();
 
 
-            const matchesSearch =
-                description.includes(
+            if (
+                !description.includes(
                     search
-                );
+                )
+            ) {
 
+                return;
 
-            const matchesCategory =
-                category === "all" ||
-                transaction.category ===
-                category;
-
-
-            const matchesType =
-                type === "all" ||
-                transaction.type ===
-                type;
+            }
 
 
             if (
-                matchesSearch &&
-                matchesCategory &&
-                matchesType
+                category !== "all" &&
+                transaction.category !==
+                category
             ) {
 
-                count++;
-
-
-                const li =
-                    document.createElement(
-                        "li"
-                    );
-
-
-                li.textContent =
-
-                    transaction.description +
-                    " — UGX " +
-                    Number(
-                        transaction.amount
-                    ).toLocaleString() +
-                    " — " +
-                    transaction.category +
-                    " — " +
-                    transaction.date +
-                    " — " +
-                    (
-                        transaction.type ===
-                        "income"
-                        ? "💵 Income"
-                        : "💸 Expense"
-                    );
-
-
-                const editButton =
-                    document.createElement(
-                        "button"
-                    );
-
-
-                editButton.textContent =
-                    "✏️ Edit";
-
-
-                editButton.onclick =
-                    function() {
-
-                        editTransaction(
-                            index
-                        );
-
-                    };
-
-
-                const deleteButton =
-                    document.createElement(
-                        "button"
-                    );
-
-
-                deleteButton.textContent =
-                    "🗑️ Delete";
-
-
-                deleteButton.onclick =
-                    function() {
-
-                        if (
-                            confirm(
-                                "Delete this transaction?"
-                            )
-                        ) {
-
-                            transactions.splice(
-                                index,
-                                1
-                            );
-
-                            saveTransactions();
-
-                            updateTracker();
-
-                            updateMonthlySummary();
-
-                        }
-
-                    };
-
-
-                li.appendChild(
-                    editButton
-                );
-
-
-                li.appendChild(
-                    deleteButton
-                );
-
-
-                list.appendChild(
-                    li
-                );
+                return;
 
             }
+
+
+            if (
+                type !== "all" &&
+                transaction.type !==
+                type
+            ) {
+
+                return;
+
+            }
+
+
+            count++;
+
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+
+            li.textContent =
+
+                transaction.description +
+                " — UGX " +
+                Number(
+                    transaction.amount
+                ).toLocaleString() +
+                " — " +
+                transaction.category +
+                " — " +
+                transaction.date +
+                " — " +
+                (
+                    transaction.type ===
+                    "income"
+                    ?
+                    "💵 Income"
+                    :
+                    "💸 Expense"
+                );
+
+
+            const editButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            editButton.textContent =
+                "✏️ Edit";
+
+
+            editButton.onclick =
+                function() {
+
+                    editTransaction(
+                        index
+                    );
+
+                };
+
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            deleteButton.textContent =
+                "🗑️ Delete";
+
+
+            deleteButton.onclick =
+                function() {
+
+                    if (
+                        confirm(
+                            "Delete this transaction?"
+                        )
+                    ) {
+
+                        transactions.splice(
+                            index,
+                            1
+                        );
+
+                        saveTransactions();
+
+                        updateTracker();
+
+                        updateMonthlySummary();
+
+                        updateBudgetStatus();
+
+                    }
+
+                };
+
+
+            li.appendChild(
+                editButton
+            );
+
+
+            li.appendChild(
+                deleteButton
+            );
+
+
+            list.appendChild(
+                li
+            );
 
         }
     );
@@ -1522,7 +2452,7 @@ function renderTransactions() {
 
 
 /* =========================================
-   SEARCH & FILTER EVENTS
+   FILTERS
 ========================================= */
 
 document.getElementById(
@@ -1579,42 +2509,17 @@ function clearFilters() {
 
 function updateMonthlySummary() {
 
-    const selectedMonth =
+    const month =
         document.getElementById(
             "monthFilter"
         ).value;
 
 
-    let monthlyIncome = 0;
+    let income =
+        0;
 
-    let monthlyExpenses = 0;
-
-
-    if (
-        selectedMonth === ""
-    ) {
-
-        document.getElementById(
-            "monthlyIncome"
-        ).textContent =
-            "UGX 0";
-
-
-        document.getElementById(
-            "monthlyExpenses"
-        ).textContent =
-            "UGX 0";
-
-
-        document.getElementById(
-            "monthlyBalance"
-        ).textContent =
-            "UGX 0";
-
-
-        return;
-
-    }
+    let expenses =
+        0;
 
 
     transactions.forEach(
@@ -1624,7 +2529,7 @@ function updateMonthlySummary() {
                 String(
                     transaction.date
                 ).startsWith(
-                    selectedMonth
+                    month
                 )
             ) {
 
@@ -1639,7 +2544,7 @@ function updateMonthlySummary() {
                     "income"
                 ) {
 
-                    monthlyIncome +=
+                    income +=
                         amount;
 
                 }
@@ -1650,7 +2555,7 @@ function updateMonthlySummary() {
                     "expense"
                 ) {
 
-                    monthlyExpenses +=
+                    expenses +=
                         amount;
 
                 }
@@ -1665,14 +2570,14 @@ function updateMonthlySummary() {
         "monthlyIncome"
     ).textContent =
         "UGX " +
-        monthlyIncome.toLocaleString();
+        income.toLocaleString();
 
 
     document.getElementById(
         "monthlyExpenses"
     ).textContent =
         "UGX " +
-        monthlyExpenses.toLocaleString();
+        expenses.toLocaleString();
 
 
     document.getElementById(
@@ -1680,8 +2585,8 @@ function updateMonthlySummary() {
     ).textContent =
         "UGX " +
         (
-            monthlyIncome -
-            monthlyExpenses
+            income -
+            expenses
         ).toLocaleString();
 
 }
@@ -1692,6 +2597,14 @@ document.getElementById(
 ).addEventListener(
     "change",
     updateMonthlySummary
+);
+
+
+document.getElementById(
+    "budgetMonth"
+).addEventListener(
+    "change",
+    loadBudgetLimits
 );
 
 
@@ -1801,29 +2714,14 @@ function exportTransactions() {
     transactions.forEach(
         function(transaction) {
 
-            const description =
-                String(
-                    transaction.description
-                )
-                .replace(
-                    /"/g,
-                    '""'
-                );
-
-
-            const category =
-                String(
-                    transaction.category
-                )
-                .replace(
-                    /"/g,
-                    '""'
-                );
-
-
             csv +=
                 '"' +
-                description +
+                String(
+                    transaction.description
+                ).replace(
+                    /"/g,
+                    '""'
+                ) +
                 '",' +
                 transaction.amount +
                 ',' +
@@ -1831,7 +2729,12 @@ function exportTransactions() {
                 ',' +
                 transaction.type +
                 ',"' +
-                category +
+                String(
+                    transaction.category
+                ).replace(
+                    /"/g,
+                    '""'
+                ) +
                 '"\n';
 
         }
@@ -1897,9 +2800,7 @@ function saveGoal() {
     const name =
         document.getElementById(
             "goalName"
-        )
-        .value
-        .trim();
+        ).value.trim();
 
 
     const target =
@@ -1918,9 +2819,7 @@ function saveGoal() {
         );
 
 
-    if (
-        name === ""
-    ) {
+    if (!name) {
 
         alert(
             "Please enter your goal name."
@@ -2109,12 +3008,10 @@ function displayGoal() {
 
             ${
                 percentage >= 100
-                ? `
-                    <p>
-                        🎉 Goal Achieved!
-                    </p>
-                `
-                : ""
+                ?
+                "<p>🎉 Goal Achieved!</p>"
+                :
+                ""
             }
 
         </div>
@@ -2132,7 +3029,9 @@ function displayGoal() {
    ESCAPE HTML
 ========================================= */
 
-function escapeHTML(text) {
+function escapeHTML(
+    text
+) {
 
     const div =
         document.createElement(
@@ -2170,7 +3069,8 @@ function deleteGoal() {
         )
     ) {
 
-        savingsGoal = null;
+        savingsGoal =
+            null;
 
 
         localStorage.removeItem(
@@ -2211,7 +3111,7 @@ function toggleTheme() {
     );
 
 
-    const darkMode =
+    const dark =
         document.body.classList.contains(
             "dark-mode"
         );
@@ -2219,7 +3119,7 @@ function toggleTheme() {
 
     localStorage.setItem(
         "fateDarkMode",
-        darkMode
+        dark
     );
 
 
@@ -2228,23 +3128,12 @@ function toggleTheme() {
 }
 
 
-/* =========================================
-   UPDATE THEME BUTTON
-========================================= */
-
 function updateThemeButton() {
 
     const button =
         document.getElementById(
             "themeToggle"
         );
-
-
-    if (!button) {
-
-        return;
-
-    }
 
 
     if (
@@ -2268,10 +3157,6 @@ function updateThemeButton() {
 }
 
 
-/* =========================================
-   LOAD SAVED THEME
-========================================= */
-
 if (
     localStorage.getItem(
         "fateDarkMode"
@@ -2292,17 +3177,30 @@ updateThemeButton();
    START APP
 ========================================= */
 
+document.getElementById(
+    "budgetMonth"
+).value =
+    getCurrentMonth();
+
+
 updateTracker();
 
 updateMonthlySummary();
 
 displayGoal();
 
+loadBudgetLimits();
+
 </script>
+
+
+<!-- SERVICE WORKER -->
 
 <script>
 
-if ("serviceWorker" in navigator) {
+if (
+    "serviceWorker" in navigator
+) {
 
     window.addEventListener(
         "load",
@@ -2312,21 +3210,25 @@ if ("serviceWorker" in navigator) {
                 .register(
                     "./service-worker.js"
                 )
-                .then(function() {
+                .then(
+                    function() {
 
-                    console.log(
-                        "THE FATE BUDGET TRACKER is ready for offline use."
-                    );
+                        console.log(
+                            "THE FATE BUDGET TRACKER is ready for offline use."
+                        );
 
-                })
-                .catch(function(error) {
+                    }
+                )
+                .catch(
+                    function(error) {
 
-                    console.log(
-                        "Service Worker Error:",
-                        error
-                    );
+                        console.log(
+                            "Service Worker Error:",
+                            error
+                        );
 
-                });
+                    }
+                );
 
         }
     );
@@ -2334,6 +3236,8 @@ if ("serviceWorker" in navigator) {
 }
 
 </script>
+
+
 </body>
 
 </html>

@@ -1,58 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title> THE FATE Student Budget Tracker</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <title>THE FATE Student Budget Tracker</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js"
+    ></script>
+
 </head>
+
 
 <body>
 
 <div class="container">
 
+
+    <!-- HEADER -->
+
     <header>
+
         <h1>💰 THE FATE Student Budget Tracker</h1>
-        <p>Manage your money. Track your spending. Reach your goals.</p>
+
+        <p>
+            Manage your money. Track your spending.
+            Reach your goals.
+        </p>
+
     </header>
 
-    <!-- BALANCE -->
+
+    <!-- CURRENT BALANCE -->
+
     <section class="balance-card">
+
         <h2>Current Balance</h2>
-        <h3 id="balance">UGX 0</h3>
+
+        <h3 id="balance">
+            UGX 0
+        </h3>
+
     </section>
 
-    <!-- SUMMARY -->
+
+    <!-- MAIN SUMMARY -->
+
     <section class="summary">
 
+
         <div class="summary-card">
+
             <h3>Income</h3>
-            <p id="income">UGX 0</p>
+
+            <p id="income">
+                UGX 0
+            </p>
+
         </div>
 
+
         <div class="summary-card">
+
             <h3>Expenses</h3>
-            <p id="expenses">UGX 0</p>
+
+            <p id="expenses">
+                UGX 0
+            </p>
+
         </div>
 
+
         <div class="summary-card">
+
             <h3>Total Spending</h3>
-            <p id="totalSpending">UGX 0</p>
+
+            <p id="totalSpending">
+                UGX 0
+            </p>
+
         </div>
+
 
     </section>
 
 
     <!-- ADD TRANSACTION -->
+
     <section class="form-section">
 
         <h2>➕ Add Transaction</h2>
 
-        <label>Description</label>
+
+        <label for="description">
+            Description
+        </label>
 
         <input
             type="text"
@@ -60,7 +114,10 @@
             placeholder="e.g. Lunch"
         >
 
-        <label>Amount</label>
+
+        <label for="amount">
+            Amount
+        </label>
 
         <input
             type="number"
@@ -68,14 +125,20 @@
             placeholder="Enter amount in UGX"
         >
 
-        <label>Date</label>
+
+        <label for="date">
+            Date
+        </label>
 
         <input
             type="date"
             id="date"
         >
 
-        <label>Transaction Type</label>
+
+        <label for="type">
+            Transaction Type
+        </label>
 
         <select id="type">
 
@@ -89,7 +152,10 @@
 
         </select>
 
-        <label>Category</label>
+
+        <label for="category">
+            Category
+        </label>
 
         <select id="category">
 
@@ -127,17 +193,23 @@
 
         </select>
 
+
         <button onclick="addTransaction()">
+
             ➕ Add Transaction
+
         </button>
 
     </section>
 
 
     <!-- TRANSACTIONS -->
+
     <section class="transactions">
 
-        <h2>📋 Transactions</h2>
+        <h2>
+            📋 Transactions
+        </h2>
 
         <ul id="transactionList"></ul>
 
@@ -145,13 +217,18 @@
 
 
     <!-- MONTHLY SUMMARY -->
+
     <section class="monthly-summary">
 
-        <h2>📅 Monthly Summary</h2>
+        <h2>
+            📅 Monthly Summary
+        </h2>
+
 
         <label for="monthFilter">
             Select Month
         </label>
+
 
         <input
             type="month"
@@ -159,109 +236,187 @@
             onchange="updateMonthlySummary()"
         >
 
-        <div class="summary">
+
+        <section class="summary">
+
 
             <div class="summary-card">
-                <h3>Monthly Income</h3>
-                <p id="monthlyIncome">UGX 0</p>
+
+                <h3>
+                    Monthly Income
+                </h3>
+
+                <p id="monthlyIncome">
+                    UGX 0
+                </p>
+
             </div>
+
 
             <div class="summary-card">
-                <h3>Monthly Expenses</h3>
-                <p id="monthlyExpenses">UGX 0</p>
+
+                <h3>
+                    Monthly Expenses
+                </h3>
+
+                <p id="monthlyExpenses">
+                    UGX 0
+                </p>
+
             </div>
+
 
             <div class="summary-card">
-                <h3>Monthly Balance</h3>
-                <p id="monthlyBalance">UGX 0</p>
+
+                <h3>
+                    Monthly Balance
+                </h3>
+
+                <p id="monthlyBalance">
+                    UGX 0
+                </p>
+
             </div>
 
-        </div>
+
+        </section>
 
     </section>
 
 
-    <!-- CHART -->
+    <!-- SPENDING CHART -->
+
     <section class="chart-section">
 
-        <h2>📊 Spending by Category</h2>
+        <h2>
+            📊 Spending by Category
+        </h2>
 
         <canvas id="spendingChart"></canvas>
 
     </section>
 
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 THE FATE Student Budget Tracker
+        </p>
+
+        <p>
+            Manage • Track • Save • Grow
+        </p>
+
+    </footer>
+
+
 </div>
+
 
 
 <script>
 
-/* =========================
+
+/* =====================================
    LOAD SAVED TRANSACTIONS
-========================= */
+===================================== */
 
 let transactions =
+
     JSON.parse(
-        localStorage.getItem("budgetTransactions")
+
+        localStorage.getItem(
+            "budgetTransactions"
+        )
+
     ) || [];
 
 
-/* =========================
+
+/* =====================================
    ADD TRANSACTION
-========================= */
+===================================== */
 
 function addTransaction() {
 
+
     const description =
+
         document
         .getElementById("description")
         .value
         .trim();
 
+
     const amount =
+
         Number(
+
             document
             .getElementById("amount")
             .value
+
         );
 
+
     const date =
+
         document
         .getElementById("date")
         .value;
 
+
     const type =
+
         document
         .getElementById("type")
         .value;
 
+
     const category =
+
         document
         .getElementById("category")
         .value;
 
 
+
     if (description === "") {
 
-        alert("Please enter a description.");
+        alert(
+            "Please enter a description."
+        );
 
         return;
+
     }
+
 
 
     if (amount <= 0) {
 
-        alert("Please enter a valid amount.");
+        alert(
+            "Please enter a valid amount."
+        );
 
         return;
+
     }
+
 
 
     if (date === "") {
 
-        alert("Please select a date.");
+        alert(
+            "Please select a date."
+        );
 
         return;
+
     }
+
 
 
     transactions.push({
@@ -279,7 +434,9 @@ function addTransaction() {
     });
 
 
+
     saveTransactions();
+
 
 
     document
@@ -297,6 +454,7 @@ function addTransaction() {
     .value = "";
 
 
+
     updateTracker();
 
     updateMonthlySummary();
@@ -304,9 +462,10 @@ function addTransaction() {
 }
 
 
-/* =========================
+
+/* =====================================
    SAVE TRANSACTIONS
-========================= */
+===================================== */
 
 function saveTransactions() {
 
@@ -314,25 +473,31 @@ function saveTransactions() {
 
         "budgetTransactions",
 
-        JSON.stringify(transactions)
+        JSON.stringify(
+            transactions
+        )
 
     );
 
 }
 
 
-/* =========================
+
+/* =====================================
    UPDATE MAIN DASHBOARD
-========================= */
+===================================== */
 
 function updateTracker() {
+
 
     let income = 0;
 
     let expenses = 0;
 
 
+
     const categoryTotals = {
+
 
         "Food": 0,
 
@@ -353,12 +518,18 @@ function updateTracker() {
     };
 
 
+
     const transactionList =
+
         document
-        .getElementById("transactionList");
+        .getElementById(
+            "transactionList"
+        );
+
 
 
     transactionList.innerHTML = "";
+
 
 
     transactions.forEach(
@@ -366,34 +537,56 @@ function updateTracker() {
         function(transaction, index) {
 
 
-            if (transaction.type === "income") {
+            if (
+                transaction.type ===
+                "income"
+            ) {
 
-                income += transaction.amount;
+                income +=
+                    transaction.amount;
 
             }
 
 
-            if (transaction.type === "expense") {
 
-                expenses += transaction.amount;
+            if (
+                transaction.type ===
+                "expense"
+            ) {
+
+
+                expenses +=
+                    transaction.amount;
+
 
 
                 if (
+
                     categoryTotals
-                    .hasOwnProperty(transaction.category)
+                    .hasOwnProperty(
+                        transaction.category
+                    )
+
                 ) {
+
 
                     categoryTotals[
                         transaction.category
-                    ] += transaction.amount;
+                    ] +=
+                        transaction.amount;
 
                 }
 
             }
 
 
+
             const li =
-                document.createElement("li");
+
+                document.createElement(
+                    "li"
+                );
+
 
 
             li.textContent =
@@ -414,90 +607,123 @@ function updateTracker() {
                 transaction.date;
 
 
+
             /* DELETE BUTTON */
 
             const deleteButton =
-                document.createElement("button");
+
+                document.createElement(
+                    "button"
+                );
 
 
             deleteButton.textContent =
                 " 🗑️ Delete";
 
 
+
             deleteButton.onclick =
+
                 function() {
+
 
                     transactions.splice(
                         index,
                         1
                     );
 
+
                     saveTransactions();
 
+
                     updateTracker();
+
 
                     updateMonthlySummary();
 
                 };
 
 
-            li.appendChild(deleteButton);
+
+            li.appendChild(
+                deleteButton
+            );
 
 
-            transactionList.appendChild(li);
+            transactionList.appendChild(
+                li
+            );
 
         }
 
     );
 
 
+
     const balance =
         income - expenses;
+
 
 
     document
     .getElementById("income")
     .textContent =
+
         "UGX " +
         income.toLocaleString();
+
 
 
     document
     .getElementById("expenses")
     .textContent =
+
         "UGX " +
         expenses.toLocaleString();
+
 
 
     document
     .getElementById("totalSpending")
     .textContent =
+
         "UGX " +
         expenses.toLocaleString();
+
 
 
     document
     .getElementById("balance")
     .textContent =
+
         "UGX " +
         balance.toLocaleString();
 
 
-    updateChart(categoryTotals);
+
+    updateChart(
+        categoryTotals
+    );
 
 }
 
 
-/* =========================
+
+/* =====================================
    MONTHLY SUMMARY
-========================= */
+===================================== */
 
 function updateMonthlySummary() {
 
+
     const selectedMonth =
+
         document
-        .getElementById("monthFilter")
+        .getElementById(
+            "monthFilter"
+        )
         .value;
+
 
 
     let monthlyIncome = 0;
@@ -505,26 +731,40 @@ function updateMonthlySummary() {
     let monthlyExpenses = 0;
 
 
-    if (selectedMonth === "") {
 
-        document
-        .getElementById("monthlyIncome")
-        .textContent = "UGX 0";
-
-
-        document
-        .getElementById("monthlyExpenses")
-        .textContent = "UGX 0";
+    if (
+        selectedMonth === ""
+    ) {
 
 
         document
-        .getElementById("monthlyBalance")
-        .textContent = "UGX 0";
+        .getElementById(
+            "monthlyIncome"
+        )
+        .textContent =
+            "UGX 0";
+
+
+        document
+        .getElementById(
+            "monthlyExpenses"
+        )
+        .textContent =
+            "UGX 0";
+
+
+        document
+        .getElementById(
+            "monthlyBalance"
+        )
+        .textContent =
+            "UGX 0";
 
 
         return;
 
     }
+
 
 
     transactions.forEach(
@@ -533,13 +773,20 @@ function updateMonthlySummary() {
 
 
             if (
+
                 transaction.date
-                .startsWith(selectedMonth)
+                .startsWith(
+                    selectedMonth
+                )
+
             ) {
 
 
                 if (
-                    transaction.type === "income"
+
+                    transaction.type ===
+                    "income"
+
                 ) {
 
                     monthlyIncome +=
@@ -549,7 +796,10 @@ function updateMonthlySummary() {
 
 
                 if (
-                    transaction.type === "expense"
+
+                    transaction.type ===
+                    "expense"
+
                 ) {
 
                     monthlyExpenses +=
@@ -564,45 +814,69 @@ function updateMonthlySummary() {
     );
 
 
+
     const monthlyBalance =
-        monthlyIncome - monthlyExpenses;
+
+        monthlyIncome -
+        monthlyExpenses;
+
 
 
     document
-    .getElementById("monthlyIncome")
+    .getElementById(
+        "monthlyIncome"
+    )
     .textContent =
+
         "UGX " +
         monthlyIncome.toLocaleString();
 
 
+
     document
-    .getElementById("monthlyExpenses")
+    .getElementById(
+        "monthlyExpenses"
+    )
     .textContent =
+
         "UGX " +
         monthlyExpenses.toLocaleString();
 
 
+
     document
-    .getElementById("monthlyBalance")
+    .getElementById(
+        "monthlyBalance"
+    )
     .textContent =
+
         "UGX " +
         monthlyBalance.toLocaleString();
 
 }
 
 
-/* =========================
-   CHART
-========================= */
+
+/* =====================================
+   SPENDING CHART
+===================================== */
 
 let spendingChart;
 
 
-function updateChart(categoryTotals) {
+
+function updateChart(
+    categoryTotals
+) {
+
 
     const canvas =
+
         document
-        .getElementById("spendingChart");
+        .getElementById(
+            "spendingChart"
+        );
+
 
 
     if (spendingChart) {
@@ -610,6 +884,7 @@ function updateChart(categoryTotals) {
         spendingChart.destroy();
 
     }
+
 
 
     spendingChart =
@@ -620,12 +895,15 @@ function updateChart(categoryTotals) {
 
             {
 
-                type: "doughnut",
+                type:
+                    "doughnut",
 
 
                 data: {
 
+
                     labels:
+
                         Object.keys(
                             categoryTotals
                         ),
@@ -638,6 +916,7 @@ function updateChart(categoryTotals) {
 
 
                         data:
+
                             Object.values(
                                 categoryTotals
                             )
@@ -649,14 +928,18 @@ function updateChart(categoryTotals) {
 
                 options: {
 
-                    responsive: true,
+
+                    responsive:
+                        true,
 
 
                     plugins: {
 
+
                         legend: {
 
-                            position: "bottom"
+                            position:
+                                "bottom"
 
                         }
 
@@ -671,13 +954,16 @@ function updateChart(categoryTotals) {
 }
 
 
-/* =========================
-   START APP
-========================= */
+
+/* =====================================
+   START APPLICATION
+===================================== */
 
 updateTracker();
 
 </script>
 
+
 </body>
+
 </html>

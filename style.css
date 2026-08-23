@@ -1,132 +1,50 @@
-/* =========================================
-   THE FATE STUDENT BUDGET TRACKER
+/* =====================================================
+   THE FATE BUDGET TRACKER
    PROFESSIONAL STYLE
-========================================= */
+===================================================== */
+
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
+
+/* =====================================================
+   BODY
+===================================================== */
 
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: #f1f5f9;
-    color: #172033;
+    color: #1e293b;
     line-height: 1.6;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 
-/* =========================================
+/* =====================================================
    MAIN CONTAINER
-========================================= */
+===================================================== */
 
 .container {
-    width: 94%;
-    max-width: 1200px;
-    margin: 30px auto;
+    width: 92%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px 0 40px;
 }
 
 
-/* =========================================
+/* =====================================================
    HEADER
-========================================= */
+===================================================== */
 
 header {
-    background: linear-gradient(
-        135deg,
-        #0f172a,
-        #1e3a8a
-    );
-
-    color: white;
-
-    padding: 40px 25px;
-
-    border-radius: 20px;
-
-    text-align: center;
-
-    margin-bottom: 20px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.12);
-}
-
-header h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
-
-header p {
-    font-size: 16px;
-    opacity: 0.9;
-}
-
-
-/* =========================================
-   NAVIGATION
-========================================= */
-
-.dashboard-nav {
-    background: white;
-
-    padding: 15px;
-
-    border-radius: 15px;
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    margin-bottom: 25px;
-
-    box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.07);
-
-    position: sticky;
-
-    top: 10px;
-
-    z-index: 100;
-}
-
-.dashboard-nav a {
-    text-decoration: none;
-
-    color: #1e3a8a;
-
-    font-weight: bold;
-
-    padding: 10px 16px;
-
-    border-radius: 10px;
-
-    transition: 0.3s;
-}
-
-.dashboard-nav a:hover {
-    background: #1e3a8a;
-
-    color: white;
-
-    transform: translateY(-2px);
-}
-
-
-/* =========================================
-   BALANCE CARD
-========================================= */
-
-.balance-card {
     background: linear-gradient(
         135deg,
         #1e3a8a,
@@ -135,32 +53,160 @@ header p {
 
     color: white;
 
-    padding: 35px;
+    text-align: center;
+
+    padding: 35px 20px;
 
     border-radius: 20px;
 
-    text-align: center;
-
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 
     box-shadow:
-        0 10px 30px rgba(30, 58, 138, 0.2);
+        0 10px 30px rgba(30, 58, 138, 0.20);
 }
+
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+
+header p {
+    font-size: 16px;
+    opacity: 0.95;
+}
+
+
+/* =====================================================
+   DARK MODE BUTTON
+===================================================== */
+
+.theme-button {
+    display: block;
+
+    margin: 0 auto 20px;
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: #0f172a;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.theme-button:hover {
+    transform: translateY(-2px);
+
+    opacity: 0.9;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.dashboard-nav {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    background: white;
+
+    padding: 15px;
+
+    border-radius: 16px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.07);
+}
+
+
+.dashboard-nav a {
+    text-decoration: none;
+
+    color: #1e3a8a;
+
+    font-weight: bold;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+}
+
+
+.dashboard-nav a:hover {
+    background: #dbeafe;
+
+    color: #1d4ed8;
+}
+
+
+/* =====================================================
+   BALANCE CARD
+===================================================== */
+
+.balance-card {
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #1e3a8a
+    );
+
+    color: white;
+
+    text-align: center;
+
+    padding: 35px 20px;
+
+    border-radius: 20px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, 0.20);
+}
+
 
 .balance-card h2 {
     font-size: 18px;
 
     margin-bottom: 10px;
+
+    opacity: 0.85;
 }
+
 
 .balance-card h3 {
     font-size: 38px;
+
+    letter-spacing: 1px;
 }
 
 
-/* =========================================
+/* =====================================================
    SUMMARY CARDS
-========================================= */
+===================================================== */
 
 .summary {
     display: grid;
@@ -168,56 +214,62 @@ header p {
     grid-template-columns:
         repeat(
             auto-fit,
-            minmax(220px, 1fr)
+            minmax(200px, 1fr)
         );
 
-    gap: 20px;
+    gap: 15px;
 
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
+
 
 .summary-card {
     background: white;
 
-    padding: 25px;
+    padding: 22px;
 
     border-radius: 16px;
 
-    text-align: center;
-
     box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.07);
+        0 5px 20px rgba(15, 23, 42, 0.07);
 
-    transition: 0.3s;
+    border-left: 5px solid #2563eb;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
+
 
 .summary-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
 
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.12);
+        0 10px 25px rgba(15, 23, 42, 0.12);
 }
+
 
 .summary-card h3 {
-    color: #475569;
-
     font-size: 15px;
 
-    margin-bottom: 10px;
+    color: #64748b;
+
+    margin-bottom: 8px;
 }
+
 
 .summary-card p {
-    color: #1e3a8a;
-
-    font-size: 23px;
+    font-size: 22px;
 
     font-weight: bold;
+
+    color: #1e3a8a;
 }
 
 
-/* =========================================
+/* =====================================================
    FORM SECTIONS
-========================================= */
+===================================================== */
 
 .form-section,
 .transactions,
@@ -225,54 +277,53 @@ header p {
 .chart-section {
     background: white;
 
-    padding: 30px;
+    padding: 25px;
 
     border-radius: 18px;
 
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 
     box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.07);
+        0 5px 20px rgba(15, 23, 42, 0.07);
 }
+
 
 .form-section h2,
 .transactions h2,
 .monthly-summary h2,
 .chart-section h2 {
-    color: #0f172a;
-
     margin-bottom: 20px;
 
-    font-size: 24px;
+    color: #1e3a8a;
 }
 
 
-/* =========================================
+/* =====================================================
    LABELS
-========================================= */
+===================================================== */
 
 label {
     display: block;
 
-    font-weight: bold;
-
-    margin-top: 15px;
+    margin-top: 14px;
 
     margin-bottom: 6px;
+
+    font-weight: bold;
 
     color: #334155;
 }
 
 
-/* =========================================
+/* =====================================================
    INPUTS & SELECTS
-========================================= */
+===================================================== */
 
 input,
 select {
     width: 100%;
 
-    padding: 13px 15px;
+    padding: 13px 14px;
 
     border: 1px solid #cbd5e1;
 
@@ -280,28 +331,37 @@ select {
 
     background: #f8fafc;
 
+    color: #1e293b;
+
     font-size: 15px;
 
     outline: none;
 
-    transition: 0.3s;
+    transition:
+        border 0.2s,
+        box-shadow 0.2s;
 }
+
 
 input:focus,
 select:focus {
     border-color: #2563eb;
 
-    background: white;
-
     box-shadow:
-        0 0 0 3px
-        rgba(37, 99, 235, 0.1);
+        0 0 0 3px rgba(
+            37,
+            99,
+            235,
+            0.12
+        );
+
+    background: white;
 }
 
 
-/* =========================================
+/* =====================================================
    BUTTONS
-========================================= */
+===================================================== */
 
 button {
     border: none;
@@ -314,215 +374,408 @@ button {
 
     border-radius: 10px;
 
-    background: #1e3a8a;
+    background: #2563eb;
 
     color: white;
 
     font-weight: bold;
 
+    font-size: 14px;
+
     cursor: pointer;
 
-    transition: 0.3s;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
+
 button:hover {
-    background: #2563eb;
+    background: #1d4ed8;
 
     transform: translateY(-2px);
 
     box-shadow:
-        0 5px 12px
-        rgba(30, 58, 138, 0.2);
+        0 5px 12px rgba(
+            37,
+            99,
+            235,
+            0.20
+        );
 }
+
 
 button:active {
-    transform: scale(0.97);
+    transform: translateY(0);
 }
 
 
-/* =========================================
-   FILTER SECTION
-========================================= */
+/* =====================================================
+   CANCEL BUTTON
+===================================================== */
+
+#cancelButton {
+    background: #64748b;
+}
+
+
+#cancelButton:hover {
+    background: #475569;
+}
+
+
+/* =====================================================
+   TRANSACTION FILTER
+===================================================== */
 
 .filter-section {
     background: #f8fafc;
 
+    border: 1px solid #e2e8f0;
+
     padding: 20px;
 
-    border-radius: 15px;
+    border-radius: 14px;
 
     margin-bottom: 20px;
-
-    border: 1px solid #e2e8f0;
 }
+
 
 .filter-section h3 {
-    margin-bottom: 15px;
-
     color: #1e3a8a;
+
+    margin-bottom: 10px;
 }
 
 
-/* =========================================
+/* =====================================================
+   TRANSACTION COUNT
+===================================================== */
+
+#transactionCount {
+    font-weight: bold;
+
+    color: #64748b;
+
+    margin-bottom: 12px;
+}
+
+
+/* =====================================================
    TRANSACTION LIST
-========================================= */
+===================================================== */
 
 #transactionList {
     list-style: none;
 
-    margin-top: 15px;
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
 }
+
 
 #transactionList li {
     background: #f8fafc;
 
     border: 1px solid #e2e8f0;
 
+    border-radius: 12px;
+
     padding: 15px;
 
-    margin-bottom: 12px;
-
-    border-radius: 12px;
+    font-size: 14px;
 
     display: flex;
 
     align-items: center;
 
+    flex-wrap: wrap;
+
     gap: 8px;
 
-    flex-wrap: wrap;
+    transition: 0.2s;
 }
+
+
+#transactionList li:hover {
+    border-color: #93c5fd;
+
+    background: #eff6ff;
+}
+
 
 #transactionList li button {
     margin-top: 0;
+
+    padding: 7px 10px;
+
+    font-size: 12px;
 }
 
 
-/* =========================================
+/* =====================================================
    EXPORT SECTION
-========================================= */
+===================================================== */
 
 .export-section {
-    margin-top: 20px;
-
-    text-align: right;
+    margin-top: 15px;
 }
 
 
-/* =========================================
+.export-section button {
+    background: #0f766e;
+}
+
+
+.export-section button:hover {
+    background: #115e59;
+}
+
+
+/* =====================================================
    SAVINGS GOAL
-========================================= */
+===================================================== */
 
 #goalDisplay {
     margin-top: 20px;
 }
 
 
-/* =========================================
+#goalDisplay strong {
+    color: #1e3a8a;
+}
+
+
+/* =====================================================
    CHART
-========================================= */
+===================================================== */
 
 .chart-section {
-    min-height: 400px;
+    min-height: 350px;
 }
+
 
 #spendingChart {
-    max-width: 650px;
+    width: 100% !important;
 
-    max-height: 500px;
-
-    margin: 0 auto;
-
-    display: block;
+    max-height: 420px;
 }
 
 
-/* =========================================
-   SPENDING ADVICE
-========================================= */
-
-#spendingAdvice {
-    background: #eff6ff;
-
-    border-left: 5px solid #2563eb;
-
-    padding: 18px;
-
-    border-radius: 10px;
-
-    color: #1e3a8a;
-
-    font-weight: bold;
-}
-
-
-/* =========================================
+/* =====================================================
    MONTHLY SUMMARY
-========================================= */
+===================================================== */
 
-.monthly-summary {
-    scroll-margin-top: 100px;
+.monthly-summary input {
+    margin-bottom: 15px;
 }
 
 
-/* =========================================
+/* =====================================================
    FOOTER
-========================================= */
+===================================================== */
 
 footer {
+    text-align: center;
+
     background: #0f172a;
 
     color: white;
 
-    text-align: center;
-
-    padding: 30px;
+    padding: 25px;
 
     border-radius: 18px;
 
-    margin-top: 25px;
+    margin-top: 20px;
 
-    margin-bottom: 30px;
+    font-size: 14px;
 }
+
 
 footer p {
-    margin: 5px;
+    margin: 5px 0;
+
+    opacity: 0.9;
 }
 
-footer p:last-child {
-    opacity: 0.7;
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+body.dark-mode {
+    background: #020617;
+
+    color: #e2e8f0;
 }
 
 
-/* =========================================
-   MOBILE RESPONSIVE DESIGN
-========================================= */
+body.dark-mode .dashboard-nav,
+body.dark-mode .summary-card,
+body.dark-mode .form-section,
+body.dark-mode .transactions,
+body.dark-mode .monthly-summary,
+body.dark-mode .chart-section {
+    background: #0f172a;
+
+    color: #e2e8f0;
+
+    box-shadow:
+        0 5px 20px rgba(
+            0,
+            0,
+            0,
+            0.30
+        );
+}
+
+
+body.dark-mode .dashboard-nav a {
+    color: #bfdbfe;
+}
+
+
+body.dark-mode .dashboard-nav a:hover {
+    background: #1e3a8a;
+
+    color: white;
+}
+
+
+body.dark-mode .summary-card {
+    border-left-color: #60a5fa;
+}
+
+
+body.dark-mode .summary-card h3 {
+    color: #94a3b8;
+}
+
+
+body.dark-mode .summary-card p {
+    color: #93c5fd;
+}
+
+
+body.dark-mode .form-section h2,
+body.dark-mode .transactions h2,
+body.dark-mode .monthly-summary h2,
+body.dark-mode .chart-section h2 {
+    color: #93c5fd;
+}
+
+
+body.dark-mode label {
+    color: #cbd5e1;
+}
+
+
+body.dark-mode input,
+body.dark-mode select {
+    background: #1e293b;
+
+    color: #f8fafc;
+
+    border-color: #475569;
+}
+
+
+body.dark-mode input:focus,
+body.dark-mode select:focus {
+    background: #1e293b;
+
+    border-color: #60a5fa;
+}
+
+
+body.dark-mode .filter-section {
+    background: #1e293b;
+
+    border-color: #334155;
+}
+
+
+body.dark-mode .filter-section h3 {
+    color: #93c5fd;
+}
+
+
+body.dark-mode #transactionList li {
+    background: #1e293b;
+
+    border-color: #334155;
+
+    color: #e2e8f0;
+}
+
+
+body.dark-mode #transactionList li:hover {
+    background: #172554;
+
+    border-color: #3b82f6;
+}
+
+
+body.dark-mode #transactionCount {
+    color: #94a3b8;
+}
+
+
+body.dark-mode #goalDisplay > div {
+    background: #1e293b !important;
+}
+
+
+body.dark-mode #goalDisplay strong {
+    color: #93c5fd;
+}
+
+
+body.dark-mode .theme-button {
+    background: #f8fafc;
+
+    color: #0f172a;
+}
+
+
+/* =====================================================
+   RESPONSIVE DESIGN — TABLETS
+===================================================== */
 
 @media (max-width: 768px) {
 
     .container {
         width: 94%;
-
-        margin: 15px auto;
     }
+
 
     header {
-        padding: 30px 15px;
+        padding: 28px 15px;
     }
 
+
     header h1 {
-        font-size: 24px;
+        font-size: 25px;
     }
+
 
     header p {
         font-size: 14px;
     }
 
-    .dashboard-nav {
-        position: static;
 
-        gap: 5px;
+    .balance-card h3 {
+        font-size: 32px;
     }
+
+
+    .dashboard-nav {
+        gap: 6px;
+    }
+
 
     .dashboard-nav a {
         font-size: 13px;
@@ -530,68 +783,111 @@ footer p:last-child {
         padding: 8px 10px;
     }
 
-    .balance-card {
-        padding: 25px 15px;
-    }
-
-    .balance-card h3 {
-        font-size: 30px;
-    }
 
     .form-section,
     .transactions,
     .monthly-summary,
     .chart-section {
-        padding: 20px 15px;
-    }
-
-    .summary-card {
-        padding: 20px 15px;
-    }
-
-    #transactionList li {
-        display: block;
-    }
-
-    #transactionList li button {
-        margin-top: 10px;
-    }
-
-    .export-section {
-        text-align: center;
+        padding: 20px;
     }
 
 }
 
 
-/* =========================================
-   SMALL PHONES
-========================================= */
+/* =====================================================
+   RESPONSIVE DESIGN — PHONES
+===================================================== */
 
 @media (max-width: 480px) {
 
-    header h1 {
-        font-size: 21px;
+    .container {
+        width: 95%;
+
+        padding-top: 10px;
     }
+
+
+    header {
+        border-radius: 15px;
+
+        padding: 25px 12px;
+    }
+
+
+    header h1 {
+        font-size: 22px;
+    }
+
+
+    header p {
+        font-size: 13px;
+    }
+
 
     .dashboard-nav {
         display: grid;
 
         grid-template-columns:
             repeat(2, 1fr);
+
+        gap: 7px;
     }
+
 
     .dashboard-nav a {
         text-align: center;
+
+        background: #f8fafc;
+
+        border: 1px solid #e2e8f0;
+
+        font-size: 12px;
+
+        padding: 9px 5px;
     }
 
-    .balance-card h3 {
-        font-size: 26px;
+
+    .balance-card {
+        padding: 28px 15px;
+
+        border-radius: 16px;
     }
+
+
+    .balance-card h2 {
+        font-size: 16px;
+    }
+
+
+    .balance-card h3 {
+        font-size: 28px;
+    }
+
 
     .summary {
         grid-template-columns: 1fr;
     }
+
+
+    .summary-card {
+        padding: 18px;
+    }
+
+
+    .summary-card p {
+        font-size: 20px;
+    }
+
+
+    .form-section,
+    .transactions,
+    .monthly-summary,
+    .chart-section {
+        padding: 17px;
+
+        border-radius: 15px;
+    }
+
 
     button {
         width: 100%;
@@ -599,4 +895,84 @@ footer p:last-child {
         margin-right: 0;
     }
 
+
+    #transactionList li {
+        display: block;
+
+        line-height: 1.8;
+    }
+
+
+    #transactionList li button {
+        width: auto;
+
+        display: inline-block;
+
+        margin-top: 8px;
+
+        margin-right: 5px;
+    }
+
+
+    .theme-button {
+        width: auto;
+
+        margin-left: auto;
+
+        margin-right: auto;
+    }
+
+
+    footer {
+        border-radius: 15px;
+
+        font-size: 12px;
+    }
+
+}
+
+
+/* =====================================================
+   SMOOTH SCROLLING
+===================================================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* =====================================================
+   SELECTION
+===================================================== */
+
+::selection {
+    background: #2563eb;
+
+    color: white;
+}
+
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: #e2e8f0;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: #64748b;
+
+    border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
 }

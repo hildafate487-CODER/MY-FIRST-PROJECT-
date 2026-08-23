@@ -7,6 +7,7 @@ const transactionList = document.getElementById("transactionList");
 
 const descriptionInput = document.getElementById("description");
 const amountInput = document.getElementById("amount");
+const dateInput = document.getElementById("date");
 const typeInput = document.getElementById("type");
 const addButton = document.getElementById("addTransaction");
 
@@ -15,10 +16,11 @@ addButton.addEventListener("click", addTransaction);
 function addTransaction() {
     const description = descriptionInput.value.trim();
     const amount = Number(amountInput.value);
+    const date = dateInput.value;
     const type = typeInput.value;
 
-    if (description === "" || amount <= 0) {
-        alert("Please enter a description and a valid amount.");
+    if (description === "" || amount <= 0 || date === "") {
+        alert("Please enter a description, amount, and date.");
         return;
     }
 
@@ -26,6 +28,7 @@ function addTransaction() {
         id: Date.now(),
         description: description,
         amount: amount,
+        date: date,
         type: type
     };
 
@@ -35,6 +38,7 @@ function addTransaction() {
 
     descriptionInput.value = "";
     amountInput.value = "";
+    dateInput.value = "";
 
     updateTracker();
 }
@@ -80,6 +84,7 @@ function displayTransactions() {
             <span>
                 ${transaction.description}
                 <strong>${transaction.type}</strong>
+                <small>${transaction.date}</small>
             </span>
 
             <span>

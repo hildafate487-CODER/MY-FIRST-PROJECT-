@@ -9,6 +9,7 @@ const descriptionInput = document.getElementById("description");
 const amountInput = document.getElementById("amount");
 const dateInput = document.getElementById("date");
 const typeInput = document.getElementById("type");
+const categoryInput = document.getElementById("category");
 const addButton = document.getElementById("addTransaction");
 
 const chartCanvas = document.getElementById("spendingChart");
@@ -22,6 +23,7 @@ function addTransaction() {
     const amount = Number(amountInput.value);
     const date = dateInput.value;
     const type = typeInput.value;
+    const category = categoryInput.value;
 
     if (description === "" || amount <= 0 || date === "") {
         alert("Please enter a description, amount, and date.");
@@ -33,7 +35,8 @@ function addTransaction() {
         description: description,
         amount: amount,
         date: date,
-        type: type
+        type: type,
+        category: category
     };
 
     transactions.push(transaction);
@@ -88,7 +91,7 @@ function displayTransactions() {
         li.innerHTML = `
             <span>
                 ${transaction.description}
-                <strong>${transaction.type}</strong>
+                <strong>${transaction.type} • ${transaction.category || "Other"}</strong>
                 <small>${transaction.date}</small>
             </span>
 
@@ -114,17 +117,22 @@ function deleteTransaction(id) {
 }
 
 function updateChart() {
-    const expenses = transactions.filter(function(transaction) {
-        return transaction.type === "expense";
+    const categoryTotals = {};
+
+    transactions.forEach(function(transaction) {
+        if (transaction.type === "expense") {
+            const category = transaction.category || "Other";
+
+            if (!categoryTotals[category]) {
+                categoryTotals[category] = 0;
+            }
+
+            categoryTotals[category] += transaction.amount;
+        }
     });
 
-    const labels = expenses.map(function(transaction) {
-        return transaction.description;
-    });
-
-    const amounts = expenses.map(function(transaction) {
-        return transaction.amount;
-    });
+    const labels = Object.keys(categoryTotals);
+    const amounts = Object.values(categoryTotals);
 
     if (spendingChart) {
         spendingChart.destroy();
@@ -135,7 +143,7 @@ function updateChart() {
         data: {
             labels: labels,
             datasets: [{
-                label: "Expenses",
+                label: "Expenses by Category",
                 data: amounts
             }]
         },

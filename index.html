@@ -121,11 +121,13 @@
     </section>
 
 
-    <!-- ADD TRANSACTION -->
+    <!-- ADD / EDIT TRANSACTION -->
 
     <section class="form-section">
 
-        <h2>➕ Add Transaction</h2>
+        <h2 id="formTitle">
+            ➕ Add Transaction
+        </h2>
 
 
         <label for="description">
@@ -218,8 +220,20 @@
         </select>
 
 
-        <button onclick="addTransaction()">
+        <button
+            id="saveButton"
+            onclick="saveTransaction()"
+        >
             ➕ Add Transaction
+        </button>
+
+
+        <button
+            id="cancelButton"
+            onclick="cancelEdit()"
+            style="display:none;"
+        >
+            ❌ Cancel Edit
         </button>
 
     </section>
@@ -362,12 +376,17 @@ let transactions =
     ) || [];
 
 
+/* Which transaction are we editing? */
+
+let editingIndex = -1;
+
+
 
 /* =====================================
-   ADD TRANSACTION
+   SAVE TRANSACTION
 ===================================== */
 
-function addTransaction() {
+function saveTransaction() {
 
     const description =
         document
@@ -432,7 +451,7 @@ function addTransaction() {
     }
 
 
-    transactions.push({
+    const transaction = {
 
         description: description,
 
@@ -444,11 +463,135 @@ function addTransaction() {
 
         category: category
 
-    });
+    };
+
+
+    /* ADD NEW */
+
+    if (editingIndex === -1) {
+
+        transactions.push(
+            transaction
+        );
+
+    }
+
+    /* UPDATE EXISTING */
+
+    else {
+
+        transactions[editingIndex] =
+            transaction;
+
+        editingIndex = -1;
+
+    }
 
 
     saveTransactions();
 
+    clearForm();
+
+    updateTracker();
+
+    updateMonthlySummary();
+
+}
+
+
+
+/* =====================================
+   START EDITING
+===================================== */
+
+function editTransaction(index) {
+
+    const transaction =
+        transactions[index];
+
+
+    document
+    .getElementById("description")
+    .value =
+        transaction.description;
+
+
+    document
+    .getElementById("amount")
+    .value =
+        transaction.amount;
+
+
+    document
+    .getElementById("date")
+    .value =
+        transaction.date;
+
+
+    document
+    .getElementById("type")
+    .value =
+        transaction.type;
+
+
+    document
+    .getElementById("category")
+    .value =
+        transaction.category;
+
+
+    editingIndex = index;
+
+
+    document
+    .getElementById("formTitle")
+    .textContent =
+        "✏️ Edit Transaction";
+
+
+    document
+    .getElementById("saveButton")
+    .textContent =
+        "💾 Save Changes";
+
+
+    document
+    .getElementById("cancelButton")
+    .style.display =
+        "block";
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+
+/* =====================================
+   CANCEL EDIT
+===================================== */
+
+function cancelEdit() {
+
+    editingIndex = -1;
+
+    clearForm();
+
+}
+
+
+
+/* =====================================
+   CLEAR FORM
+===================================== */
+
+function clearForm() {
 
     document
     .getElementById("description")
@@ -465,16 +608,41 @@ function addTransaction() {
     .value = "";
 
 
-    updateTracker();
+    document
+    .getElementById("type")
+    .value =
+        "income";
 
-    updateMonthlySummary();
+
+    document
+    .getElementById("category")
+    .value =
+        "Food";
+
+
+    document
+    .getElementById("formTitle")
+    .textContent =
+        "➕ Add Transaction";
+
+
+    document
+    .getElementById("saveButton")
+    .textContent =
+        "➕ Add Transaction";
+
+
+    document
+    .getElementById("cancelButton")
+    .style.display =
+        "none";
 
 }
 
 
 
 /* =====================================
-   SAVE TRANSACTIONS
+   SAVE TO LOCAL STORAGE
 ===================================== */
 
 function saveTransactions() {
@@ -526,7 +694,8 @@ function updateTracker() {
 
 
     const transactionList =
-        document.getElementById(
+        document
+        .getElementById(
             "transactionList"
         );
 
@@ -535,11 +704,13 @@ function updateTracker() {
 
 
     transactions.forEach(
+
         function(transaction, index) {
 
 
             if (
-                transaction.type === "income"
+                transaction.type ===
+                "income"
             ) {
 
                 income +=
@@ -549,7 +720,8 @@ function updateTracker() {
 
 
             if (
-                transaction.type === "expense"
+                transaction.type ===
+                "expense"
             ) {
 
                 expenses +=
@@ -574,19 +746,49 @@ function updateTracker() {
 
 
             const li =
-                document.createElement("li");
+                document.createElement(
+                    "li"
+                );
 
 
             li.textContent =
 
                 transaction.description +
+
                 " — UGX " +
+
                 transaction.amount
                     .toLocaleString() +
+
                 " — " +
+
                 transaction.category +
+
                 " — " +
+
                 transaction.date;
+
+
+            /* EDIT BUTTON */
+
+            const editButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            editButton.textContent =
+                "✏️ Edit";
+
+
+            editButton.onclick =
+                function() {
+
+                    editTransaction(
+                        index
+                    );
+
+                };
 
 
             /* DELETE BUTTON */
@@ -604,6 +806,7 @@ function updateTracker() {
             deleteButton.onclick =
                 function() {
 
+
                     if (
                         confirm(
                             "Delete this transaction?"
@@ -615,15 +818,23 @@ function updateTracker() {
                             1
                         );
 
+
                         saveTransactions();
 
+
                         updateTracker();
+
 
                         updateMonthlySummary();
 
                     }
 
                 };
+
+
+            li.appendChild(
+                editButton
+            );
 
 
             li.appendChild(
@@ -636,6 +847,7 @@ function updateTracker() {
             );
 
         }
+
     );
 
 
@@ -671,7 +883,9 @@ function updateTracker() {
         balance.toLocaleString();
 
 
-    updateChart(categoryTotals);
+    updateChart(
+        categoryTotals
+    );
 
 }
 
@@ -702,39 +916,47 @@ function updateMonthlySummary() {
         .getElementById(
             "monthlyIncome"
         )
-        .textContent = "UGX 0";
+        .textContent =
+            "UGX 0";
 
 
         document
         .getElementById(
             "monthlyExpenses"
         )
-        .textContent = "UGX 0";
+        .textContent =
+            "UGX 0";
 
 
         document
         .getElementById(
             "monthlyBalance"
         )
-        .textContent = "UGX 0";
+        .textContent =
+            "UGX 0";
 
 
         return;
+
     }
 
 
     transactions.forEach(
+
         function(transaction) {
 
 
             if (
                 transaction.date
-                .startsWith(selectedMonth)
+                .startsWith(
+                    selectedMonth
+                )
             ) {
 
 
                 if (
-                    transaction.type === "income"
+                    transaction.type ===
+                    "income"
                 ) {
 
                     monthlyIncome +=
@@ -744,7 +966,8 @@ function updateMonthlySummary() {
 
 
                 if (
-                    transaction.type === "expense"
+                    transaction.type ===
+                    "expense"
                 ) {
 
                     monthlyExpenses +=
@@ -755,6 +978,7 @@ function updateMonthlySummary() {
             }
 
         }
+
     );
 
 
@@ -794,7 +1018,7 @@ function updateMonthlySummary() {
 
 
 /* =====================================
-   SPENDING CHART
+   CHART
 ===================================== */
 
 let spendingChart;
@@ -803,7 +1027,8 @@ let spendingChart;
 function updateChart(categoryTotals) {
 
     const canvas =
-        document.getElementById(
+        document
+        .getElementById(
             "spendingChart"
         );
 
@@ -815,42 +1040,56 @@ function updateChart(categoryTotals) {
     }
 
 
-    spendingChart = new Chart(
-        canvas,
-        {
+    spendingChart =
 
-            type: "doughnut",
+        new Chart(
 
-            data: {
+            canvas,
 
-                labels:
-                    Object.keys(
-                        categoryTotals
-                    ),
+            {
 
-                datasets: [{
+                type:
+                    "doughnut",
 
-                    label:
-                        "Spending by Category",
 
-                    data:
-                        Object.values(
+                data: {
+
+                    labels:
+                        Object.keys(
                             categoryTotals
-                        )
+                        ),
 
-                }]
 
-            },
+                    datasets: [{
 
-            options: {
+                        label:
+                            "Spending by Category",
 
-                responsive: true,
 
-                plugins: {
+                        data:
+                            Object.values(
+                                categoryTotals
+                            )
 
-                    legend: {
+                    }]
 
-                        position: "bottom"
+                },
+
+
+                options: {
+
+                    responsive:
+                        true,
+
+
+                    plugins: {
+
+                        legend: {
+
+                            position:
+                                "bottom"
+
+                        }
 
                     }
 
@@ -858,8 +1097,7 @@ function updateChart(categoryTotals) {
 
             }
 
-        }
-    );
+        );
 
 }
 

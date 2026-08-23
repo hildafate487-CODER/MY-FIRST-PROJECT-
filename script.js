@@ -1,4 +1,4 @@
-let transactions = [];
+let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
 const balanceElement = document.getElementById("balance");
 const incomeElement = document.getElementById("income");
@@ -31,10 +31,16 @@ function addTransaction() {
 
     transactions.push(transaction);
 
+    saveTransactions();
+
     descriptionInput.value = "";
     amountInput.value = "";
 
     updateTracker();
+}
+
+function saveTransactions() {
+    localStorage.setItem("transactions", JSON.stringify(transactions));
 }
 
 function updateTracker() {
@@ -93,5 +99,8 @@ function deleteTransaction(id) {
         return transaction.id !== id;
     });
 
+    saveTransactions();
     updateTracker();
 }
+
+updateTracker();

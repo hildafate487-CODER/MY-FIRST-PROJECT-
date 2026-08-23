@@ -49,6 +49,7 @@
         <h2>➕ Add Transaction</h2>
 
         <label>Description</label>
+
         <input
             type="text"
             id="description"
@@ -56,6 +57,7 @@
         >
 
         <label>Amount</label>
+
         <input
             type="number"
             id="amount"
@@ -63,27 +65,62 @@
         >
 
         <label>Date</label>
+
         <input
             type="date"
             id="date"
         >
 
         <label>Transaction Type</label>
+
         <select id="type">
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
+
+            <option value="income">
+                Income
+            </option>
+
+            <option value="expense">
+                Expense
+            </option>
+
         </select>
 
         <label>Category</label>
+
         <select id="category">
-            <option value="Food">🍔 Food</option>
-            <option value="Transport">🚌 Transport</option>
-            <option value="School">📚 School</option>
-            <option value="Airtime/Data">📱 Airtime/Data</option>
-            <option value="Rent">🏠 Rent</option>
-            <option value="Utilities">💡 Utilities</option>
-            <option value="Shopping">🛍️ Shopping</option>
-            <option value="Other">📦 Other</option>
+
+            <option value="Food">
+                🍔 Food
+            </option>
+
+            <option value="Transport">
+                🚌 Transport
+            </option>
+
+            <option value="School">
+                📚 School
+            </option>
+
+            <option value="Airtime/Data">
+                📱 Airtime/Data
+            </option>
+
+            <option value="Rent">
+                🏠 Rent
+            </option>
+
+            <option value="Utilities">
+                💡 Utilities
+            </option>
+
+            <option value="Shopping">
+                🛍️ Shopping
+            </option>
+
+            <option value="Other">
+                📦 Other
+            </option>
+
         </select>
 
         <button onclick="addTransaction()">
@@ -113,7 +150,14 @@
 
 <script>
 
-let transactions = [];
+
+/* LOAD SAVED TRANSACTIONS */
+
+let transactions =
+    JSON.parse(
+        localStorage.getItem("budgetTransactions")
+    ) || [];
+
 
 
 /* ADD TRANSACTION */
@@ -121,51 +165,101 @@ let transactions = [];
 function addTransaction() {
 
     const description =
-        document.getElementById("description").value.trim();
+        document
+        .getElementById("description")
+        .value
+        .trim();
+
 
     const amount =
-        Number(document.getElementById("amount").value);
+        Number(
+            document
+            .getElementById("amount")
+            .value
+        );
+
 
     const date =
-        document.getElementById("date").value;
+        document
+        .getElementById("date")
+        .value;
+
 
     const type =
-        document.getElementById("type").value;
+        document
+        .getElementById("type")
+        .value;
+
 
     const category =
-        document.getElementById("category").value;
+        document
+        .getElementById("category")
+        .value;
+
 
 
     if (description === "") {
+
         alert("Please enter a description.");
+
         return;
+
     }
+
 
     if (amount <= 0) {
+
         alert("Please enter a valid amount.");
+
         return;
+
     }
 
+
     if (date === "") {
+
         alert("Please select a date.");
+
         return;
+
     }
+
 
 
     transactions.push({
 
         description: description,
+
         amount: amount,
+
         date: date,
+
         type: type,
+
         category: category
 
     });
 
 
-    document.getElementById("description").value = "";
-    document.getElementById("amount").value = "";
-    document.getElementById("date").value = "";
+
+    saveTransactions();
+
+
+
+    document
+    .getElementById("description")
+    .value = "";
+
+
+    document
+    .getElementById("amount")
+    .value = "";
+
+
+    document
+    .getElementById("date")
+    .value = "";
+
 
 
     updateTracker();
@@ -173,117 +267,192 @@ function addTransaction() {
 }
 
 
+
+/* SAVE TRANSACTIONS */
+
+function saveTransactions() {
+
+    localStorage.setItem(
+
+        "budgetTransactions",
+
+        JSON.stringify(transactions)
+
+    );
+
+}
+
+
+
 /* UPDATE TRACKER */
 
 function updateTracker() {
 
     let income = 0;
+
     let expenses = 0;
+
 
 
     const categoryTotals = {
 
         "Food": 0,
+
         "Transport": 0,
+
         "School": 0,
+
         "Airtime/Data": 0,
+
         "Rent": 0,
+
         "Utilities": 0,
+
         "Shopping": 0,
+
         "Other": 0
 
     };
 
 
+
     const transactionList =
-        document.getElementById("transactionList");
+        document
+        .getElementById("transactionList");
+
+
 
     transactionList.innerHTML = "";
 
 
-    transactions.forEach(function(transaction, index) {
+
+    transactions.forEach(
+
+        function(transaction, index) {
 
 
-        if (transaction.type === "income") {
 
-            income += transaction.amount;
+            if (transaction.type === "income") {
 
-        }
-
-
-        if (transaction.type === "expense") {
-
-            expenses += transaction.amount;
-
-
-            if (categoryTotals.hasOwnProperty(transaction.category)) {
-
-                categoryTotals[transaction.category] +=
-                    transaction.amount;
+                income += transaction.amount;
 
             }
 
+
+
+            if (transaction.type === "expense") {
+
+                expenses += transaction.amount;
+
+
+
+                if (
+                    categoryTotals
+                    .hasOwnProperty(transaction.category)
+                ) {
+
+                    categoryTotals[
+                        transaction.category
+                    ] += transaction.amount;
+
+                }
+
+            }
+
+
+
+            const li =
+                document.createElement("li");
+
+
+
+            li.textContent =
+
+                transaction.description +
+
+                " — UGX " +
+
+                transaction.amount
+                .toLocaleString() +
+
+                " — " +
+
+                transaction.category +
+
+                " — " +
+
+                transaction.date;
+
+
+
+            const deleteButton =
+                document.createElement("button");
+
+
+
+            deleteButton.textContent =
+                "🗑️ Delete";
+
+
+
+            deleteButton.onclick =
+                function() {
+
+                    transactions.splice(index, 1);
+
+                    saveTransactions();
+
+                    updateTracker();
+
+                };
+
+
+
+            li.appendChild(deleteButton);
+
+            transactionList.appendChild(li);
+
         }
 
-
-        const li = document.createElement("li");
-
-
-        li.textContent =
-
-            transaction.description +
-
-            " — UGX " +
-
-            transaction.amount.toLocaleString() +
-
-            " — " +
-
-            transaction.category +
-
-            " — " +
-
-            transaction.date;
+    );
 
 
-        /* DELETE BUTTON */
 
-        const deleteButton =
-            document.createElement("button");
-
-        deleteButton.textContent = "🗑️ Delete";
+    const balance =
+        income - expenses;
 
 
-        deleteButton.onclick = function() {
 
-            transactions.splice(index, 1);
-
-            updateTracker();
-
-        };
-
-
-        li.appendChild(deleteButton);
-
-        transactionList.appendChild(li);
-
-    });
+    document
+    .getElementById("income")
+    .textContent =
+        "UGX " +
+        income.toLocaleString();
 
 
-    const balance = income - expenses;
+
+    document
+    .getElementById("expenses")
+    .textContent =
+        "UGX " +
+        expenses.toLocaleString();
 
 
-    document.getElementById("income").textContent =
-        "UGX " + income.toLocaleString();
 
-    document.getElementById("expenses").textContent =
-        "UGX " + expenses.toLocaleString();
+    document
+    .getElementById("totalSpending")
+    .textContent =
+        "UGX " +
+        expenses.toLocaleString();
 
-    document.getElementById("totalSpending").textContent =
-        "UGX " + expenses.toLocaleString();
 
-    document.getElementById("balance").textContent =
-        "UGX " + balance.toLocaleString();
+
+    document
+    .getElementById("balance")
+    .textContent =
+        "UGX " +
+        balance.toLocaleString();
+
 
 
     updateChart(categoryTotals);
@@ -291,15 +460,19 @@ function updateTracker() {
 }
 
 
+
 /* CHART */
 
 let spendingChart;
 
 
+
 function updateChart(categoryTotals) {
 
     const canvas =
-        document.getElementById("spendingChart");
+        document
+        .getElementById("spendingChart");
+
 
 
     if (spendingChart) {
@@ -309,48 +482,71 @@ function updateChart(categoryTotals) {
     }
 
 
-    spendingChart = new Chart(canvas, {
 
-        type: "doughnut",
+    spendingChart =
 
-        data: {
+        new Chart(
 
-            labels: Object.keys(categoryTotals),
+            canvas,
 
-            datasets: [{
+            {
 
-                label: "Spending by Category",
+                type: "doughnut",
 
-                data: Object.values(categoryTotals)
 
-            }]
+                data: {
 
-        },
+                    labels:
+                        Object.keys(
+                            categoryTotals
+                        ),
 
-        options: {
 
-            responsive: true,
+                    datasets: [{
 
-            plugins: {
+                        label:
+                            "Spending by Category",
 
-                legend: {
 
-                    position: "bottom"
+                        data:
+                            Object.values(
+                                categoryTotals
+                            )
+
+                    }]
+
+                },
+
+
+                options: {
+
+                    responsive: true,
+
+
+                    plugins: {
+
+                        legend: {
+
+                            position: "bottom"
+
+                        }
+
+                    }
 
                 }
 
             }
 
-        }
-
-    });
+        );
 
 }
+
 
 
 /* START APP */
 
 updateTracker();
+
 
 </script>
 

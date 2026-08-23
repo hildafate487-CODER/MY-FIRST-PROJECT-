@@ -278,9 +278,23 @@ function updateTracker() {
             transaction.date;
 
 
-        transactionList.appendChild(li);
+        
+const deleteButton = document.createElement("button");
 
-    });
+deleteButton.textContent = "🗑️ Delete";
+
+deleteButton.onclick = function() {
+    transactions.splice(
+        transactions.indexOf(transaction),
+        1
+    );
+
+    updateTracker();
+};
+
+li.appendChild(deleteButton);
+
+transactionList.appendChild(li);
 
 
     const balance = income - expenses;

@@ -250,6 +250,118 @@
             📋 Transactions
         </h2>
 
+
+        <!-- SEARCH AND FILTER -->
+
+        <div class="filter-section">
+
+            <h3>
+                🔍 Search & Filter
+            </h3>
+
+
+            <label for="searchInput">
+                Search Description
+            </label>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="e.g. Lunch"
+                oninput="filterTransactions()"
+            >
+
+
+            <label for="categoryFilter">
+                🏷️ Filter by Category
+            </label>
+
+            <select
+                id="categoryFilter"
+                onchange="filterTransactions()"
+            >
+
+                <option value="all">
+                    All Categories
+                </option>
+
+                <option value="Food">
+                    🍔 Food
+                </option>
+
+                <option value="Transport">
+                    🚌 Transport
+                </option>
+
+                <option value="School">
+                    📚 School
+                </option>
+
+                <option value="Airtime/Data">
+                    📱 Airtime/Data
+                </option>
+
+                <option value="Rent">
+                    🏠 Rent
+                </option>
+
+                <option value="Utilities">
+                    💡 Utilities
+                </option>
+
+                <option value="Shopping">
+                    🛍️ Shopping
+                </option>
+
+                <option value="Other">
+                    📦 Other
+                </option>
+
+            </select>
+
+
+            <label for="typeFilter">
+                💰 Filter by Type
+            </label>
+
+            <select
+                id="typeFilter"
+                onchange="filterTransactions()"
+            >
+
+                <option value="all">
+                    All Transactions
+                </option>
+
+                <option value="income">
+                    💵 Income
+                </option>
+
+                <option value="expense">
+                    💸 Expense
+                </option>
+
+            </select>
+
+
+            <button
+                onclick="clearFilters()"
+            >
+                🔄 Clear Filters
+            </button>
+
+        </div>
+
+
+        <!-- TRANSACTION COUNT -->
+
+        <p id="transactionCount">
+            Showing 0 transactions
+        </p>
+
+
+        <!-- TRANSACTION LIST -->
+
         <ul id="transactionList"></ul>
 
     </section>
@@ -376,10 +488,11 @@ let transactions =
     ) || [];
 
 
-/* Which transaction are we editing? */
+/* =====================================
+   EDITING INDEX
+===================================== */
 
 let editingIndex = -1;
-
 
 
 /* =====================================
@@ -466,7 +579,7 @@ function saveTransaction() {
     };
 
 
-    /* ADD NEW */
+    /* ADD NEW TRANSACTION */
 
     if (editingIndex === -1) {
 
@@ -476,7 +589,8 @@ function saveTransaction() {
 
     }
 
-    /* UPDATE EXISTING */
+
+    /* UPDATE TRANSACTION */
 
     else {
 
@@ -496,12 +610,14 @@ function saveTransaction() {
 
     updateMonthlySummary();
 
+    filterTransactions();
+
 }
 
 
 
 /* =====================================
-   START EDITING
+   EDIT TRANSACTION
 ===================================== */
 
 function editTransaction(index) {
@@ -693,19 +809,9 @@ function updateTracker() {
     };
 
 
-    const transactionList =
-        document
-        .getElementById(
-            "transactionList"
-        );
-
-
-    transactionList.innerHTML = "";
-
-
     transactions.forEach(
 
-        function(transaction, index) {
+        function(transaction) {
 
 
             if (
@@ -743,108 +849,6 @@ function updateTracker() {
                 }
 
             }
-
-
-            const li =
-                document.createElement(
-                    "li"
-                );
-
-
-            li.textContent =
-
-                transaction.description +
-
-                " — UGX " +
-
-                transaction.amount
-                    .toLocaleString() +
-
-                " — " +
-
-                transaction.category +
-
-                " — " +
-
-                transaction.date;
-
-
-            /* EDIT BUTTON */
-
-            const editButton =
-                document.createElement(
-                    "button"
-                );
-
-
-            editButton.textContent =
-                "✏️ Edit";
-
-
-            editButton.onclick =
-                function() {
-
-                    editTransaction(
-                        index
-                    );
-
-                };
-
-
-            /* DELETE BUTTON */
-
-            const deleteButton =
-                document.createElement(
-                    "button"
-                );
-
-
-            deleteButton.textContent =
-                "🗑️ Delete";
-
-
-            deleteButton.onclick =
-                function() {
-
-
-                    if (
-                        confirm(
-                            "Delete this transaction?"
-                        )
-                    ) {
-
-                        transactions.splice(
-                            index,
-                            1
-                        );
-
-
-                        saveTransactions();
-
-
-                        updateTracker();
-
-
-                        updateMonthlySummary();
-
-                    }
-
-                };
-
-
-            li.appendChild(
-                editButton
-            );
-
-
-            li.appendChild(
-                deleteButton
-            );
-
-
-            transactionList.appendChild(
-                li
-            );
 
         }
 
@@ -887,6 +891,274 @@ function updateTracker() {
         categoryTotals
     );
 
+
+    filterTransactions();
+
+}
+
+
+
+/* =====================================
+   SEARCH & FILTER TRANSACTIONS
+===================================== */
+
+function filterTransactions() {
+
+    const searchText =
+
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const selectedCategory =
+
+        document
+        .getElementById("categoryFilter")
+        .value;
+
+
+    const selectedType =
+
+        document
+        .getElementById("typeFilter")
+        .value;
+
+
+    const transactionList =
+
+        document
+        .getElementById(
+            "transactionList"
+        );
+
+
+    transactionList.innerHTML = "";
+
+
+    let visibleCount = 0;
+
+
+    transactions.forEach(
+
+        function(transaction, index) {
+
+
+            const matchesSearch =
+
+                transaction.description
+                .toLowerCase()
+                .includes(
+                    searchText
+                );
+
+
+            const matchesCategory =
+
+                selectedCategory ===
+                "all" ||
+
+                transaction.category ===
+                selectedCategory;
+
+
+            const matchesType =
+
+                selectedType ===
+                "all" ||
+
+                transaction.type ===
+                selectedType;
+
+
+            if (
+                matchesSearch &&
+                matchesCategory &&
+                matchesType
+            ) {
+
+                visibleCount++;
+
+
+                const li =
+                    document.createElement(
+                        "li"
+                    );
+
+
+                li.textContent =
+
+                    transaction.description +
+
+                    " — UGX " +
+
+                    transaction.amount
+                        .toLocaleString() +
+
+                    " — " +
+
+                    transaction.category +
+
+                    " — " +
+
+                    transaction.date +
+
+                    " — " +
+
+                    (
+                        transaction.type ===
+                        "income"
+                            ? "💵 Income"
+                            : "💸 Expense"
+                    );
+
+
+                /* EDIT BUTTON */
+
+                const editButton =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                editButton.textContent =
+                    "✏️ Edit";
+
+
+                editButton.onclick =
+                    function() {
+
+                        editTransaction(
+                            index
+                        );
+
+                    };
+
+
+                /* DELETE BUTTON */
+
+                const deleteButton =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                deleteButton.textContent =
+                    "🗑️ Delete";
+
+
+                deleteButton.onclick =
+                    function() {
+
+                        if (
+                            confirm(
+                                "Delete this transaction?"
+                            )
+                        ) {
+
+                            transactions.splice(
+                                index,
+                                1
+                            );
+
+
+                            saveTransactions();
+
+
+                            updateTracker();
+
+
+                            updateMonthlySummary();
+
+
+                            filterTransactions();
+
+                        }
+
+                    };
+
+
+                li.appendChild(
+                    editButton
+                );
+
+
+                li.appendChild(
+                    deleteButton
+                );
+
+
+                transactionList.appendChild(
+                    li
+                );
+
+            }
+
+        }
+
+    );
+
+
+    document
+    .getElementById(
+        "transactionCount"
+    )
+    .textContent =
+
+        "Showing " +
+        visibleCount +
+        " of " +
+        transactions.length +
+        " transactions";
+
+
+    if (visibleCount === 0) {
+
+        const emptyMessage =
+            document.createElement(
+                "li"
+            );
+
+
+        emptyMessage.textContent =
+            "🔍 No transactions found.";
+
+
+        transactionList.appendChild(
+            emptyMessage
+        );
+
+    }
+
+}
+
+
+
+/* =====================================
+   CLEAR SEARCH & FILTERS
+===================================== */
+
+function clearFilters() {
+
+    document
+    .getElementById("searchInput")
+    .value = "";
+
+
+    document
+    .getElementById("categoryFilter")
+    .value = "all";
+
+
+    document
+    .getElementById("typeFilter")
+    .value = "all";
+
+
+    filterTransactions();
+
 }
 
 
@@ -898,6 +1170,7 @@ function updateTracker() {
 function updateMonthlySummary() {
 
     const selectedMonth =
+
         document
         .getElementById(
             "monthFilter"

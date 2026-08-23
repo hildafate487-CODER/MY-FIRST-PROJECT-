@@ -149,8 +149,17 @@
 
             let income = 0;
             let expenses = 0;
-            let food = 0;
-            let transport = 0;
+            let categoryTotals = {
+    "Food": 0,
+    "Transport": 0,
+    "School": 0,
+    "Airtime/Data": 0,
+    "Rent": 0,
+    "Utilities": 0,
+    "Shopping": 0,
+    "Other": 0
+};
+            
 
             const transactionList =
                 document.getElementById("transactionList");

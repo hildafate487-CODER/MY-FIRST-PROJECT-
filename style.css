@@ -1,423 +1,609 @@
+/* =========================================
+   THE FATE STUDENT BUDGET TRACKER
+   PROFESSIONAL DASHBOARD STYLE
+========================================= */
+
+
+/* =========================================
+   GLOBAL
+========================================= */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f3f6fb;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
     color: #1f2937;
-    line-height: 1.5;
+    line-height: 1.6;
 }
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
 
 .container {
-    width: 94%;
+    width: 92%;
     max-width: 1100px;
-    margin: 20px auto;
+    margin: auto;
 }
 
 
-/* =========================
+/* =========================================
    HEADER
-========================= */
+========================================= */
 
 header {
-    background: #2563eb;
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #1e3a8a
+    );
+
     color: white;
-    padding: 28px 18px;
-    border-radius: 20px;
+
     text-align: center;
-    margin-bottom: 18px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+    padding: 35px 20px;
+
+    margin-top: 20px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
 }
+
 
 header h1 {
     font-size: 32px;
-    line-height: 1.25;
     margin-bottom: 10px;
 }
 
+
 header p {
     font-size: 16px;
+    opacity: 0.9;
 }
 
 
-/* =========================
+/* =========================================
    NAVIGATION
-========================= */
+========================================= */
 
 .dashboard-nav {
-    background: white;
-    padding: 10px;
-    border-radius: 16px;
     display: flex;
+
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 22px;
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
-    position: sticky;
-    top: 10px;
-    z-index: 100;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin: 20px 0;
 }
+
 
 .dashboard-nav a {
     text-decoration: none;
-    color: #2563eb;
-    font-weight: bold;
-    padding: 10px 13px;
+
+    color: #1e3a8a;
+
+    background: white;
+
+    padding: 10px 18px;
+
     border-radius: 10px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.08);
+
+    transition: 0.3s;
 }
+
 
 .dashboard-nav a:hover {
-    background: #2563eb;
+    background: #1e3a8a;
+
     color: white;
+
+    transform: translateY(-2px);
 }
 
 
-/* =========================
-   BALANCE
-========================= */
+/* =========================================
+   BALANCE CARD
+========================================= */
 
 .balance-card {
-    background: #2563eb;
-    color: white;
-    padding: 30px 20px;
-    border-radius: 20px;
+    background: white;
+
     text-align: center;
-    margin-bottom: 22px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.08);
 }
+
 
 .balance-card h2 {
-    font-size: 20px;
+    color: #64748b;
+
+    font-size: 18px;
+
+    margin-bottom: 10px;
 }
+
 
 .balance-card h3 {
-    font-size: 40px;
-    margin-top: 8px;
+    color: #1e3a8a;
+
+    font-size: 36px;
 }
 
 
-/* =========================
-   SUMMARY
-========================= */
+/* =========================================
+   SUMMARY CARDS
+========================================= */
 
 .summary {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
     gap: 18px;
-    margin-bottom: 22px;
+
+    margin-bottom: 25px;
 }
+
 
 .summary-card {
     background: white;
-    padding: 23px 15px;
+
+    padding: 25px;
+
     border-radius: 18px;
+
     text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.07);
+
+    transition: 0.3s;
 }
 
+
+.summary-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+
 .summary-card h3 {
-    font-size: 17px;
-    color: #4b5563;
+    color: #64748b;
+
+    font-size: 16px;
+
     margin-bottom: 8px;
 }
 
+
 .summary-card p {
-    font-size: 23px;
+    color: #1e3a8a;
+
+    font-size: 25px;
+
     font-weight: bold;
 }
 
 
-/* =========================
-   SECTIONS
-========================= */
+/* =========================================
+   FORM SECTION
+========================================= */
 
-.form-section,
-.transactions,
-.monthly-summary,
-.chart-section {
+.form-section {
     background: white;
-    padding: 28px;
+
+    padding: 30px;
+
     border-radius: 20px;
-    margin-bottom: 22px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
-.form-section h2,
-.transactions h2,
-.monthly-summary h2,
-.chart-section h2 {
+
+.form-section h2 {
+    color: #1e3a8a;
+
     margin-bottom: 20px;
-    font-size: 24px;
 }
 
-
-/* =========================
-   FORM
-========================= */
 
 label {
     display: block;
-    font-weight: bold;
+
     margin-top: 14px;
+
     margin-bottom: 6px;
+
+    font-weight: bold;
+
+    color: #475569;
 }
+
 
 input,
 select {
     width: 100%;
-    padding: 14px;
+
+    padding: 13px;
+
     border: 1px solid #d1d5db;
-    border-radius: 12px;
-    font-size: 16px;
-    background: white;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.3s;
 }
+
 
 input:focus,
 select:focus {
-    outline: none;
-    border: 2px solid #2563eb;
+    border-color: #1e3a8a;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px rgba(
+            30,
+            58,
+            138,
+            0.1
+        );
 }
 
 
-/* =========================
-   GENERAL BUTTONS
-========================= */
+/* =========================================
+   BUTTONS
+========================================= */
 
 button {
     border: none;
+
+    padding: 11px 16px;
+
     border-radius: 10px;
-    padding: 12px 18px;
-    background: #2563eb;
+
+    background: #1e3a8a;
+
     color: white;
-    font-size: 15px;
+
+    font-size: 14px;
+
     font-weight: bold;
+
     cursor: pointer;
+
+    margin-top: 15px;
+
+    margin-right: 8px;
+
+    transition: 0.3s;
 }
+
 
 button:hover {
-    opacity: 0.88;
+    background: #172554;
+
+    transform: translateY(-2px);
 }
 
 
-/* =========================
+#cancelButton {
+    background: #dc2626;
+}
+
+
+#cancelButton:hover {
+    background: #991b1b;
+}
+
+
+/* =========================================
    TRANSACTIONS
-========================= */
+========================================= */
+
+.transactions {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+.transactions h2 {
+    color: #1e3a8a;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   SEARCH & FILTER
+========================================= */
+
+.filter-section {
+    background: #f8fafc;
+
+    padding: 20px;
+
+    border-radius: 15px;
+
+    border: 1px solid #e2e8f0;
+
+    margin-bottom: 20px;
+}
+
+
+.filter-section h3 {
+    color: #334155;
+
+    margin-bottom: 15px;
+}
+
+
+#transactionCount {
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================
+   TRANSACTION LIST
+========================================= */
 
 #transactionList {
     list-style: none;
 }
 
+
 #transactionList li {
     background: #f8fafc;
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 14px;
-    border-left: 4px solid #2563eb;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
+
+    border-left: 5px solid #1e3a8a;
+
+    padding: 15px;
+
+    margin-bottom: 12px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
-
-/* Transaction text */
-
-#transactionList li {
-    font-size: 15px;
-}
-
-
-/* =========================
-   EDIT BUTTON
-========================= */
 
 #transactionList li button {
-    display: inline-block;
-    width: auto;
-    margin: 5px 4px 0 0;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-size: 14px;
+    margin-top: 10px;
 }
 
 
-/* First button = EDIT */
-
-#transactionList li button:first-of-type {
-    background: #2563eb;
-}
-
-
-/* Second button = DELETE */
-
-#transactionList li button:last-of-type {
-    background: #dc2626;
-}
-
-
-/* =========================
+/* =========================================
    MONTHLY SUMMARY
-========================= */
+========================================= */
 
-.monthly-summary input {
+.monthly-summary {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+.monthly-summary h2 {
+    color: #1e3a8a;
+
     margin-bottom: 20px;
 }
 
 
-/* =========================
-   CHART
-========================= */
+/* =========================================
+   ANALYTICS
+========================================= */
 
 .chart-section {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.08);
+
     text-align: center;
 }
+
+
+.chart-section h2 {
+    color: #1e3a8a;
+
+    margin-bottom: 20px;
+}
+
 
 #spendingChart {
-    width: 100% !important;
-    max-height: 430px;
+    max-width: 600px;
+
+    margin: auto;
 }
 
 
-/* =========================
+/* =========================================
    FOOTER
-========================= */
+========================================= */
 
 footer {
+    background: #0f172a;
+
+    color: white;
+
     text-align: center;
-    padding: 25px 10px;
-    color: #6b7280;
-    font-size: 14px;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    margin: 25px 0;
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+footer p {
+    margin: 5px;
+}
 
-@media (max-width: 700px) {
+
+footer p:last-child {
+    opacity: 0.7;
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 768px) {
 
     .container {
         width: 94%;
-        margin: 12px auto;
     }
 
+
     header {
-        padding: 22px 14px;
+        padding: 28px 15px;
     }
+
 
     header h1 {
         font-size: 24px;
-        line-height: 1.25;
     }
+
 
     header p {
         font-size: 14px;
     }
 
 
-    /* Navigation */
-
     .dashboard-nav {
-        overflow-x: auto;
-        justify-content: flex-start;
-        white-space: nowrap;
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
     }
+
 
     .dashboard-nav a {
-        font-size: 14px;
-        padding: 9px 11px;
+        text-align: center;
+
+        padding: 10px;
     }
 
-
-    /* Balance */
-
-    .balance-card {
-        padding: 25px 15px;
-    }
-
-    .balance-card h2 {
-        font-size: 18px;
-    }
-
-    .balance-card h3 {
-        font-size: 30px;
-        word-break: break-word;
-    }
-
-
-    /* Summary */
 
     .summary {
         grid-template-columns: 1fr;
-        gap: 14px;
-    }
-
-    .summary-card {
-        padding: 20px 15px;
     }
 
 
-    /* Sections */
+    .balance-card h3 {
+        font-size: 30px;
+    }
+
 
     .form-section,
     .transactions,
     .monthly-summary,
     .chart-section {
-        padding: 20px 16px;
+        padding: 20px;
     }
 
-
-    /* Form */
-
-    input,
-    select {
-        font-size: 16px;
-        padding: 13px;
-    }
-
-
-    /* Add button */
-
-    #saveButton {
-        width: 100%;
-        margin-top: 20px;
-    }
-
-
-    /* Cancel button */
-
-    #cancelButton {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-
-    /* Transactions */
 
     #transactionList li {
-        display: block;
         font-size: 14px;
     }
 
 
-    #transactionList li button {
-        display: inline-block;
+    button {
         width: auto;
-        margin-top: 12px;
+
+        margin-bottom: 5px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 420px) {
+
+    header h1 {
+        font-size: 21px;
     }
 
 
-    /* Chart */
+    .dashboard-nav {
+        grid-template-columns: 1fr;
+    }
 
-    #spendingChart {
-        max-height: 350px;
+
+    .balance-card h3 {
+        font-size: 26px;
+    }
+
+
+    .summary-card p {
+        font-size: 22px;
     }
 
 }

@@ -47,25 +47,17 @@
 
     <nav class="dashboard-nav">
 
-        <a href="#dashboard">
-            🏠 Dashboard
-        </a>
+        <a href="#dashboard">🏠 Dashboard</a>
 
-        <a href="#transactions">
-            💳 Transactions
-        </a>
+        <a href="#transactions">💳 Transactions</a>
 
-        <a href="#goals">
-            🎯 Goals
-        </a>
+        <a href="#goals">🎯 Goals</a>
 
-        <a href="#analytics">
-            📊 Analytics
-        </a>
+        <a href="#insights">💡 Insights</a>
 
-        <a href="#monthly">
-            📅 Monthly
-        </a>
+        <a href="#analytics">📊 Analytics</a>
+
+        <a href="#monthly">📅 Monthly</a>
 
     </nav>
 
@@ -121,6 +113,75 @@
             </p>
 
         </div>
+
+    </section>
+
+
+    <!-- DASHBOARD INSIGHTS -->
+
+    <section
+        class="summary"
+        id="insights"
+    >
+
+        <div class="summary-card">
+
+            <h3>📈 Top Spending Category</h3>
+
+            <p id="topCategory">
+                None
+            </p>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <h3>💸 Largest Expense</h3>
+
+            <p id="largestExpense">
+                UGX 0
+            </p>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <h3>📋 Transactions</h3>
+
+            <p id="transactionTotal">
+                0
+            </p>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <h3>💰 Savings Rate</h3>
+
+            <p id="savingsRate">
+                0%
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- SPENDING ADVICE -->
+
+    <section class="form-section">
+
+        <h2>
+            💡 Spending Advice
+        </h2>
+
+        <p id="spendingAdvice">
+            Add some transactions to receive
+            spending advice.
+        </p>
 
     </section>
 
@@ -259,8 +320,6 @@
         </h2>
 
 
-        <!-- SEARCH & FILTER -->
-
         <div class="filter-section">
 
             <h3>
@@ -360,14 +419,10 @@
         <ul id="transactionList"></ul>
 
 
-        <!-- EXPORT -->
-
         <div class="export-section">
 
             <button onclick="exportTransactions()">
-
                 📥 Export Transactions
-
             </button>
 
         </div>
@@ -421,9 +476,7 @@
 
 
         <button onclick="saveGoal()">
-
             🎯 Save Goal
-
         </button>
 
 
@@ -432,9 +485,7 @@
             id="deleteGoalButton"
             style="display:none;"
         >
-
             🗑️ Delete Goal
-
         </button>
 
 
@@ -466,7 +517,6 @@
 
 
         <section class="summary">
-
 
             <div class="summary-card">
 
@@ -505,7 +555,6 @@
                 </p>
 
             </div>
-
 
         </section>
 
@@ -550,15 +599,13 @@
 
 
 /* =========================================
-   TRANSACTIONS
+   DATA
 ========================================= */
 
 let transactions = JSON.parse(
-
     localStorage.getItem(
         "budgetTransactions"
     )
-
 ) || [];
 
 
@@ -567,16 +614,10 @@ let editingIndex = -1;
 let spendingChart = null;
 
 
-/* =========================================
-   SAVINGS GOAL
-========================================= */
-
 let savingsGoal = JSON.parse(
-
     localStorage.getItem(
         "fateSavingsGoal"
     )
-
 ) || null;
 
 
@@ -587,20 +628,15 @@ let savingsGoal = JSON.parse(
 function saveTransactions() {
 
     localStorage.setItem(
-
         "budgetTransactions",
-
-        JSON.stringify(
-            transactions
-        )
-
+        JSON.stringify(transactions)
     );
 
 }
 
 
 /* =========================================
-   ADD / EDIT TRANSACTION
+   SAVE TRANSACTION
 ========================================= */
 
 function saveTransaction() {
@@ -673,20 +709,11 @@ function saveTransaction() {
 
     const transaction = {
 
-        description:
-            description,
-
-        amount:
-            amount,
-
-        date:
-            date,
-
-        type:
-            type,
-
-        category:
-            category
+        description,
+        amount,
+        date,
+        type,
+        category
 
     };
 
@@ -697,9 +724,7 @@ function saveTransaction() {
             transaction
         );
 
-    }
-
-    else {
+    } else {
 
         transactions[
             editingIndex
@@ -722,7 +747,7 @@ function saveTransaction() {
 
 
 /* =========================================
-   EDIT TRANSACTION
+   EDIT
 ========================================= */
 
 function editTransaction(index) {
@@ -731,55 +756,54 @@ function editTransaction(index) {
         transactions[index];
 
 
-    document
-    .getElementById("description")
-    .value =
+    document.getElementById(
+        "description"
+    ).value =
         transaction.description;
 
 
-    document
-    .getElementById("amount")
-    .value =
+    document.getElementById(
+        "amount"
+    ).value =
         transaction.amount;
 
 
-    document
-    .getElementById("date")
-    .value =
+    document.getElementById(
+        "date"
+    ).value =
         transaction.date;
 
 
-    document
-    .getElementById("type")
-    .value =
+    document.getElementById(
+        "type"
+    ).value =
         transaction.type;
 
 
-    document
-    .getElementById("category")
-    .value =
+    document.getElementById(
+        "category"
+    ).value =
         transaction.category;
 
 
-    editingIndex =
-        index;
+    editingIndex = index;
 
 
-    document
-    .getElementById("formTitle")
-    .textContent =
+    document.getElementById(
+        "formTitle"
+    ).textContent =
         "✏️ Edit Transaction";
 
 
-    document
-    .getElementById("saveButton")
-    .textContent =
+    document.getElementById(
+        "saveButton"
+    ).textContent =
         "💾 Save Changes";
 
 
-    document
-    .getElementById("cancelButton")
-    .style.display =
+    document.getElementById(
+        "cancelButton"
+    ).style.display =
         "block";
 
 
@@ -813,55 +837,53 @@ function cancelEdit() {
 
 function clearForm() {
 
-    document
-    .getElementById("description")
-    .value = "";
+    document.getElementById(
+        "description"
+    ).value = "";
 
 
-    document
-    .getElementById("amount")
-    .value = "";
+    document.getElementById(
+        "amount"
+    ).value = "";
 
 
-    document
-    .getElementById("date")
-    .value = "";
+    document.getElementById(
+        "date"
+    ).value = "";
 
 
-    document
-    .getElementById("type")
-    .value =
-        "income";
+    document.getElementById(
+        "type"
+    ).value = "income";
 
 
-    document
-    .getElementById("category")
-    .value =
-        "Food";
+    document.getElementById(
+        "category"
+    ).value = "Food";
 
 
-    document
-    .getElementById("formTitle")
-    .textContent =
+    document.getElementById(
+        "formTitle"
+    ).textContent =
         "➕ Add Transaction";
 
 
-    document
-    .getElementById("saveButton")
-    .textContent =
+    document.getElementById(
+        "saveButton"
+    ).textContent =
         "➕ Add Transaction";
 
 
-    document
-    .getElementById("cancelButton")
-    .style.display =
+    document.getElementById(
+        "cancelButton"
+    ).style.display =
         "none";
 
 }
 
 
 /* =========================================
-   UPDATE DASHBOARD
+   UPDATE TRACKER
 ========================================= */
 
 function updateTracker() {
@@ -874,26 +896,18 @@ function updateTracker() {
     const categoryTotals = {
 
         "Food": 0,
-
         "Transport": 0,
-
         "School": 0,
-
         "Airtime/Data": 0,
-
         "Rent": 0,
-
         "Utilities": 0,
-
         "Shopping": 0,
-
         "Other": 0
 
     };
 
 
     transactions.forEach(
-
         function(transaction) {
 
             const amount =
@@ -937,7 +951,6 @@ function updateTracker() {
             }
 
         }
-
     );
 
 
@@ -945,32 +958,39 @@ function updateTracker() {
         income - expenses;
 
 
-    document
-    .getElementById("income")
-    .textContent =
+    document.getElementById(
+        "income"
+    ).textContent =
         "UGX " +
         income.toLocaleString();
 
 
-    document
-    .getElementById("expenses")
-    .textContent =
+    document.getElementById(
+        "expenses"
+    ).textContent =
         "UGX " +
         expenses.toLocaleString();
 
 
-    document
-    .getElementById("totalSpending")
-    .textContent =
+    document.getElementById(
+        "totalSpending"
+    ).textContent =
         "UGX " +
         expenses.toLocaleString();
 
 
-    document
-    .getElementById("balance")
-    .textContent =
+    document.getElementById(
+        "balance"
+    ).textContent =
         "UGX " +
         balance.toLocaleString();
+
+
+    updateInsights(
+        income,
+        expenses,
+        categoryTotals
+    );
 
 
     updateChart(
@@ -984,14 +1004,194 @@ function updateTracker() {
 
 
 /* =========================================
+   DASHBOARD INSIGHTS
+========================================= */
+
+function updateInsights(
+    income,
+    expenses,
+    categoryTotals
+) {
+
+    let topCategory =
+        "None";
+
+
+    let topAmount = 0;
+
+
+    Object.keys(
+        categoryTotals
+    ).forEach(
+        function(category) {
+
+            if (
+                categoryTotals[category] >
+                topAmount
+            ) {
+
+                topAmount =
+                    categoryTotals[category];
+
+                topCategory =
+                    category;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "topCategory"
+    ).textContent =
+
+        topCategory === "None"
+
+        ? "None"
+
+        : topCategory +
+          " — UGX " +
+          topAmount.toLocaleString();
+
+
+    let largestExpense =
+        null;
+
+
+    transactions.forEach(
+        function(transaction) {
+
+            if (
+                transaction.type ===
+                "expense"
+            ) {
+
+                if (
+                    largestExpense === null ||
+                    Number(transaction.amount) >
+                    Number(largestExpense.amount)
+                ) {
+
+                    largestExpense =
+                        transaction;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    if (largestExpense) {
+
+        document.getElementById(
+            "largestExpense"
+        ).textContent =
+
+            largestExpense.description +
+            " — UGX " +
+            Number(
+                largestExpense.amount
+            ).toLocaleString();
+
+    } else {
+
+        document.getElementById(
+            "largestExpense"
+        ).textContent =
+            "UGX 0";
+
+    }
+
+
+    document.getElementById(
+        "transactionTotal"
+    ).textContent =
+        transactions.length;
+
+
+    let savingsRate = 0;
+
+
+    if (income > 0) {
+
+        savingsRate =
+            (
+                (income - expenses) /
+                income
+            ) * 100;
+
+    }
+
+
+    document.getElementById(
+        "savingsRate"
+    ).textContent =
+        savingsRate.toFixed(1) +
+        "%";
+
+
+    const advice =
+        document.getElementById(
+            "spendingAdvice"
+        );
+
+
+    if (transactions.length === 0) {
+
+        advice.textContent =
+            "Add transactions to receive personalized spending advice.";
+
+    }
+
+    else if (income === 0) {
+
+        advice.textContent =
+            "💡 Add your income so the tracker can calculate your savings rate.";
+
+    }
+
+    else if (expenses > income) {
+
+        advice.textContent =
+            "⚠️ Your expenses are higher than your income. Consider reducing unnecessary spending.";
+
+    }
+
+    else if (savingsRate >= 20) {
+
+        advice.textContent =
+            "🎉 Great job! You're saving at least 20% of your income. Keep it up!";
+
+    }
+
+    else if (savingsRate > 0) {
+
+        advice.textContent =
+            "💡 You're saving some money. Try to increase your savings gradually.";
+
+    }
+
+    else {
+
+        advice.textContent =
+            "💡 Your income and expenses are currently equal. Look for small ways to reduce spending.";
+
+    }
+
+}
+
+
+/* =========================================
    RENDER TRANSACTIONS
 ========================================= */
 
 function renderTransactions() {
 
     const list =
-        document
-        .getElementById(
+        document.getElementById(
             "transactionList"
         );
 
@@ -1000,44 +1200,36 @@ function renderTransactions() {
 
 
     const search =
-        document
-        .getElementById(
+        document.getElementById(
             "searchInput"
-        )
-        .value
+        ).value
         .trim()
         .toLowerCase();
 
 
     const category =
-        document
-        .getElementById(
+        document.getElementById(
             "categoryFilter"
-        )
-        .value;
+        ).value;
 
 
     const type =
-        document
-        .getElementById(
+        document.getElementById(
             "typeFilter"
-        )
-        .value;
+        ).value;
 
 
     let count = 0;
 
 
     transactions.forEach(
-
         function(transaction, index) {
 
             const description =
                 String(
                     transaction.description ||
                     ""
-                )
-                .toLowerCase();
+                ).toLowerCase();
 
 
             const matchesSearch =
@@ -1068,8 +1260,7 @@ function renderTransactions() {
 
 
                 const li =
-                    document
-                    .createElement(
+                    document.createElement(
                         "li"
                     );
 
@@ -1077,37 +1268,25 @@ function renderTransactions() {
                 li.textContent =
 
                     transaction.description +
-
                     " — UGX " +
-
                     Number(
                         transaction.amount
-                    )
-                    .toLocaleString() +
-
+                    ).toLocaleString() +
                     " — " +
-
                     transaction.category +
-
                     " — " +
-
                     transaction.date +
-
                     " — " +
-
                     (
                         transaction.type ===
                         "income"
-
                         ? "💵 Income"
-
                         : "💸 Expense"
                     );
 
 
                 const editButton =
-                    document
-                    .createElement(
+                    document.createElement(
                         "button"
                     );
 
@@ -1127,8 +1306,7 @@ function renderTransactions() {
 
 
                 const deleteButton =
-                    document
-                    .createElement(
+                    document.createElement(
                         "button"
                     );
 
@@ -1180,15 +1358,12 @@ function renderTransactions() {
             }
 
         }
-
     );
 
 
-    document
-    .getElementById(
+    document.getElementById(
         "transactionCount"
-    )
-    .textContent =
+    ).textContent =
 
         "Showing " +
         count +
@@ -1200,8 +1375,7 @@ function renderTransactions() {
     if (count === 0) {
 
         const empty =
-            document
-            .createElement(
+            document.createElement(
                 "li"
             );
 
@@ -1220,28 +1394,28 @@ function renderTransactions() {
 
 
 /* =========================================
-   SEARCH & FILTER
+   FILTERS
 ========================================= */
 
-document
-.getElementById("searchInput")
-.addEventListener(
+document.getElementById(
+    "searchInput"
+).addEventListener(
     "input",
     renderTransactions
 );
 
 
-document
-.getElementById("categoryFilter")
-.addEventListener(
+document.getElementById(
+    "categoryFilter"
+).addEventListener(
     "change",
     renderTransactions
 );
 
 
-document
-.getElementById("typeFilter")
-.addEventListener(
+document.getElementById(
+    "typeFilter"
+).addEventListener(
     "change",
     renderTransactions
 );
@@ -1249,25 +1423,19 @@ document
 
 function clearFilters() {
 
-    document
-    .getElementById(
+    document.getElementById(
         "searchInput"
-    )
-    .value = "";
+    ).value = "";
 
 
-    document
-    .getElementById(
+    document.getElementById(
         "categoryFilter"
-    )
-    .value = "all";
+    ).value = "all";
 
 
-    document
-    .getElementById(
+    document.getElementById(
         "typeFilter"
-    )
-    .value = "all";
+    ).value = "all";
 
 
     renderTransactions();
@@ -1282,11 +1450,9 @@ function clearFilters() {
 function updateMonthlySummary() {
 
     const selectedMonth =
-        document
-        .getElementById(
+        document.getElementById(
             "monthFilter"
-        )
-        .value;
+        ).value;
 
 
     let monthlyIncome = 0;
@@ -1296,27 +1462,21 @@ function updateMonthlySummary() {
 
     if (selectedMonth === "") {
 
-        document
-        .getElementById(
+        document.getElementById(
             "monthlyIncome"
-        )
-        .textContent =
+        ).textContent =
             "UGX 0";
 
 
-        document
-        .getElementById(
+        document.getElementById(
             "monthlyExpenses"
-        )
-        .textContent =
+        ).textContent =
             "UGX 0";
 
 
-        document
-        .getElementById(
+        document.getElementById(
             "monthlyBalance"
-        )
-        .textContent =
+        ).textContent =
             "UGX 0";
 
 
@@ -1326,14 +1486,12 @@ function updateMonthlySummary() {
 
 
     transactions.forEach(
-
         function(transaction) {
 
             if (
                 String(
                     transaction.date
-                )
-                .startsWith(
+                ).startsWith(
                     selectedMonth
                 )
             ) {
@@ -1368,47 +1526,38 @@ function updateMonthlySummary() {
             }
 
         }
-
     );
 
 
-    const monthlyBalance =
-        monthlyIncome -
-        monthlyExpenses;
-
-
-    document
-    .getElementById(
+    document.getElementById(
         "monthlyIncome"
-    )
-    .textContent =
+    ).textContent =
         "UGX " +
         monthlyIncome.toLocaleString();
 
 
-    document
-    .getElementById(
+    document.getElementById(
         "monthlyExpenses"
-    )
-    .textContent =
+    ).textContent =
         "UGX " +
         monthlyExpenses.toLocaleString();
 
 
-    document
-    .getElementById(
+    document.getElementById(
         "monthlyBalance"
-    )
-    .textContent =
+    ).textContent =
         "UGX " +
-        monthlyBalance.toLocaleString();
+        (
+            monthlyIncome -
+            monthlyExpenses
+        ).toLocaleString();
 
 }
 
 
-document
-.getElementById("monthFilter")
-.addEventListener(
+document.getElementById(
+    "monthFilter"
+).addEventListener(
     "change",
     updateMonthlySummary
 );
@@ -1418,18 +1567,17 @@ document
    CHART
 ========================================= */
 
-function updateChart(categoryTotals) {
+function updateChart(
+    categoryTotals
+) {
 
     const canvas =
-        document
-        .getElementById(
+        document.getElementById(
             "spendingChart"
         );
 
 
-    if (
-        spendingChart !== null
-    ) {
+    if (spendingChart) {
 
         spendingChart.destroy();
 
@@ -1437,16 +1585,11 @@ function updateChart(categoryTotals) {
 
 
     spendingChart =
-
         new Chart(
-
             canvas,
-
             {
 
-                type:
-                    "doughnut",
-
+                type: "doughnut",
 
                 data: {
 
@@ -1455,14 +1598,12 @@ function updateChart(categoryTotals) {
                             categoryTotals
                         ),
 
-
                     datasets: [
 
                         {
 
                             label:
                                 "Spending by Category",
-
 
                             data:
                                 Object.values(
@@ -1475,12 +1616,9 @@ function updateChart(categoryTotals) {
 
                 },
 
-
                 options: {
 
-                    responsive:
-                        true,
-
+                    responsive: true,
 
                     plugins: {
 
@@ -1496,14 +1634,13 @@ function updateChart(categoryTotals) {
                 }
 
             }
-
         );
 
 }
 
 
 /* =========================================
-   EXPORT TRANSACTIONS
+   EXPORT
 ========================================= */
 
 function exportTransactions() {
@@ -1526,14 +1663,12 @@ function exportTransactions() {
 
 
     transactions.forEach(
-
         function(transaction) {
 
             const description =
                 String(
                     transaction.description
-                )
-                .replace(
+                ).replace(
                     /"/g,
                     '""'
                 );
@@ -1542,47 +1677,36 @@ function exportTransactions() {
             const category =
                 String(
                     transaction.category
-                )
-                .replace(
+                ).replace(
                     /"/g,
                     '""'
                 );
 
 
             csv +=
-
                 '"' +
                 description +
                 '",' +
-
                 transaction.amount +
                 ',' +
-
                 transaction.date +
                 ',' +
-
                 transaction.type +
-                ',' +
-
-                '"' +
+                ',"' +
                 category +
                 '"\n';
 
         }
-
     );
 
 
     const blob =
         new Blob(
-
             [csv],
-
             {
                 type:
                     "text/csv;charset=utf-8;"
             }
-
         );
 
 
@@ -1598,17 +1722,14 @@ function exportTransactions() {
         );
 
 
-    link.href =
-        url;
+    link.href = url;
 
 
     link.download =
         "THE_FATE_Budget_Transactions.csv";
 
 
-    document
-    .body
-    .appendChild(
+    document.body.appendChild(
         link
     );
 
@@ -1616,9 +1737,7 @@ function exportTransactions() {
     link.click();
 
 
-    document
-    .body
-    .removeChild(
+    document.body.removeChild(
         link
     );
 
@@ -1631,31 +1750,30 @@ function exportTransactions() {
 
 
 /* =========================================
-   SAVINGS GOAL FUNCTIONS
+   SAVINGS GOAL
 ========================================= */
 
 function saveGoal() {
 
     const name =
-        document
-        .getElementById("goalName")
-        .value
-        .trim();
+        document.getElementById(
+            "goalName"
+        ).value.trim();
 
 
     const target =
         Number(
-            document
-            .getElementById("goalTarget")
-            .value
+            document.getElementById(
+                "goalTarget"
+            ).value
         );
 
 
     const saved =
         Number(
-            document
-            .getElementById("goalSaved")
-            .value
+            document.getElementById(
+                "goalSaved"
+            ).value
         );
 
 
@@ -1694,14 +1812,9 @@ function saveGoal() {
 
     savingsGoal = {
 
-        name:
-            name,
-
-        target:
-            target,
-
-        saved:
-            saved
+        name,
+        target,
+        saved
 
     };
 
@@ -1729,15 +1842,13 @@ function saveGoal() {
 function displayGoal() {
 
     const display =
-        document
-        .getElementById(
+        document.getElementById(
             "goalDisplay"
         );
 
 
     const deleteButton =
-        document
-        .getElementById(
+        document.getElementById(
             "deleteGoalButton"
         );
 
@@ -1754,26 +1865,21 @@ function displayGoal() {
     }
 
 
-    const percentage = Math.min(
-
-        100,
-
-        (
-            savingsGoal.saved /
-            savingsGoal.target
-        ) * 100
-
-    );
+    const percentage =
+        Math.min(
+            100,
+            (
+                savingsGoal.saved /
+                savingsGoal.target
+            ) * 100
+        );
 
 
     const remaining =
         Math.max(
-
             0,
-
             savingsGoal.target -
             savingsGoal.saved
-
         );
 
 
@@ -1789,9 +1895,10 @@ function displayGoal() {
         >
 
             <h3>
-                🎯 ${escapeHTML(savingsGoal.name)}
+                🎯 ${escapeHTML(
+                    savingsGoal.name
+                )}
             </h3>
-
 
             <p>
                 Saved:
@@ -1800,14 +1907,12 @@ function displayGoal() {
                 </strong>
             </p>
 
-
             <p>
                 Target:
                 <strong>
                     UGX ${savingsGoal.target.toLocaleString()}
                 </strong>
             </p>
-
 
             <p>
                 Remaining:
@@ -1816,13 +1921,11 @@ function displayGoal() {
                 </strong>
             </p>
 
-
             <p>
                 <strong>
                     ${percentage.toFixed(1)}% Complete
                 </strong>
             </p>
-
 
             <div
                 style="
@@ -1831,7 +1934,6 @@ function displayGoal() {
                     background:#e2e8f0;
                     border-radius:20px;
                     overflow:hidden;
-                    margin-top:10px;
                 "
             >
 
@@ -1841,7 +1943,6 @@ function displayGoal() {
                         height:100%;
                         background:#1e3a8a;
                         border-radius:20px;
-                        transition:width 0.5s;
                     "
                 ></div>
 
@@ -1852,12 +1953,7 @@ function displayGoal() {
                 percentage >= 100
 
                 ? `
-                    <p
-                        style="
-                            margin-top:15px;
-                            font-weight:bold;
-                        "
-                    >
+                    <p>
                         🎉 Goal Achieved!
                     </p>
                 `
@@ -1883,10 +1979,13 @@ function displayGoal() {
 function escapeHTML(text) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    div.textContent =
-        text;
+
+    div.textContent = text;
+
 
     return div.innerHTML;
 
@@ -1899,9 +1998,7 @@ function escapeHTML(text) {
 
 function deleteGoal() {
 
-    if (
-        !savingsGoal
-    ) {
+    if (!savingsGoal) {
 
         return;
 
@@ -1922,19 +2019,19 @@ function deleteGoal() {
         );
 
 
-        document
-        .getElementById("goalName")
-        .value = "";
+        document.getElementById(
+            "goalName"
+        ).value = "";
 
 
-        document
-        .getElementById("goalTarget")
-        .value = "";
+        document.getElementById(
+            "goalTarget"
+        ).value = "";
 
 
-        document
-        .getElementById("goalSaved")
-        .value = "";
+        document.getElementById(
+            "goalSaved"
+        ).value = "";
 
 
         displayGoal();

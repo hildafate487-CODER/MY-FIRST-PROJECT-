@@ -176,14 +176,15 @@
 
                     expenses += transaction.amount;
 
-                    if (transaction.category === "Food") {
-                        food += transaction.amount;
-                    }
+                    
+                     if (categoryTotals.hasOwnProperty(transaction.category)) {
+    categoryTotals[transaction.category] += transaction.amount;
+}  
+              
 
-                    if (transaction.category === "Transport") {
-                        transport += transaction.amount;
-                    }
-                }
+                   
+                    
+       
 
                 const li = document.createElement("li");
 
@@ -215,14 +216,14 @@
                 "UGX " + balance.toLocaleString();
 
 
-            updateChart(food, transport);
+            updateChart(categoryTotals);
         }
 
 
         let spendingChart;
 
 
-        function updateChart(food, transport) {
+        function updateChart(categoryTotals) {
 
             const ctx =
                 document.getElementById("spendingChart");
@@ -237,18 +238,22 @@
 
                 data: {
 
-                    labels: [
-                        "Food",
-                        "Transport"
-                    ],
+                    labels: Object.keys(categoryTotals),
 
-                    datasets: [{
-                        label: "Spending",
-                        data: [
-                            food,
-                            transport
-                        ]
-                    }]
+datasets: [{
+    label: "Spending by Category",
+    data: Object.values(categoryTotals)
+}]
+                        
+                        
+                   
+
+                    
+                       
+                        
+                     
+                        
+                    
                 },
 
                 options: {

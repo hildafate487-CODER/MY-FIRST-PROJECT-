@@ -904,6 +904,181 @@ function updateTracker() {
 
 function filterTransactions() {
 
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const categoryFilter =
+        document.getElementById("categoryFilter");
+
+    const typeFilter =
+        document.getElementById("typeFilter");
+
+    const transactionList =
+        document.getElementById("transactionList");
+
+    const transactionCount =
+        document.getElementById("transactionCount");
+
+
+    const searchText =
+        searchInput.value
+        .toLowerCase()
+        .trim();
+
+    const selectedCategory =
+        categoryFilter.value;
+
+    const selectedType =
+        typeFilter.value;
+
+
+    transactionList.innerHTML = "";
+
+
+    let visibleCount = 0;
+
+
+    transactions.forEach(function(transaction, index) {
+
+        const description =
+            String(transaction.description || "")
+            .toLowerCase();
+
+
+        const category =
+            String(transaction.category || "");
+
+
+        const type =
+            String(transaction.type || "");
+
+
+        const matchesSearch =
+            description.includes(searchText);
+
+
+        const matchesCategory =
+            selectedCategory === "all" ||
+            category === selectedCategory;
+
+
+        const matchesType =
+            selectedType === "all" ||
+            type === selectedType;
+
+
+        if (
+            matchesSearch &&
+            matchesCategory &&
+            matchesType
+        ) {
+
+            visibleCount++;
+
+
+            const li =
+                document.createElement("li");
+
+
+            li.textContent =
+                transaction.description +
+                " — UGX " +
+                Number(transaction.amount)
+                    .toLocaleString() +
+                " — " +
+                transaction.category +
+                " — " +
+                transaction.date +
+                " — " +
+                (
+                    transaction.type === "income"
+                    ? "💵 Income"
+                    : "💸 Expense"
+                );
+
+
+            const editButton =
+                document.createElement("button");
+
+            editButton.textContent =
+                "✏️ Edit";
+
+
+            editButton.onclick =
+                function() {
+
+                    editTransaction(index);
+
+                };
+
+
+            const deleteButton =
+                document.createElement("button");
+
+            deleteButton.textContent =
+                "🗑️ Delete";
+
+
+            deleteButton.onclick =
+                function() {
+
+                    if (
+                        confirm(
+                            "Delete this transaction?"
+                        )
+                    ) {
+
+                        transactions.splice(
+                            index,
+                            1
+                        );
+
+                        saveTransactions();
+
+                        updateTracker();
+
+                        updateMonthlySummary();
+
+                    }
+
+                };
+
+
+            li.appendChild(editButton);
+
+            li.appendChild(deleteButton);
+
+            transactionList.appendChild(li);
+
+        }
+
+    });
+
+
+    transactionCount.textContent =
+        "Showing " +
+        visibleCount +
+        " of " +
+        transactions.length +
+        " transactions";
+
+
+    if (visibleCount === 0) {
+
+        const emptyMessage =
+            document.createElement("li");
+
+        emptyMessage.textContent =
+            "🔍 No transactions found.";
+
+        transactionList.appendChild(
+            emptyMessage
+        );
+
+    }
+
+}
+
     const searchText =
 
         document

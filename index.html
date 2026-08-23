@@ -47,13 +47,25 @@
 
     <nav class="dashboard-nav">
 
-        <a href="#dashboard">🏠 Dashboard</a>
+        <a href="#dashboard">
+            🏠 Dashboard
+        </a>
 
-        <a href="#transactions">💳 Transactions</a>
+        <a href="#transactions">
+            💳 Transactions
+        </a>
 
-        <a href="#analytics">📊 Analytics</a>
+        <a href="#goals">
+            🎯 Goals
+        </a>
 
-        <a href="#monthly">📅 Monthly</a>
+        <a href="#analytics">
+            📊 Analytics
+        </a>
+
+        <a href="#monthly">
+            📅 Monthly
+        </a>
 
     </nav>
 
@@ -247,7 +259,7 @@
         </h2>
 
 
-        <!-- SEARCH AND FILTER -->
+        <!-- SEARCH & FILTER -->
 
         <div class="filter-section">
 
@@ -334,9 +346,7 @@
 
 
             <button onclick="clearFilters()">
-
                 🔄 Clear Filters
-
             </button>
 
         </div>
@@ -361,6 +371,74 @@
             </button>
 
         </div>
+
+    </section>
+
+
+    <!-- SAVINGS GOALS -->
+
+    <section
+        class="form-section"
+        id="goals"
+    >
+
+        <h2>
+            🎯 Savings Goal
+        </h2>
+
+
+        <label for="goalName">
+            Goal Name
+        </label>
+
+        <input
+            type="text"
+            id="goalName"
+            placeholder="e.g. New Laptop"
+        >
+
+
+        <label for="goalTarget">
+            Target Amount
+        </label>
+
+        <input
+            type="number"
+            id="goalTarget"
+            placeholder="e.g. 2000000"
+        >
+
+
+        <label for="goalSaved">
+            Amount Already Saved
+        </label>
+
+        <input
+            type="number"
+            id="goalSaved"
+            placeholder="e.g. 750000"
+        >
+
+
+        <button onclick="saveGoal()">
+
+            🎯 Save Goal
+
+        </button>
+
+
+        <button
+            onclick="deleteGoal()"
+            id="deleteGoalButton"
+            style="display:none;"
+        >
+
+            🗑️ Delete Goal
+
+        </button>
+
+
+        <div id="goalDisplay"></div>
 
     </section>
 
@@ -472,19 +550,34 @@
 
 
 /* =========================================
-   LOAD TRANSACTIONS
+   TRANSACTIONS
 ========================================= */
 
 let transactions = JSON.parse(
+
     localStorage.getItem(
         "budgetTransactions"
     )
+
 ) || [];
 
 
 let editingIndex = -1;
 
 let spendingChart = null;
+
+
+/* =========================================
+   SAVINGS GOAL
+========================================= */
+
+let savingsGoal = JSON.parse(
+
+    localStorage.getItem(
+        "fateSavingsGoal"
+    )
+
+) || null;
 
 
 /* =========================================
@@ -939,7 +1032,6 @@ function renderTransactions() {
 
         function(transaction, index) {
 
-
             const description =
                 String(
                     transaction.description ||
@@ -1048,7 +1140,6 @@ function renderTransactions() {
                 deleteButton.onclick =
                     function() {
 
-
                         if (
                             confirm(
                                 "Delete this transaction?"
@@ -1063,9 +1154,7 @@ function renderTransactions() {
 
                             saveTransactions();
 
-
                             updateTracker();
-
 
                             updateMonthlySummary();
 
@@ -1102,13 +1191,9 @@ function renderTransactions() {
     .textContent =
 
         "Showing " +
-
         count +
-
         " of " +
-
         transactions.length +
-
         " transactions";
 
 
@@ -1135,7 +1220,7 @@ function renderTransactions() {
 
 
 /* =========================================
-   SEARCH
+   SEARCH & FILTER
 ========================================= */
 
 document
@@ -1146,10 +1231,6 @@ document
 );
 
 
-/* =========================================
-   CATEGORY FILTER
-========================================= */
-
 document
 .getElementById("categoryFilter")
 .addEventListener(
@@ -1158,10 +1239,6 @@ document
 );
 
 
-/* =========================================
-   TYPE FILTER
-========================================= */
-
 document
 .getElementById("typeFilter")
 .addEventListener(
@@ -1169,10 +1246,6 @@ document
     renderTransactions
 );
 
-
-/* =========================================
-   CLEAR FILTERS
-========================================= */
 
 function clearFilters() {
 
@@ -1256,7 +1329,6 @@ function updateMonthlySummary() {
 
         function(transaction) {
 
-
             if (
                 String(
                     transaction.date
@@ -1333,10 +1405,6 @@ function updateMonthlySummary() {
 
 }
 
-
-/* =========================================
-   MONTH FILTER
-========================================= */
 
 document
 .getElementById("monthFilter")
@@ -1563,12 +1631,328 @@ function exportTransactions() {
 
 
 /* =========================================
+   SAVINGS GOAL FUNCTIONS
+========================================= */
+
+function saveGoal() {
+
+    const name =
+        document
+        .getElementById("goalName")
+        .value
+        .trim();
+
+
+    const target =
+        Number(
+            document
+            .getElementById("goalTarget")
+            .value
+        );
+
+
+    const saved =
+        Number(
+            document
+            .getElementById("goalSaved")
+            .value
+        );
+
+
+    if (name === "") {
+
+        alert(
+            "Please enter your goal name."
+        );
+
+        return;
+
+    }
+
+
+    if (!target || target <= 0) {
+
+        alert(
+            "Please enter a valid target amount."
+        );
+
+        return;
+
+    }
+
+
+    if (saved < 0) {
+
+        alert(
+            "Saved amount cannot be negative."
+        );
+
+        return;
+
+    }
+
+
+    savingsGoal = {
+
+        name:
+            name,
+
+        target:
+            target,
+
+        saved:
+            saved
+
+    };
+
+
+    localStorage.setItem(
+
+        "fateSavingsGoal",
+
+        JSON.stringify(
+            savingsGoal
+        )
+
+    );
+
+
+    displayGoal();
+
+}
+
+
+/* =========================================
+   DISPLAY GOAL
+========================================= */
+
+function displayGoal() {
+
+    const display =
+        document
+        .getElementById(
+            "goalDisplay"
+        );
+
+
+    const deleteButton =
+        document
+        .getElementById(
+            "deleteGoalButton"
+        );
+
+
+    if (!savingsGoal) {
+
+        display.innerHTML = "";
+
+        deleteButton.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const percentage = Math.min(
+
+        100,
+
+        (
+            savingsGoal.saved /
+            savingsGoal.target
+        ) * 100
+
+    );
+
+
+    const remaining =
+        Math.max(
+
+            0,
+
+            savingsGoal.target -
+            savingsGoal.saved
+
+        );
+
+
+    display.innerHTML = `
+
+        <div
+            style="
+                margin-top:25px;
+                padding:20px;
+                background:#f8fafc;
+                border-radius:15px;
+            "
+        >
+
+            <h3>
+                🎯 ${escapeHTML(savingsGoal.name)}
+            </h3>
+
+
+            <p>
+                Saved:
+                <strong>
+                    UGX ${savingsGoal.saved.toLocaleString()}
+                </strong>
+            </p>
+
+
+            <p>
+                Target:
+                <strong>
+                    UGX ${savingsGoal.target.toLocaleString()}
+                </strong>
+            </p>
+
+
+            <p>
+                Remaining:
+                <strong>
+                    UGX ${remaining.toLocaleString()}
+                </strong>
+            </p>
+
+
+            <p>
+                <strong>
+                    ${percentage.toFixed(1)}% Complete
+                </strong>
+            </p>
+
+
+            <div
+                style="
+                    width:100%;
+                    height:22px;
+                    background:#e2e8f0;
+                    border-radius:20px;
+                    overflow:hidden;
+                    margin-top:10px;
+                "
+            >
+
+                <div
+                    style="
+                        width:${percentage}%;
+                        height:100%;
+                        background:#1e3a8a;
+                        border-radius:20px;
+                        transition:width 0.5s;
+                    "
+                ></div>
+
+            </div>
+
+
+            ${
+                percentage >= 100
+
+                ? `
+                    <p
+                        style="
+                            margin-top:15px;
+                            font-weight:bold;
+                        "
+                    >
+                        🎉 Goal Achieved!
+                    </p>
+                `
+
+                : ""
+            }
+
+        </div>
+
+    `;
+
+
+    deleteButton.style.display =
+        "inline-block";
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================
+   DELETE GOAL
+========================================= */
+
+function deleteGoal() {
+
+    if (
+        !savingsGoal
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        confirm(
+            "Delete this savings goal?"
+        )
+    ) {
+
+        savingsGoal = null;
+
+
+        localStorage.removeItem(
+            "fateSavingsGoal"
+        );
+
+
+        document
+        .getElementById("goalName")
+        .value = "";
+
+
+        document
+        .getElementById("goalTarget")
+        .value = "";
+
+
+        document
+        .getElementById("goalSaved")
+        .value = "";
+
+
+        displayGoal();
+
+    }
+
+}
+
+
+/* =========================================
    START APPLICATION
 ========================================= */
 
 updateTracker();
 
 updateMonthlySummary();
+
+displayGoal();
 
 </script>
 

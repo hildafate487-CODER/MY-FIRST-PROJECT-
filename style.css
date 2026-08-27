@@ -1,10 +1,6 @@
 /* =========================================================
    THE FATE BUDGET TRACKER
-   PROFESSIONAL MOBILE DASHBOARD
-========================================================= */
-
-/* =========================================================
-   GLOBAL
+   PROFESSIONAL MOBILE FINANCE APP STYLE
 ========================================================= */
 
 * {
@@ -23,34 +19,18 @@ body {
         BlinkMacSystemFont,
         "Segoe UI",
         Roboto,
+        Helvetica,
         Arial,
         sans-serif;
 
     background: #f1f5f9;
     color: #0f172a;
-
-    min-height: 100vh;
-
     line-height: 1.5;
+    min-height: 100vh;
 
     transition:
         background 0.3s ease,
         color 0.3s ease;
-}
-
-button,
-input,
-select {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
 }
 
 /* =========================================================
@@ -59,9 +39,9 @@ a {
 
 .container {
     width: 100%;
-    max-width: 1100px;
+    max-width: 520px;
     margin: 0 auto;
-    padding: 18px;
+    padding: 0 16px 100px;
 }
 
 /* =========================================================
@@ -69,7 +49,8 @@ a {
 ========================================================= */
 
 header {
-    position: relative;
+    margin: 0 -16px;
+    padding: 28px 20px 26px;
 
     background:
         linear-gradient(
@@ -81,88 +62,53 @@ header {
 
     color: white;
 
-    border-radius: 24px;
-
-    padding: 28px 22px;
-
-    margin-bottom: 16px;
+    border-radius:
+        0 0 28px 28px;
 
     box-shadow:
-        0 12px 30px rgba(30, 58, 138, 0.20);
-
-    overflow: hidden;
-}
-
-header::after {
-    content: "";
-
-    position: absolute;
-
-    width: 150px;
-    height: 150px;
-
-    right: -55px;
-    top: -55px;
-
-    border-radius: 50%;
-
-    background: rgba(255, 255, 255, 0.10);
+        0 8px 25px rgba(30, 58, 138, 0.25);
 }
 
 header h1 {
-    position: relative;
-    z-index: 1;
-
-    font-size: 1.45rem;
+    font-size: 24px;
     font-weight: 800;
-
-    letter-spacing: -0.4px;
-
-    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
 }
 
 header p {
-    position: relative;
-    z-index: 1;
-
-    font-size: 0.9rem;
-
+    margin-top: 7px;
+    font-size: 13px;
     opacity: 0.9;
 }
 
 /* =========================================================
-   THEME BUTTON
+   DARK MODE BUTTON
 ========================================================= */
 
 .theme-button {
-    width: 100%;
+    display: block;
 
-    border: none;
+    width: 100%;
+    margin: 14px 0;
+
+    padding: 12px 16px;
+
+    border: 1px solid #dbeafe;
+    border-radius: 14px;
 
     background: white;
     color: #1e3a8a;
 
-    padding: 13px 16px;
-
-    border-radius: 14px;
-
+    font-size: 14px;
     font-weight: 700;
 
-    margin-bottom: 16px;
+    cursor: pointer;
 
     box-shadow:
-        0 5px 15px rgba(15, 23, 42, 0.08);
+        0 3px 10px rgba(15, 23, 42, 0.08);
 
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.theme-button:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 20px rgba(15, 23, 42, 0.12);
+    transition: 0.2s ease;
 }
 
 .theme-button:active {
@@ -182,16 +128,9 @@ header p {
 
     padding: 4px 2px 12px;
 
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 
     scrollbar-width: none;
-
-    position: sticky;
-    top: 0;
-
-    z-index: 20;
-
-    background: #f1f5f9;
 }
 
 .dashboard-nav::-webkit-scrollbar {
@@ -201,34 +140,30 @@ header p {
 .dashboard-nav a {
     flex: 0 0 auto;
 
+    text-decoration: none;
+
+    padding: 9px 13px;
+
     background: white;
 
     color: #475569;
 
-    padding: 10px 14px;
+    border-radius: 12px;
 
-    border-radius: 999px;
-
-    font-size: 0.82rem;
-
+    font-size: 12px;
     font-weight: 700;
 
     border: 1px solid #e2e8f0;
 
     box-shadow:
-        0 3px 8px rgba(15, 23, 42, 0.05);
+        0 2px 8px rgba(15, 23, 42, 0.05);
 
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
+    transition: 0.2s ease;
 }
 
 .dashboard-nav a:hover {
-    background: #2563eb;
-    color: white;
-
-    transform: translateY(-1px);
+    background: #eff6ff;
+    color: #2563eb;
 }
 
 /* =========================================================
@@ -238,79 +173,73 @@ header p {
 .balance-card {
     position: relative;
 
-    background:
-        linear-gradient(
-            135deg,
-            #0f172a,
-            #1e293b
-        );
+    margin-top: 8px;
+    margin-bottom: 14px;
 
-    color: white;
+    padding: 25px 22px;
 
-    padding: 28px 24px;
-
-    border-radius: 24px;
-
-    margin-bottom: 16px;
-
-    min-height: 155px;
+    min-height: 160px;
 
     display: flex;
-
     flex-direction: column;
-
     justify-content: center;
 
     overflow: hidden;
 
+    border-radius: 24px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #172554,
+            #1e3a8a,
+            #2563eb
+        );
+
     box-shadow:
-        0 12px 28px rgba(15, 23, 42, 0.18);
+        0 12px 30px rgba(30, 58, 138, 0.28);
 }
 
-.balance-card::before {
+.balance-card::after {
     content: "";
 
     position: absolute;
 
-    width: 170px;
-    height: 170px;
+    width: 150px;
+    height: 150px;
+
+    right: -45px;
+    top: -45px;
 
     border-radius: 50%;
 
-    right: -70px;
-    bottom: -80px;
-
-    background: rgba(59, 130, 246, 0.22);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .balance-card h2 {
     position: relative;
     z-index: 1;
 
-    font-size: 0.85rem;
-
+    font-size: 13px;
     font-weight: 600;
 
-    color: #cbd5e1;
+    opacity: 0.85;
 
-    margin-bottom: 8px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.8px;
+    margin-bottom: 6px;
 }
 
 .balance-card h3 {
     position: relative;
     z-index: 1;
 
-    font-size: clamp(2rem, 8vw, 3rem);
-
-    line-height: 1;
-
+    font-size: 31px;
     font-weight: 800;
 
     letter-spacing: -1px;
+
+    word-break: break-word;
 }
 
 /* =========================================================
@@ -321,41 +250,40 @@ header p {
     display: grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+        repeat(2, 1fr);
 
-    gap: 12px;
+    gap: 10px;
 
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .summary-card {
     background: white;
 
-    padding: 18px;
+    border: 1px solid #e2e8f0;
 
     border-radius: 18px;
 
-    border: 1px solid #e2e8f0;
+    padding: 16px;
+
+    min-width: 0;
 
     box-shadow:
-        0 5px 16px rgba(15, 23, 42, 0.05);
+        0 4px 12px rgba(15, 23, 42, 0.05);
 
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
 }
 
-.summary-card:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 9px 22px rgba(15, 23, 42, 0.08);
+.summary-card:active {
+    transform: scale(0.98);
 }
 
 .summary-card h3 {
-    font-size: 0.82rem;
-
     color: #64748b;
+
+    font-size: 11px;
 
     font-weight: 700;
 
@@ -363,13 +291,23 @@ header p {
 }
 
 .summary-card p {
-    font-size: 1.15rem;
+    color: #0f172a;
+
+    font-size: 18px;
 
     font-weight: 800;
 
-    color: #0f172a;
-
     word-break: break-word;
+}
+
+/* First summary section */
+.summary-card:nth-child(1) p {
+    color: #16a34a;
+}
+
+.summary-card:nth-child(2) p,
+.summary-card:nth-child(3) p {
+    color: #dc2626;
 }
 
 /* =========================================================
@@ -382,42 +320,42 @@ header p {
 .chart-section {
     background: white;
 
-    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+
+    border-radius: 22px;
 
     padding: 20px;
 
-    margin-bottom: 16px;
-
-    border: 1px solid #e2e8f0;
+    margin-bottom: 14px;
 
     box-shadow:
-        0 5px 18px rgba(15, 23, 42, 0.05);
+        0 4px 14px rgba(15, 23, 42, 0.05);
 }
 
 .form-section h2,
 .transactions h2,
 .monthly-summary h2,
 .chart-section h2 {
-    font-size: 1.15rem;
+    font-size: 18px;
 
     font-weight: 800;
 
-    margin-bottom: 16px;
-
     color: #0f172a;
+
+    margin-bottom: 16px;
 }
 
 /* =========================================================
-   FORM LABELS
+   LABELS
 ========================================================= */
 
 label {
     display: block;
 
-    margin-top: 14px;
+    margin-top: 13px;
     margin-bottom: 6px;
 
-    font-size: 0.84rem;
+    font-size: 12px;
 
     font-weight: 700;
 
@@ -425,27 +363,31 @@ label {
 }
 
 /* =========================================================
-   INPUTS & SELECTS
+   INPUTS / SELECTS
 ========================================================= */
 
 input,
 select {
     width: 100%;
 
+    min-height: 46px;
+
+    padding: 11px 13px;
+
     border: 1px solid #cbd5e1;
+
+    border-radius: 13px;
 
     background: #f8fafc;
 
     color: #0f172a;
 
-    padding: 13px 14px;
-
-    border-radius: 13px;
+    font-size: 14px;
 
     outline: none;
 
     transition:
-        border-color 0.2s ease,
+        border 0.2s ease,
         box-shadow 0.2s ease,
         background 0.2s ease;
 }
@@ -471,63 +413,41 @@ input::placeholder {
 button {
     border: none;
 
+    border-radius: 13px;
+
+    padding: 11px 15px;
+
+    margin-top: 12px;
+
     background: #2563eb;
 
     color: white;
 
-    padding: 12px 16px;
-
-    border-radius: 12px;
+    font-size: 13px;
 
     font-weight: 700;
 
-    margin-top: 14px;
+    cursor: pointer;
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        opacity 0.2s ease;
+        transform 0.15s ease,
+        opacity 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 button:hover {
-    transform: translateY(-1px);
+    opacity: 0.93;
 
     box-shadow:
-        0 6px 14px rgba(37, 99, 235, 0.20);
+        0 5px 12px rgba(37, 99, 235, 0.18);
 }
 
 button:active {
     transform: scale(0.97);
 }
 
-button:hover {
-    opacity: 0.95;
-}
-
-/* =========================================================
-   FORM ACTION BUTTONS
-========================================================= */
-
-#saveButton {
-    width: 100%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #1d4ed8
-        );
-
-    padding: 14px;
-
-    font-size: 0.95rem;
-
-    margin-top: 20px;
-}
-
+/* Cancel button */
 #cancelButton {
-    width: 100%;
-
     background: #64748b;
 }
 
@@ -535,66 +455,54 @@ button:hover {
    SPENDING ADVICE
 ========================================================= */
 
-.form-section p {
-    color: #64748b;
-
-    font-size: 0.9rem;
-}
-
 #spendingAdvice {
+    padding: 15px;
+
+    border-radius: 15px;
+
     background: #eff6ff;
 
-    color: #1e40af;
+    border-left: 4px solid #2563eb;
 
-    border-radius: 14px;
+    color: #334155;
 
-    padding: 14px;
+    font-size: 13px;
 
     font-weight: 600;
-
-    line-height: 1.6;
 }
 
 /* =========================================================
-   TRANSACTION FILTER
+   SEARCH / FILTER
 ========================================================= */
 
 .filter-section {
+    padding: 15px;
+
     background: #f8fafc;
 
     border-radius: 16px;
 
-    padding: 16px;
-
-    margin-bottom: 16px;
-
     border: 1px solid #e2e8f0;
+
+    margin-bottom: 15px;
 }
 
 .filter-section h3 {
-    font-size: 0.95rem;
+    font-size: 14px;
 
     margin-bottom: 10px;
 
     color: #334155;
 }
 
-.filter-section button {
-    width: 100%;
-
-    background: #64748b;
-}
-
-/* =========================================================
-   TRANSACTION COUNT
-========================================================= */
-
 #transactionCount {
-    font-size: 0.82rem;
+    margin-bottom: 10px;
+
+    font-size: 12px;
 
     color: #64748b;
 
-    margin-bottom: 10px;
+    font-weight: 600;
 }
 
 /* =========================================================
@@ -608,25 +516,25 @@ button:hover {
 
     flex-direction: column;
 
-    gap: 10px;
+    gap: 9px;
 }
 
 #transactionList li {
+    padding: 13px;
+
     background: #f8fafc;
 
     border: 1px solid #e2e8f0;
 
     border-radius: 15px;
 
-    padding: 14px;
-
-    font-size: 0.84rem;
+    font-size: 12px;
 
     color: #334155;
 
     line-height: 1.6;
 
-    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 #transactionList li button {
@@ -634,14 +542,10 @@ button:hover {
 
     padding: 8px 10px;
 
-    font-size: 0.76rem;
+    font-size: 11px;
 }
 
-#transactionList li button:first-of-type {
-    background: #2563eb;
-}
-
-#transactionList li button:last-of-type {
+#transactionList li button:last-child {
     background: #dc2626;
 }
 
@@ -660,17 +564,17 @@ button:hover {
 }
 
 /* =========================================================
-   BUDGET CARD
+   BUDGET ALERTS
 ========================================================= */
 
 .budget-card {
-    margin-top: 14px;
+    margin-top: 12px !important;
 
-    padding: 17px;
+    padding: 16px !important;
 
-    border-radius: 17px;
+    border-radius: 17px !important;
 
-    background: #f8fafc;
+    background: #f8fafc !important;
 
     border: 1px solid #e2e8f0;
 }
@@ -686,17 +590,13 @@ button:hover {
 
     flex-wrap: wrap;
 
-    font-size: 0.85rem;
-}
-
-.budget-title strong {
-    color: #0f172a;
+    font-size: 12px;
 }
 
 .progress-container {
     width: 100%;
 
-    height: 12px;
+    height: 10px !important;
 
     background: #e2e8f0;
 
@@ -712,8 +612,9 @@ button:hover {
 
     width: 0%;
 
-    transition:
-        width 0.5s ease;
+    transition: width 0.4s ease;
+
+    border-radius: 20px;
 }
 
 .safe {
@@ -729,29 +630,393 @@ button:hover {
 }
 
 .budget-card p {
-    font-size: 0.8rem;
+    font-size: 12px;
+
+    color: #64748b;
 
     margin-top: 5px;
 }
 
-.budget-message {
+.budget-card .budget-message {
     font-weight: 800;
+
+    color: #334155;
 }
 
 .budget-buttons {
     display: flex;
 
-    gap: 8px;
+    gap: 7px;
 
     flex-wrap: wrap;
 }
 
 .budget-buttons button {
-    margin-top: 8px;
+    margin-right: 0;
 
-    font-size: 0.75rem;
+    font-size: 11px;
 
-    padding: 9px 11px;
+    padding: 8px 10px;
 }
 
-.budget-buttons button:last
+.budget-buttons button:last-child {
+    background: #dc2626;
+}
+
+/* =========================================================
+   SAVINGS GOAL
+========================================================= */
+
+#goalDisplay > div {
+    background: #f8fafc !important;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow: none;
+}
+
+#goalDisplay h3 {
+    font-size: 17px;
+
+    color: #0f172a;
+
+    margin-bottom: 12px;
+}
+
+#goalDisplay p {
+    font-size: 13px;
+
+    color: #475569;
+
+    margin: 7px 0;
+}
+
+#goalDisplay strong {
+    color: #0f172a;
+}
+
+/* =========================================================
+   MONTHLY SUMMARY
+========================================================= */
+
+.monthly-summary .summary {
+    margin-top: 15px;
+}
+
+.monthly-summary .summary-card {
+    padding: 13px;
+}
+
+.monthly-summary .summary-card p {
+    font-size: 15px;
+}
+
+/* =========================================================
+   CHART
+========================================================= */
+
+.chart-section {
+    overflow: hidden;
+}
+
+#spendingChart {
+    width: 100% !important;
+
+    max-height: 310px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    text-align: center;
+
+    padding: 25px 10px 10px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+footer p:first-child {
+    font-weight: 700;
+
+    margin-bottom: 4px;
+}
+
+/* =========================================================
+   MOBILE APP BOTTOM SPACE
+========================================================= */
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background: #2563eb;
+
+    z-index: 999;
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+.dark-mode {
+    background: #020617;
+
+    color: #e2e8f0;
+}
+
+.dark-mode header {
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #172554,
+            #1e3a8a
+        );
+}
+
+.dark-mode .theme-button {
+    background: #1e293b;
+
+    color: #bfdbfe;
+
+    border-color: #334155;
+}
+
+.dark-mode .dashboard-nav a {
+    background: #1e293b;
+
+    color: #cbd5e1;
+
+    border-color: #334155;
+}
+
+.dark-mode .dashboard-nav a:hover {
+    background: #172554;
+
+    color: #93c5fd;
+}
+
+.dark-mode .balance-card {
+    background:
+        linear-gradient(
+            135deg,
+            #020617,
+            #172554,
+            #1e3a8a
+        );
+}
+
+.dark-mode .summary-card,
+.dark-mode .form-section,
+.dark-mode .transactions,
+.dark-mode .monthly-summary,
+.dark-mode .chart-section {
+    background: #0f172a;
+
+    border-color: #1e293b;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .summary-card h3,
+.dark-mode label {
+    color: #94a3b8;
+}
+
+.dark-mode .summary-card p {
+    color: #f8fafc;
+}
+
+.dark-mode .form-section h2,
+.dark-mode .transactions h2,
+.dark-mode .monthly-summary h2,
+.dark-mode .chart-section h2 {
+    color: #f8fafc;
+}
+
+.dark-mode input,
+.dark-mode select {
+    background: #1e293b;
+
+    color: #f8fafc;
+
+    border-color: #334155;
+}
+
+.dark-mode input:focus,
+.dark-mode select:focus {
+    background: #1e293b;
+
+    border-color: #3b82f6;
+}
+
+.dark-mode input::placeholder {
+    color: #64748b;
+}
+
+.dark-mode #spendingAdvice {
+    background: #172554;
+
+    color: #cbd5e1;
+
+    border-color: #3b82f6;
+}
+
+.dark-mode .filter-section {
+    background: #1e293b;
+
+    border-color: #334155;
+}
+
+.dark-mode .filter-section h3 {
+    color: #e2e8f0;
+}
+
+.dark-mode #transactionList li {
+    background: #1e293b;
+
+    border-color: #334155;
+
+    color: #cbd5e1;
+}
+
+.dark-mode #transactionCount {
+    color: #94a3b8;
+}
+
+.dark-mode .budget-card {
+    background: #1e293b !important;
+
+    border-color: #334155;
+}
+
+.dark-mode .progress-container {
+    background: #334155;
+}
+
+.dark-mode .budget-card p {
+    color: #94a3b8;
+}
+
+.dark-mode .budget-card .budget-message {
+    color: #e2e8f0;
+}
+
+.dark-mode #goalDisplay > div {
+    background: #1e293b !important;
+
+    border-color: #334155;
+}
+
+.dark-mode #goalDisplay h3,
+.dark-mode #goalDisplay strong {
+    color: #f8fafc;
+}
+
+.dark-mode #goalDisplay p {
+    color: #94a3b8;
+}
+
+.dark-mode footer {
+    color: #64748b;
+}
+
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
+
+@media (min-width: 600px) {
+
+    .container {
+        max-width: 760px;
+
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    header {
+        margin-left: -24px;
+        margin-right: -24px;
+
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+
+    .summary {
+        grid-template-columns:
+            repeat(4, 1fr);
+    }
+
+    .summary-card p {
+        font-size: 17px;
+    }
+
+    .theme-button {
+        width: auto;
+
+        margin-left: auto;
+    }
+
+    .dashboard-nav {
+        justify-content: center;
+    }
+}
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .container {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+    header {
+        margin-left: -11px;
+        margin-right: -11px;
+
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    header h1 {
+        font-size: 21px;
+    }
+
+    .balance-card h3 {
+        font-size: 26px;
+    }
+
+    .summary {
+        gap: 7px;
+    }
+
+    .summary-card {
+        padding: 12px;
+    }
+
+    .summary-card p {
+        font-size: 15px;
+    }
+
+    .form-section,
+    .transactions,
+    .monthly-summary,
+    .chart-section {
+        padding: 15px;
+    }
+}

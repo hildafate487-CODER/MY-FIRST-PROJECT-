@@ -1,959 +1,504 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>THE FATE BUDGET TRACKER</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e3a8a">
 
-    <title>THE FATE BUDGET TRACKER</title>
+<link rel="stylesheet" href="style.css">
 
-    <meta
-        name="theme-color"
-        content="#1e3a8a"
-    >
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <link
-        rel="manifest"
-        href="manifest.json"
-    >
+<style>
+.budget-card {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 15px;
+    background: #f8fafc;
+}
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+.budget-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/chart.js">
-    </script>
+.progress-container {
+    width: 100%;
+    height: 18px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 12px 0;
+}
 
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+.safe {
+    background: #22c55e;
+}
+
+.warning {
+    background: #f59e0b;
+}
+
+.danger {
+    background: #ef4444;
+}
+
+.budget-message {
+    font-weight: bold;
+}
+
+.budget-buttons button {
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.dark-mode .budget-card {
+    background: #1e293b;
+}
+
+.dark-mode .progress-container {
+    background: #334155;
+}
+
+/* MOBILE BOTTOM NAVIGATION */
+
+.bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+
+    height: 70px;
+    padding: 8px 5px;
+
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(15px);
+
+    border-top: 1px solid #e2e8f0;
+
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bottom-nav-item {
+    flex: 1;
+    max-width: 90px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 3px;
+
+    text-decoration: none;
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+.bottom-nav-item span {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.bottom-nav-item small {
+    font-size: 10px;
+}
+
+.bottom-nav-item.active {
+    color: #1e3a8a;
+}
+
+.bottom-nav-item:active {
+    transform: scale(0.9);
+}
+
+/* Keep content above bottom navigation */
+
+body {
+    padding-bottom: 90px;
+}
+
+/* Dark mode */
+
+.dark-mode .bottom-nav {
+    background: rgba(15,23,42,0.96);
+    border-top: 1px solid #334155;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+}
+
+.dark-mode .bottom-nav-item {
+    color: #94a3b8;
+}
+
+.dark-mode .bottom-nav-item.active {
+    color: #60a5fa;
+}
+
+/* Desktop */
+
+@media (min-width: 768px) {
+
+    .bottom-nav {
+        max-width: 600px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        border-radius: 20px 20px 0 0;
+    }
+
+}
+</style>
 </head>
-
 
 <body>
 
-<div class="app">
+<div class="container">
 
-
-<!-- ==================================================
-     TOP APP HEADER
-================================================== -->
-
-<header class="app-header">
-
-    <div class="brand">
-
-        <div class="brand-icon">
-            💰
-        </div>
-
-        <div>
-
-            <h1>
-                THE FATE
-            </h1>
-
-            <span>
-                BUDGET TRACKER
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <button
-        id="themeToggle"
-        class="theme-button"
-        onclick="toggleTheme()"
-        aria-label="Toggle dark mode">
-
-        🌙
-
-    </button>
-
+<header>
+    <h1>💰 THE FATE BUDGET TRACKER</h1>
+    <p>Manage your money. Track your spending. Reach your goals.</p>
 </header>
 
+<button id="themeToggle"
+        onclick="toggleTheme()"
+        class="theme-button">
+    🌙 Dark Mode
+</button>
 
-<!-- ==================================================
-     MAIN CONTENT
-================================================== -->
+<!-- TOP NAVIGATION -->
 
-<main>
+<nav class="dashboard-nav">
 
+    <a href="#dashboard">🏠 Dashboard</a>
+    <a href="#transactions">💳 Transactions</a>
+    <a href="#goals">🎯 Goals</a>
+    <a href="#budgetAlerts">⚠️ Budget Alerts</a>
+    <a href="#insights">💡 Insights</a>
+    <a href="#analytics">📊 Analytics</a>
+    <a href="#monthly">📅 Monthly</a>
 
-<!-- ==================================================
-     HOME / DASHBOARD
-================================================== -->
+</nav>
 
-<section
-    id="dashboard"
-    class="app-screen dashboard-screen">
+<!-- DASHBOARD -->
 
-    <div class="welcome-section">
+<section class="balance-card" id="dashboard">
 
-        <div>
+    <h2>Current Balance</h2>
 
-            <span class="small-label">
-                FINANCIAL OVERVIEW
-            </span>
+    <h3 id="balance">UGX 0</h3>
 
-            <h2>
-                Welcome back 👋
-            </h2>
+</section>
 
-            <p>
-                Here's your money summary.
-            </p>
+<!-- SUMMARY -->
 
-        </div>
+<section class="summary">
 
+    <div class="summary-card">
+        <h3>Income</h3>
+        <p id="income">UGX 0</p>
     </div>
 
-
-    <!-- BALANCE -->
-
-    <div class="balance-card">
-
-        <div class="balance-top">
-
-            <span>
-                Current Balance
-            </span>
-
-            <span class="balance-status">
-                ● Live
-            </span>
-
-        </div>
-
-        <h2 id="balance">
-            UGX 0
-        </h2>
-
-        <p>
-            Available balance
-        </p>
-
+    <div class="summary-card">
+        <h3>Expenses</h3>
+        <p id="expenses">UGX 0</p>
     </div>
 
-
-    <!-- SUMMARY CARDS -->
-
-    <div class="finance-summary">
-
-        <div class="finance-card income-card">
-
-            <div class="finance-card-icon">
-                ↗
-            </div>
-
-            <div>
-
-                <span>
-                    Income
-                </span>
-
-                <strong id="income">
-                    UGX 0
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="finance-card expense-card">
-
-            <div class="finance-card-icon">
-                ↘
-            </div>
-
-            <div>
-
-                <span>
-                    Expenses
-                </span>
-
-                <strong id="expenses">
-                    UGX 0
-                </strong>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- QUICK ACTIONS -->
-
-    <div class="dashboard-section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <span class="small-label">
-                    QUICK ACTIONS
-                </span>
-
-                <h3>
-                    What would you like to do?
-                </h3>
-
-            </div>
-
-        </div>
-
-
-        <div class="quick-actions">
-
-            <a
-                href="#add"
-                class="quick-action">
-
-                <span class="quick-icon">
-                    ➕
-                </span>
-
-                <span>
-                    Add Money
-                </span>
-
-            </a>
-
-
-            <a
-                href="#transactions"
-                class="quick-action">
-
-                <span class="quick-icon">
-                    💳
-                </span>
-
-                <span>
-                    Transactions
-                </span>
-
-            </a>
-
-
-            <a
-                href="#goals"
-                class="quick-action">
-
-                <span class="quick-icon">
-                    🎯
-                </span>
-
-                <span>
-                    Savings Goal
-                </span>
-
-            </a>
-
-
-            <a
-                href="#analytics"
-                class="quick-action">
-
-                <span class="quick-icon">
-                    📊
-                </span>
-
-                <span>
-                    Analytics
-                </span>
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- BUDGET STATUS -->
-
-    <div class="dashboard-section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <span class="small-label">
-                    BUDGET STATUS
-                </span>
-
-                <h3>
-                    Your spending limits
-                </h3>
-
-            </div>
-
-            <a href="#budgetAlerts">
-                View all
-            </a>
-
-        </div>
-
-
-        <div
-            id="dashboardBudgetStatus"
-            class="dashboard-budget-status">
-
-            <p>
-                No budget limits have been set yet.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- SAVINGS GOAL PREVIEW -->
-
-    <div class="dashboard-section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <span class="small-label">
-                    SAVINGS GOAL
-                </span>
-
-                <h3>
-                    Your goal
-                </h3>
-
-            </div>
-
-            <a href="#goals">
-                Manage
-            </a>
-
-        </div>
-
-
-        <div
-            id="dashboardGoal"
-            class="dashboard-goal">
-
-            <div class="goal-empty">
-
-                <span>
-                    🎯
-                </span>
-
-                <p>
-                    No savings goal yet.
-                </p>
-
-                <a href="#goals">
-                    Create a goal
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- SPENDING PREVIEW -->
-
-    <div class="dashboard-section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <span class="small-label">
-                    SPENDING
-                </span>
-
-                <h3>
-                    Where your money goes
-                </h3>
-
-            </div>
-
-            <a href="#analytics">
-                Details
-            </a>
-
-        </div>
-
-
-        <div class="chart-card">
-
-            <canvas id="dashboardChart"></canvas>
-
-        </div>
-
-    </div>
-
-
-    <!-- SPENDING ADVICE -->
-
-    <div class="advice-card">
-
-        <div class="advice-icon">
-            💡
-        </div>
-
-        <div>
-
-            <span>
-                SMART ADVICE
-            </span>
-
-            <p id="spendingAdvice">
-                Add transactions to receive personalized spending advice.
-            </p>
-
-        </div>
-
+    <div class="summary-card">
+        <h3>Total Spending</h3>
+        <p id="totalSpending">UGX 0</p>
     </div>
 
 </section>
 
+<!-- QUICK ACTIONS -->
 
+<section class="quick-actions">
 
-<!-- ==================================================
-     ADD TRANSACTION
-================================================== -->
+    <h2>⚡ Quick Actions</h2>
 
-<section
-    id="add"
-    class="app-screen form-screen">
+    <div class="quick-actions-grid">
 
-    <div class="screen-header">
-
-        <span class="small-label">
-            MONEY MANAGEMENT
-        </span>
-
-        <h2 id="formTitle">
-            Add Transaction
-        </h2>
-
-        <p>
-            Record your income or expenses.
-        </p>
-
-    </div>
-
-
-    <div class="form-card">
-
-        <label for="description">
-            Description
-        </label>
-
-        <input
-            type="text"
-            id="description"
-            placeholder="e.g. Lunch, Salary, Rent"
-        >
-
-
-        <label for="amount">
-            Amount
-        </label>
-
-        <div class="amount-input">
-
-            <span>
-                UGX
-            </span>
-
-            <input
-                type="number"
-                id="amount"
-                placeholder="0"
-                min="1"
-            >
-
-        </div>
-
-
-        <label for="date">
-            Date
-        </label>
-
-        <input
-            type="date"
-            id="date"
-        >
-
-
-        <label for="type">
-            Transaction Type
-        </label>
-
-        <select id="type">
-
-            <option value="income">
-                💵 Income
-            </option>
-
-            <option value="expense">
-                💸 Expense
-            </option>
-
-        </select>
-
-
-        <label for="category">
-            Category
-        </label>
-
-        <select id="category">
-
-            <option value="Food">
-                🍔 Food
-            </option>
-
-            <option value="Transport">
-                🚌 Transport
-            </option>
-
-            <option value="School">
-                📚 School
-            </option>
-
-            <option value="Airtime/Data">
-                📱 Airtime/Data
-            </option>
-
-            <option value="Rent">
-                🏠 Rent
-            </option>
-
-            <option value="Utilities">
-                💡 Utilities
-            </option>
-
-            <option value="Shopping">
-                🛍️ Shopping
-            </option>
-
-            <option value="Other">
-                📦 Other
-            </option>
-
-        </select>
-
-
-        <button
-            id="saveButton"
-            class="primary-button"
-            onclick="saveTransaction()">
-
-            ➕ Add Transaction
-
+        <button onclick="openAddExpense()">
+            💸
+            <span>Add Expense</span>
         </button>
 
+        <button onclick="openAddIncome()">
+            💰
+            <span>Add Income</span>
+        </button>
 
-        <button
-            id="cancelButton"
-            class="secondary-button"
-            onclick="cancelEdit()"
-            style="display:none;">
+        <button onclick="document.getElementById('goals').scrollIntoView({behavior:'smooth'})">
+            🎯
+            <span>Savings Goal</span>
+        </button>
 
-            ❌ Cancel Edit
-
+        <button onclick="document.getElementById('analytics').scrollIntoView({behavior:'smooth'})">
+            📊
+            <span>Analytics</span>
         </button>
 
     </div>
 
 </section>
 
+<!-- BUDGET STATUS -->
 
+<section class="form-section">
 
-<!-- ==================================================
-     TRANSACTIONS
-================================================== -->
+    <h2>⚠️ Budget Status</h2>
 
-<section
-    id="transactions"
-    class="app-screen transactions-screen">
-
-    <div class="screen-header">
-
-        <span class="small-label">
-            MONEY ACTIVITY
-        </span>
-
-        <h2>
-            Transactions
-        </h2>
-
-        <p>
-            View and manage your money activity.
-        </p>
-
+    <div id="dashboardBudgetStatus">
+        <p>Set a budget limit to see your budget status.</p>
     </div>
 
+</section>
 
-    <!-- SEARCH -->
+<!-- INSIGHTS -->
 
-    <div class="search-card">
+<section class="summary" id="insights">
 
-        <span>
-            🔍
-        </span>
+    <div class="summary-card">
+        <h3>📈 Top Spending Category</h3>
+        <p id="topCategory">None</p>
+    </div>
+
+    <div class="summary-card">
+        <h3>💸 Largest Expense</h3>
+        <p id="largestExpense">UGX 0</p>
+    </div>
+
+    <div class="summary-card">
+        <h3>📋 Transactions</h3>
+        <p id="transactionTotal">0</p>
+    </div>
+
+    <div class="summary-card">
+        <h3>💰 Savings Rate</h3>
+        <p id="savingsRate">0%</p>
+    </div>
+
+</section>
+
+<!-- SPENDING ADVICE -->
+
+<section class="form-section">
+
+    <h2>💡 Spending Advice</h2>
+
+    <p id="spendingAdvice">
+        Add some transactions to receive spending advice.
+    </p>
+
+</section>
+
+<!-- ADD TRANSACTION -->
+
+<section class="form-section" id="addTransaction">
+
+    <h2 id="formTitle">➕ Add Transaction</h2>
+
+    <label for="description">Description</label>
+
+    <input
+        type="text"
+        id="description"
+        placeholder="e.g. Lunch"
+    >
+
+    <label for="amount">Amount</label>
+
+    <input
+        type="number"
+        id="amount"
+        placeholder="Enter amount in UGX"
+        min="1"
+    >
+
+    <label for="date">Date</label>
+
+    <input
+        type="date"
+        id="date"
+    >
+
+    <label for="type">Transaction Type</label>
+
+    <select id="type">
+
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+
+    </select>
+
+    <label for="category">Category</label>
+
+    <select id="category">
+
+        <option value="Food">🍔 Food</option>
+        <option value="Transport">🚌 Transport</option>
+        <option value="School">📚 School</option>
+        <option value="Airtime/Data">📱 Airtime/Data</option>
+        <option value="Rent">🏠 Rent</option>
+        <option value="Utilities">💡 Utilities</option>
+        <option value="Shopping">🛍️ Shopping</option>
+        <option value="Other">📦 Other</option>
+
+    </select>
+
+    <button
+        id="saveButton"
+        onclick="saveTransaction()">
+        ➕ Add Transaction
+    </button>
+
+    <button
+        id="cancelButton"
+        onclick="cancelEdit()"
+        style="display:none;">
+        ❌ Cancel Edit
+    </button>
+
+</section>
+
+<!-- TRANSACTIONS -->
+
+<section class="transactions" id="transactions">
+
+    <h2>📋 Transactions</h2>
+
+    <div class="filter-section">
+
+        <h3>🔍 Search & Filter Transactions</h3>
+
+        <label for="searchInput">
+            Search by Description
+        </label>
 
         <input
             type="text"
             id="searchInput"
-            placeholder="Search transactions..."
+            placeholder="e.g. Lunch"
         >
 
-    </div>
-
-
-    <!-- FILTERS -->
-
-    <div class="filter-grid">
-
-        <div>
-
-            <label for="categoryFilter">
-                Category
-            </label>
-
-            <select id="categoryFilter">
-
-                <option value="all">
-                    All Categories
-                </option>
-
-                <option value="Food">
-                    🍔 Food
-                </option>
-
-                <option value="Transport">
-                    🚌 Transport
-                </option>
-
-                <option value="School">
-                    📚 School
-                </option>
-
-                <option value="Airtime/Data">
-                    📱 Airtime/Data
-                </option>
-
-                <option value="Rent">
-                    🏠 Rent
-                </option>
-
-                <option value="Utilities">
-                    💡 Utilities
-                </option>
-
-                <option value="Shopping">
-                    🛍️ Shopping
-                </option>
-
-                <option value="Other">
-                    📦 Other
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div>
-
-            <label for="typeFilter">
-                Type
-            </label>
-
-            <select id="typeFilter">
-
-                <option value="all">
-                    All Transactions
-                </option>
-
-                <option value="income">
-                    💵 Income
-                </option>
-
-                <option value="expense">
-                    💸 Expense
-                </option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-    <div class="transaction-toolbar">
-
-        <div>
-
-            <strong id="transactionCount">
-                Showing 0 transactions
-            </strong>
-
-            <span>
-                Your money activity
-            </span>
-
-        </div>
-
-
-        <button
-            onclick="clearFilters()"
-            class="clear-filter-button">
-
-            🔄 Clear
-
-        </button>
-
-    </div>
-
-
-    <ul
-        id="transactionList"
-        class="transaction-list">
-    </ul>
-
-
-    <button
-        onclick="exportTransactions()"
-        class="export-button">
-
-        📥 Export Transactions
-
-    </button>
-
-</section>
-
-
-
-<!-- ==================================================
-     GOALS
-================================================== -->
-
-<section
-    id="goals"
-    class="app-screen goals-screen">
-
-    <div class="screen-header">
-
-        <span class="small-label">
-            FUTURE PLANS
-        </span>
-
-        <h2>
-            Savings Goals
-        </h2>
-
-        <p>
-            Save toward something important.
-        </p>
-
-    </div>
-
-
-    <div class="form-card">
-
-        <label for="goalName">
-            Goal Name
+        <label for="categoryFilter">
+            🏷️ Category
         </label>
 
-        <input
-            type="text"
-            id="goalName"
-            placeholder="e.g. New Laptop"
-        >
+        <select id="categoryFilter">
 
-
-        <label for="goalTarget">
-            Target Amount
-        </label>
-
-        <div class="amount-input">
-
-            <span>
-                UGX
-            </span>
-
-            <input
-                type="number"
-                id="goalTarget"
-                placeholder="0"
-                min="1"
-            >
-
-        </div>
-
-
-        <label for="goalSaved">
-            Amount Already Saved
-        </label>
-
-        <div class="amount-input">
-
-            <span>
-                UGX
-            </span>
-
-            <input
-                type="number"
-                id="goalSaved"
-                placeholder="0"
-                min="0"
-            >
-
-        </div>
-
-
-        <button
-            onclick="saveGoal()"
-            class="primary-button">
-
-            🎯 Save Goal
-
-        </button>
-
-
-        <button
-            onclick="deleteGoal()"
-            id="deleteGoalButton"
-            class="danger-button"
-            style="display:none;">
-
-            🗑️ Delete Goal
-
-        </button>
-
-    </div>
-
-
-    <div
-        id="goalDisplay"
-        class="goal-display">
-    </div>
-
-</section>
-
-
-
-<!-- ==================================================
-     BUDGET ALERTS
-================================================== -->
-
-<section
-    id="budgetAlerts"
-    class="app-screen budget-screen">
-
-    <div class="screen-header">
-
-        <span class="small-label">
-            SPENDING CONTROL
-        </span>
-
-        <h2>
-            Budget Limits
-        </h2>
-
-        <p>
-            Set limits and stay in control.
-        </p>
-
-    </div>
-
-
-    <div class="form-card">
-
-        <label for="budgetCategory">
-            Category
-        </label>
-
-        <select id="budgetCategory">
-
-            <option value="Food">
-                🍔 Food
-            </option>
-
-            <option value="Transport">
-                🚌 Transport
-            </option>
-
-            <option value="School">
-                📚 School
-            </option>
-
-            <option value="Airtime/Data">
-                📱 Airtime/Data
-            </option>
-
-            <option value="Rent">
-                🏠 Rent
-            </option>
-
-            <option value="Utilities">
-                💡 Utilities
-            </option>
-
-            <option value="Shopping">
-                🛍️ Shopping
-            </option>
-
-            <option value="Other">
-                📦 Other
-            </option>
+            <option value="all">All Categories</option>
+            <option value="Food">🍔 Food</option>
+            <option value="Transport">🚌 Transport</option>
+            <option value="School">📚 School</option>
+            <option value="Airtime/Data">📱 Airtime/Data</option>
+            <option value="Rent">🏠 Rent</option>
+            <option value="Utilities">💡 Utilities</option>
+            <option value="Shopping">🛍️ Shopping</option>
+            <option value="Other">📦 Other</option>
 
         </select>
 
-
-        <label for="budgetLimit">
-            Monthly Spending Limit
+        <label for="typeFilter">
+            💰 Transaction Type
         </label>
 
-        <div class="amount-input">
+        <select id="typeFilter">
 
-            <span>
-                UGX
-            </span>
+            <option value="all">All Transactions</option>
+            <option value="income">💵 Income</option>
+            <option value="expense">💸 Expense</option>
 
-            <input
-                type="number"
-                id="budgetLimit"
-                placeholder="e.g. 100000"
-                min="1"
-            >
+        </select>
 
-        </div>
-
-
-        <button
-            onclick="saveBudgetLimit()"
-            class="primary-button">
-
-            💾 Save Budget Limit
-
+        <button onclick="clearFilters()">
+            🔄 Clear Filters
         </button>
 
     </div>
 
+    <p id="transactionCount">
+        Showing 0 transactions
+    </p>
 
-    <div
-        id="budgetAlertsContainer"
-        class="budget-list">
+    <ul id="transactionList"></ul>
+
+    <div class="export-section">
+
+        <button onclick="exportTransactions()">
+            📥 Export Transactions
+        </button>
+
+    </div>
+
+</section>
+
+<!-- BUDGET LIMITS -->
+
+<section class="form-section" id="budgetAlerts">
+
+    <h2>⚠️ Budget Limits & Alerts</h2>
+
+    <p>
+        Set a monthly spending limit for each category.
+        The tracker will warn you when you are getting close to
+        or exceeding your limit.
+    </p>
+
+    <label for="budgetCategory">
+        Category
+    </label>
+
+    <select id="budgetCategory">
+
+        <option value="Food">🍔 Food</option>
+        <option value="Transport">🚌 Transport</option>
+        <option value="School">📚 School</option>
+        <option value="Airtime/Data">📱 Airtime/Data</option>
+        <option value="Rent">🏠 Rent</option>
+        <option value="Utilities">💡 Utilities</option>
+        <option value="Shopping">🛍️ Shopping</option>
+        <option value="Other">📦 Other</option>
+
+    </select>
+
+    <label for="budgetLimit">
+        Monthly Spending Limit
+    </label>
+
+    <input
+        type="number"
+        id="budgetLimit"
+        placeholder="e.g. 100000"
+        min="1"
+    >
+
+    <button onclick="saveBudgetLimit()">
+        💾 Save Budget Limit
+    </button>
+
+    <div id="budgetAlertsContainer">
 
         <p>
             No budget limits have been set yet.
@@ -963,417 +508,210 @@
 
 </section>
 
+<!-- SAVINGS GOAL -->
 
+<section class="form-section" id="goals">
 
-<!-- ==================================================
-     INSIGHTS
-================================================== -->
+    <h2>🎯 Savings Goal</h2>
 
-<section
-    id="insights"
-    class="app-screen insights-screen">
+    <label for="goalName">
+        Goal Name
+    </label>
 
-    <div class="screen-header">
+    <input
+        type="text"
+        id="goalName"
+        placeholder="e.g. New Laptop"
+    >
 
-        <span class="small-label">
-            FINANCIAL INTELLIGENCE
-        </span>
+    <label for="goalTarget">
+        Target Amount
+    </label>
 
-        <h2>
-            Insights
-        </h2>
+    <input
+        type="number"
+        id="goalTarget"
+        placeholder="e.g. 2000000"
+        min="1"
+    >
 
-        <p>
-            Understand your financial habits.
-        </p>
+    <label for="goalSaved">
+        Amount Already Saved
+    </label>
 
-    </div>
+    <input
+        type="number"
+        id="goalSaved"
+        placeholder="e.g. 750000"
+        min="0"
+    >
 
+    <button onclick="saveGoal()">
+        🎯 Save Goal
+    </button>
 
-    <div class="insight-grid">
+    <button
+        onclick="deleteGoal()"
+        id="deleteGoalButton"
+        style="display:none;">
+        🗑️ Delete Goal
+    </button>
 
-        <div class="insight-card">
-
-            <span>
-                📈
-            </span>
-
-            <small>
-                Top Category
-            </small>
-
-            <strong id="topCategory">
-                None
-            </strong>
-
-        </div>
-
-
-        <div class="insight-card">
-
-            <span>
-                💸
-            </span>
-
-            <small>
-                Largest Expense
-            </small>
-
-            <strong id="largestExpense">
-                UGX 0
-            </strong>
-
-        </div>
-
-
-        <div class="insight-card">
-
-            <span>
-                📋
-            </span>
-
-            <small>
-                Transactions
-            </small>
-
-            <strong id="transactionTotal">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="insight-card">
-
-            <span>
-                💰
-            </span>
-
-            <small>
-                Savings Rate
-            </small>
-
-            <strong id="savingsRate">
-                0%
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <div class="advice-card">
-
-        <div class="advice-icon">
-            💡
-        </div>
-
-        <div>
-
-            <span>
-                SPENDING ADVICE
-            </span>
-
-            <p id="insightAdvice">
-                Your spending advice will appear here.
-            </p>
-
-        </div>
-
-    </div>
+    <div id="goalDisplay"></div>
 
 </section>
 
+<!-- MONTHLY SUMMARY -->
 
+<section class="monthly-summary" id="monthly">
 
-<!-- ==================================================
-     ANALYTICS
-================================================== -->
+    <h2>📅 Monthly Summary</h2>
 
-<section
-    id="analytics"
-    class="app-screen analytics-screen">
+    <label for="monthFilter">
+        Select Month
+    </label>
 
-    <div class="screen-header">
+    <input
+        type="month"
+        id="monthFilter"
+    >
 
-        <span class="small-label">
-            FINANCIAL ANALYTICS
-        </span>
+    <section class="summary">
 
-        <h2>
-            Analytics
-        </h2>
-
-        <p>
-            See where your money is going.
-        </p>
-
-    </div>
-
-
-    <div class="analytics-card">
-
-        <h3>
-            📊 Spending by Category
-        </h3>
-
-        <div class="large-chart">
-
-            <canvas id="spendingChart"></canvas>
-
+        <div class="summary-card">
+            <h3>Monthly Income</h3>
+            <p id="monthlyIncome">UGX 0</p>
         </div>
 
-    </div>
+        <div class="summary-card">
+            <h3>Monthly Expenses</h3>
+            <p id="monthlyExpenses">UGX 0</p>
+        </div>
 
+        <div class="summary-card">
+            <h3>Monthly Balance</h3>
+            <p id="monthlyBalance">UGX 0</p>
+        </div>
 
-    <div class="analytics-total">
-
-        <span>
-            Total Spending
-        </span>
-
-        <strong id="totalSpending">
-            UGX 0
-        </strong>
-
-    </div>
+    </section>
 
 </section>
 
+<!-- ANALYTICS -->
 
+<section class="chart-section" id="analytics">
 
-<!-- ==================================================
-     MONTHLY SUMMARY
-================================================== -->
+    <h2>📊 Spending by Category</h2>
 
-<section
-    id="monthly"
-    class="app-screen monthly-screen">
-
-    <div class="screen-header">
-
-        <span class="small-label">
-            MONTHLY REVIEW
-        </span>
-
-        <h2>
-            Monthly Summary
-        </h2>
-
-        <p>
-            Review your monthly finances.
-        </p>
-
-    </div>
-
-
-    <div class="form-card">
-
-        <label for="monthFilter">
-            Select Month
-        </label>
-
-        <input
-            type="month"
-            id="monthFilter"
-        >
-
-    </div>
-
-
-    <div class="monthly-grid">
-
-        <div class="monthly-card">
-
-            <span>
-                💵 Income
-            </span>
-
-            <strong id="monthlyIncome">
-                UGX 0
-            </strong>
-
-        </div>
-
-
-        <div class="monthly-card">
-
-            <span>
-                💸 Expenses
-            </span>
-
-            <strong id="monthlyExpenses">
-                UGX 0
-            </strong>
-
-        </div>
-
-
-        <div class="monthly-card">
-
-            <span>
-                💰 Balance
-            </span>
-
-            <strong id="monthlyBalance">
-                UGX 0
-            </strong>
-
-        </div>
-
-    </div>
+    <canvas id="spendingChart"></canvas>
 
 </section>
-
-</main>
-
-
-
-<!-- ==================================================
-     MOBILE BOTTOM NAVIGATION
-================================================== -->
-
-<nav class="bottom-navigation">
-
-    <a
-        href="#dashboard"
-        class="nav-item active">
-
-        <span>
-            🏠
-        </span>
-
-        <small>
-            Home
-        </small>
-
-    </a>
-
-
-    <a
-        href="#transactions"
-        class="nav-item">
-
-        <span>
-            💳
-        </span>
-
-        <small>
-            Transactions
-        </small>
-
-    </a>
-
-
-    <a
-        href="#add"
-        class="add-nav-button">
-
-        <span>
-            ＋
-        </span>
-
-    </a>
-
-
-    <a
-        href="#goals"
-        class="nav-item">
-
-        <span>
-            🎯
-        </span>
-
-        <small>
-            Goals
-        </small>
-
-    </a>
-
-
-    <a
-        href="#analytics"
-        class="nav-item">
-
-        <span>
-            📊
-        </span>
-
-        <small>
-            Analytics
-        </small>
-
-    </a>
-
-</nav>
-
-
-
-<!-- ==================================================
-     FOOTER
-================================================== -->
 
 <footer>
 
-    <strong>
-        THE FATE BUDGET TRACKER
-    </strong>
+    <p>© 2026 THE FATE BUDGET TRACKER</p>
 
-    <p>
-        Manage • Track • Save • Grow
-    </p>
-
-    <small>
-        © 2026 THE FATE
-    </small>
+    <p>Manage • Track • Save • Grow</p>
 
 </footer>
 
 </div>
 
+<!-- MOBILE BOTTOM NAVIGATION -->
 
+<nav class="bottom-nav">
+
+    <a href="#dashboard"
+       class="bottom-nav-item active">
+        <span>🏠</span>
+        <small>Home</small>
+    </a>
+
+    <a href="#transactions"
+       class="bottom-nav-item">
+        <span>💳</span>
+        <small>Transactions</small>
+    </a>
+
+    <a href="#goals"
+       class="bottom-nav-item">
+        <span>🎯</span>
+        <small>Goals</small>
+    </a>
+
+    <a href="#analytics"
+       class="bottom-nav-item">
+        <span>📊</span>
+        <small>Analytics</small>
+    </a>
+
+    <a href="#budgetAlerts"
+       class="bottom-nav-item">
+        <span>⚙️</span>
+        <small>More</small>
+    </a>
+
+</nav>
 
 <script>
 
-/* ==================================================
+/* =========================================
    DATA
-================================================== */
+========================================= */
 
 let transactions =
     JSON.parse(
-        localStorage.getItem(
-            "budgetTransactions"
-        )
+        localStorage.getItem("budgetTransactions")
     ) || [];
-
 
 let budgetLimits =
     JSON.parse(
-        localStorage.getItem(
-            "fateBudgetLimits"
-        )
+        localStorage.getItem("fateBudgetLimits")
     ) || {};
-
 
 let savingsGoal =
     JSON.parse(
-        localStorage.getItem(
-            "fateSavingsGoal"
-        )
+        localStorage.getItem("fateSavingsGoal")
     ) || null;
-
 
 let editingIndex = -1;
 
 let spendingChart = null;
 
-let dashboardChart = null;
+
+/* =========================================
+   QUICK ACTIONS
+========================================= */
+
+function openAddExpense() {
+
+    document.getElementById("type").value =
+        "expense";
+
+    document.getElementById("addTransaction")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
 
 
+function openAddIncome() {
 
-/* ==================================================
+    document.getElementById("type").value =
+        "income";
+
+    document.getElementById("addTransaction")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =========================================
    SAVE TRANSACTIONS
-================================================== */
+========================================= */
 
 function saveTransactions() {
 
@@ -1385,50 +723,34 @@ function saveTransactions() {
 }
 
 
-
-/* ==================================================
+/* =========================================
    ADD / EDIT TRANSACTION
-================================================== */
+========================================= */
 
 function saveTransaction() {
 
     const description =
-        document.getElementById(
-            "description"
-        ).value.trim();
-
+        document.getElementById("description")
+        .value.trim();
 
     const amount =
         Number(
-            document.getElementById(
-                "amount"
-            ).value
+            document.getElementById("amount").value
         );
 
-
     const date =
-        document.getElementById(
-            "date"
-        ).value;
-
+        document.getElementById("date").value;
 
     const type =
-        document.getElementById(
-            "type"
-        ).value;
-
+        document.getElementById("type").value;
 
     const category =
-        document.getElementById(
-            "category"
-        ).value;
+        document.getElementById("category").value;
 
 
     if (!description) {
 
-        alert(
-            "Please enter a description."
-        );
+        alert("Please enter a description.");
 
         return;
 
@@ -1437,9 +759,7 @@ function saveTransaction() {
 
     if (!amount || amount <= 0) {
 
-        alert(
-            "Please enter a valid amount."
-        );
+        alert("Please enter a valid amount.");
 
         return;
 
@@ -1448,9 +768,7 @@ function saveTransaction() {
 
     if (!date) {
 
-        alert(
-            "Please select a date."
-        );
+        alert("Please select a date.");
 
         return;
 
@@ -1459,37 +777,29 @@ function saveTransaction() {
 
     const transaction = {
 
-        description:
-            description,
+        description: description,
 
-        amount:
-            amount,
+        amount: amount,
 
-        date:
-            date,
+        date: date,
 
-        type:
-            type,
+        type: type,
 
-        category:
-            category
+        category: category
 
     };
 
 
     if (editingIndex === -1) {
 
-        transactions.push(
-            transaction
-        );
+        transactions.push(transaction);
 
     }
 
     else {
 
-        transactions[
-            editingIndex
-        ] = transaction;
+        transactions[editingIndex] =
+            transaction;
 
         editingIndex = -1;
 
@@ -1506,15 +816,12 @@ function saveTransaction() {
 
     updateBudgetAlerts();
 
-    updateDashboard();
-
 }
 
 
-
-/* ==================================================
+/* =========================================
    EDIT TRANSACTION
-================================================== */
+========================================= */
 
 function editTransaction(index) {
 
@@ -1522,71 +829,49 @@ function editTransaction(index) {
         transactions[index];
 
 
-    if (!transaction) {
-        return;
-    }
-
-
-    document.getElementById(
-        "description"
-    ).value =
+    document.getElementById("description").value =
         transaction.description;
 
-
-    document.getElementById(
-        "amount"
-    ).value =
+    document.getElementById("amount").value =
         transaction.amount;
 
-
-    document.getElementById(
-        "date"
-    ).value =
+    document.getElementById("date").value =
         transaction.date;
 
-
-    document.getElementById(
-        "type"
-    ).value =
+    document.getElementById("type").value =
         transaction.type;
 
-
-    document.getElementById(
-        "category"
-    ).value =
+    document.getElementById("category").value =
         transaction.category;
 
 
     editingIndex = index;
 
 
-    document.getElementById(
-        "formTitle"
-    ).textContent =
-        "Edit Transaction";
+    document.getElementById("formTitle")
+        .textContent =
+        "✏️ Edit Transaction";
 
-
-    document.getElementById(
-        "saveButton"
-    ).textContent =
+    document.getElementById("saveButton")
+        .textContent =
         "💾 Save Changes";
 
-
-    document.getElementById(
-        "cancelButton"
-    ).style.display =
+    document.getElementById("cancelButton")
+        .style.display =
         "block";
 
 
-    location.hash = "add";
+    document.getElementById("addTransaction")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
 
 }
 
 
-
-/* ==================================================
+/* =========================================
    CANCEL EDIT
-================================================== */
+========================================= */
 
 function cancelEdit() {
 
@@ -1597,64 +882,46 @@ function cancelEdit() {
 }
 
 
-
-/* ==================================================
+/* =========================================
    CLEAR FORM
-================================================== */
+========================================= */
 
 function clearForm() {
 
-    document.getElementById(
-        "description"
-    ).value = "";
+    document.getElementById("description").value =
+        "";
 
+    document.getElementById("amount").value =
+        "";
 
-    document.getElementById(
-        "amount"
-    ).value = "";
+    document.getElementById("date").value =
+        "";
 
-
-    document.getElementById(
-        "date"
-    ).value = "";
-
-
-    document.getElementById(
-        "type"
-    ).value =
+    document.getElementById("type").value =
         "income";
 
-
-    document.getElementById(
-        "category"
-    ).value =
+    document.getElementById("category").value =
         "Food";
 
 
-    document.getElementById(
-        "formTitle"
-    ).textContent =
-        "Add Transaction";
-
-
-    document.getElementById(
-        "saveButton"
-    ).textContent =
+    document.getElementById("formTitle")
+        .textContent =
         "➕ Add Transaction";
 
+    document.getElementById("saveButton")
+        .textContent =
+        "➕ Add Transaction";
 
-    document.getElementById(
-        "cancelButton"
-    ).style.display =
+    document.getElementById("cancelButton")
+        .style.display =
         "none";
 
 }
 
 
-
-/* ==================================================
+/* =========================================
    UPDATE TRACKER
-================================================== */
+========================================= */
 
 function updateTracker() {
 
@@ -1684,82 +951,61 @@ function updateTracker() {
     };
 
 
-    transactions.forEach(
-        function(transaction) {
+    transactions.forEach(function(transaction) {
 
-            const amount =
-                Number(
-                    transaction.amount
-                ) || 0;
+        const amount =
+            Number(transaction.amount) || 0;
+
+
+        if (transaction.type === "income") {
+
+            income += amount;
+
+        }
+
+
+        if (transaction.type === "expense") {
+
+            expenses += amount;
 
 
             if (
-                transaction.type ===
-                "income"
+                Object.prototype.hasOwnProperty.call(
+                    categoryTotals,
+                    transaction.category
+                )
             ) {
 
-                income += amount;
-
-            }
-
-
-            if (
-                transaction.type ===
-                "expense"
-            ) {
-
-                expenses += amount;
-
-
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        categoryTotals,
-                        transaction.category
-                    )
-                ) {
-
-                    categoryTotals[
-                        transaction.category
-                    ] += amount;
-
-                }
+                categoryTotals[
+                    transaction.category
+                ] += amount;
 
             }
 
         }
-    );
+
+    });
 
 
     const balance =
         income - expenses;
 
 
-    document.getElementById(
-        "income"
-    ).textContent =
-        "UGX " +
-        income.toLocaleString();
+    document.getElementById("income")
+        .textContent =
+        "UGX " + income.toLocaleString();
 
+    document.getElementById("expenses")
+        .textContent =
+        "UGX " + expenses.toLocaleString();
 
-    document.getElementById(
-        "expenses"
-    ).textContent =
-        "UGX " +
-        expenses.toLocaleString();
+    document.getElementById("totalSpending")
+        .textContent =
+        "UGX " + expenses.toLocaleString();
 
-
-    document.getElementById(
-        "totalSpending"
-    ).textContent =
-        "UGX " +
-        expenses.toLocaleString();
-
-
-    document.getElementById(
-        "balance"
-    ).textContent =
-        "UGX " +
-        balance.toLocaleString();
+    document.getElementById("balance")
+        .textContent =
+        "UGX " + balance.toLocaleString();
 
 
     updateInsights(
@@ -1768,29 +1014,116 @@ function updateTracker() {
         categoryTotals
     );
 
-
-    updateChart(
-        categoryTotals
-    );
-
-
-    updateDashboardChart(
-        categoryTotals
-    );
-
+    updateChart(categoryTotals);
 
     renderTransactions();
 
+    updateBudgetAlerts();
 
-    updateDashboard();
+    updateDashboardBudgetStatus();
 
 }
 
 
+/* =========================================
+   DASHBOARD BUDGET STATUS
+========================================= */
 
-/* ==================================================
+function updateDashboardBudgetStatus() {
+
+    const element =
+        document.getElementById(
+            "dashboardBudgetStatus"
+        );
+
+    const categories =
+        Object.keys(budgetLimits);
+
+    if (categories.length === 0) {
+
+        element.innerHTML =
+            "<p>💡 No budgets set yet. Create a budget limit to monitor your spending.</p>";
+
+        return;
+
+    }
+
+    let hasDanger = false;
+    let hasWarning = false;
+
+    const now = new Date();
+
+    const month =
+        now.getFullYear() +
+        "-" +
+        String(now.getMonth() + 1)
+            .padStart(2, "0");
+
+    categories.forEach(function(category) {
+
+        let spent = 0;
+
+        transactions.forEach(function(transaction) {
+
+            if (
+                transaction.type === "expense" &&
+                transaction.category === category &&
+                String(transaction.date)
+                    .startsWith(month)
+            ) {
+
+                spent +=
+                    Number(transaction.amount) || 0;
+
+            }
+
+        });
+
+        const percentage =
+            (spent / budgetLimits[category]) * 100;
+
+        if (percentage >= 100) {
+
+            hasDanger = true;
+
+        }
+
+        else if (percentage >= 80) {
+
+            hasWarning = true;
+
+        }
+
+    });
+
+
+    if (hasDanger) {
+
+        element.innerHTML =
+            "<p>🔴 <strong>Attention:</strong> One or more budgets have been exceeded.</p>";
+
+    }
+
+    else if (hasWarning) {
+
+        element.innerHTML =
+            "<p>🟡 <strong>Warning:</strong> You are getting close to a budget limit.</p>";
+
+    }
+
+    else {
+
+        element.innerHTML =
+            "<p>🟢 <strong>Good job!</strong> Your current budgets are under control.</p>";
+
+    }
+
+}
+
+
+/* =========================================
    INSIGHTS
-================================================== */
+========================================= */
 
 function updateInsights(
     income,
@@ -1798,20 +1131,16 @@ function updateInsights(
     categoryTotals
 ) {
 
-    let topCategory =
-        "None";
+    let topCategory = "None";
 
     let topAmount = 0;
 
 
-    Object.keys(
-        categoryTotals
-    ).forEach(
+    Object.keys(categoryTotals).forEach(
         function(category) {
 
             if (
-                categoryTotals[category]
-                >
+                categoryTotals[category] >
                 topAmount
             ) {
 
@@ -1827,16 +1156,13 @@ function updateInsights(
     );
 
 
-    document.getElementById(
-        "topCategory"
-    ).textContent =
+    document.getElementById("topCategory")
+        .textContent =
         topCategory === "None"
         ? "None"
-        : getCategoryEmoji(
-            topCategory
-          ) +
-          " " +
-          topCategory;
+        : topCategory +
+          " — UGX " +
+          topAmount.toLocaleString();
 
 
     let largestExpense = null;
@@ -1846,19 +1172,13 @@ function updateInsights(
         function(transaction) {
 
             if (
-                transaction.type ===
-                "expense"
+                transaction.type === "expense"
             ) {
 
                 if (
                     largestExpense === null ||
-                    Number(
-                        transaction.amount
-                    )
-                    >
-                    Number(
-                        largestExpense.amount
-                    )
+                    Number(transaction.amount) >
+                    Number(largestExpense.amount)
                 ) {
 
                     largestExpense =
@@ -1872,20 +1192,19 @@ function updateInsights(
     );
 
 
-    document.getElementById(
-        "largestExpense"
-    ).textContent =
+    document.getElementById("largestExpense")
+        .textContent =
         largestExpense
-        ? "UGX " +
+        ? largestExpense.description +
+          " — UGX " +
           Number(
               largestExpense.amount
           ).toLocaleString()
         : "UGX 0";
 
 
-    document.getElementById(
-        "transactionTotal"
-    ).textContent =
+    document.getElementById("transactionTotal")
+        .textContent =
         transactions.length;
 
 
@@ -1896,96 +1215,70 @@ function updateInsights(
 
         savingsRate =
             (
-                (income - expenses)
-                /
+                (income - expenses) /
                 income
-            ) *
-            100;
+            ) * 100;
 
     }
 
 
-    document.getElementById(
-        "savingsRate"
-    ).textContent =
-        savingsRate.toFixed(1) +
-        "%";
+    document.getElementById("savingsRate")
+        .textContent =
+        savingsRate.toFixed(1) + "%";
 
 
-    let advice = "";
+    const advice =
+        document.getElementById("spendingAdvice");
 
 
-    if (
-        transactions.length === 0
-    ) {
+    if (transactions.length === 0) {
 
-        advice =
+        advice.textContent =
             "Add transactions to receive personalized spending advice.";
 
     }
 
-    else if (
-        income === 0
-    ) {
+    else if (income === 0) {
 
-        advice =
-            "💡 Add your income so we can calculate your savings rate.";
+        advice.textContent =
+            "💡 Add your income so the tracker can calculate your savings rate.";
 
     }
 
-    else if (
-        expenses > income
-    ) {
+    else if (expenses > income) {
 
-        advice =
+        advice.textContent =
             "⚠️ Your expenses are higher than your income. Consider reducing unnecessary spending.";
 
     }
 
-    else if (
-        savingsRate >= 20
-    ) {
+    else if (savingsRate >= 20) {
 
-        advice =
-            "🎉 Great job! You're saving at least 20% of your income.";
+        advice.textContent =
+            "🎉 Great job! You're saving at least 20% of your income. Keep it up!";
 
     }
 
-    else if (
-        savingsRate > 0
-    ) {
+    else if (savingsRate > 0) {
 
-        advice =
-            "💡 You're saving some money. Try increasing your savings gradually.";
+        advice.textContent =
+            "💡 You're saving some money. Try to increase your savings gradually.";
 
     }
 
     else {
 
-        advice =
-            "💡 Your income and expenses are equal. Look for ways to reduce spending.";
+        advice.textContent =
+            "💡 Your income and expenses are currently equal. Look for small ways to reduce spending.";
 
     }
-
-
-    document.getElementById(
-        "spendingAdvice"
-    ).textContent =
-        advice;
-
-
-    document.getElementById(
-        "insightAdvice"
-    ).textContent =
-        advice;
 
 }
 
 
-
-/* ==================================================
+/* =========================================
    TRANSACTIONS
-================================================== */
+========================================= */
 
 function renderTransactions() {
 
@@ -1994,16 +1287,13 @@ function renderTransactions() {
             "transactionList"
         );
 
-
     list.innerHTML = "";
 
 
     const search =
         document.getElementById(
             "searchInput"
-        ).value
-        .trim()
-        .toLowerCase();
+        ).value.trim().toLowerCase();
 
 
     const category =
@@ -2022,325 +1312,118 @@ function renderTransactions() {
 
 
     transactions.forEach(
-        function(
-            transaction,
-            index
-        ) {
+        function(transaction, index) {
 
             const description =
                 String(
-                    transaction.description
-                    || ""
-                );
+                    transaction.description || ""
+                ).toLowerCase();
 
 
             const matchesSearch =
-                description
-                .toLowerCase()
-                .includes(search);
-
+                description.includes(search);
 
             const matchesCategory =
                 category === "all" ||
-                transaction.category ===
-                category;
-
+                transaction.category === category;
 
             const matchesType =
                 type === "all" ||
-                transaction.type ===
-                type;
+                transaction.type === type;
 
 
             if (
-                !matchesSearch ||
-                !matchesCategory ||
-                !matchesType
+                matchesSearch &&
+                matchesCategory &&
+                matchesType
             ) {
 
-                return;
-
-            }
+                count++;
 
 
-            count++;
+                const li =
+                    document.createElement("li");
 
 
-            const li =
-                document.createElement(
-                    "li"
-                );
-
-
-            li.className =
-                "transaction-card";
-
-
-            const icon =
-                document.createElement(
-                    "div"
-                );
-
-
-            icon.className =
-                "transaction-icon";
-
-
-            icon.textContent =
-                getCategoryEmoji(
-                    transaction.category
-                );
-
-
-            const details =
-                document.createElement(
-                    "div"
-                );
-
-
-            details.className =
-                "transaction-details";
-
-
-            const title =
-                document.createElement(
-                    "h3"
-                );
-
-
-            title.textContent =
-                transaction.description;
-
-
-            const meta =
-                document.createElement(
-                    "p"
-                );
-
-
-            meta.textContent =
-                transaction.category +
-                " • " +
-                formatDate(
-                    transaction.date
-                );
-
-
-            details.appendChild(
-                title
-            );
-
-            details.appendChild(
-                meta
-            );
-
-
-            const right =
-                document.createElement(
-                    "div"
-                );
-
-
-            right.className =
-                "transaction-right";
-
-
-            const amount =
-                document.createElement(
-                    "strong"
-                );
-
-
-            amount.className =
-                transaction.type ===
-                "income"
-                ? "income-amount"
-                : "expense-amount";
-
-
-            amount.textContent =
-                (
-                    transaction.type ===
-                    "income"
-                    ? "+ UGX "
-                    : "- UGX "
-                ) +
-                Number(
-                    transaction.amount
-                ).toLocaleString();
-
-
-            const typeBadge =
-                document.createElement(
-                    "span"
-                );
-
-
-            typeBadge.className =
-                transaction.type ===
-                "income"
-                ? "transaction-badge income-badge"
-                : "transaction-badge expense-badge";
-
-
-            typeBadge.textContent =
-                transaction.type ===
-                "income"
-                ? "Income"
-                : "Expense";
-
-
-            right.appendChild(
-                amount
-            );
-
-            right.appendChild(
-                typeBadge
-            );
-
-
-            const actions =
-                document.createElement(
-                    "div"
-                );
-
-
-            actions.className =
-                "transaction-actions";
-
-
-            const editButton =
-                document.createElement(
-                    "button"
-                );
-
-
-            editButton.textContent =
-                "✏️";
-
-
-            editButton.title =
-                "Edit transaction";
-
-
-            editButton.onclick =
-                function() {
-
-                    editTransaction(
-                        index
+                li.textContent =
+                    transaction.description +
+                    " — UGX " +
+                    Number(
+                        transaction.amount
+                    ).toLocaleString() +
+                    " — " +
+                    transaction.category +
+                    " — " +
+                    transaction.date +
+                    " — " +
+                    (
+                        transaction.type === "income"
+                        ? "💵 Income"
+                        : "💸 Expense"
                     );
 
-                };
+
+                const editButton =
+                    document.createElement("button");
+
+                editButton.textContent =
+                    "✏️ Edit";
+
+                editButton.onclick =
+                    function() {
+
+                        editTransaction(index);
+
+                    };
 
 
-            const deleteButton =
-                document.createElement(
-                    "button"
-                );
+                const deleteButton =
+                    document.createElement("button");
+
+                deleteButton.textContent =
+                    "🗑️ Delete";
+
+                deleteButton.onclick =
+                    function() {
+
+                        if (
+                            confirm(
+                                "Delete this transaction?"
+                            )
+                        ) {
+
+                            transactions.splice(
+                                index,
+                                1
+                            );
+
+                            saveTransactions();
+
+                            updateTracker();
+
+                            updateMonthlySummary();
+
+                            updateBudgetAlerts();
+
+                        }
+
+                    };
 
 
-            deleteButton.textContent =
-                "🗑️";
+                li.appendChild(editButton);
 
+                li.appendChild(deleteButton);
 
-            deleteButton.title =
-                "Delete transaction";
+                list.appendChild(li);
 
-
-            deleteButton.onclick =
-                function() {
-
-                    if (
-                        confirm(
-                            "Delete this transaction?"
-                        )
-                    ) {
-
-                        transactions.splice(
-                            index,
-                            1
-                        );
-
-                        saveTransactions();
-
-                        updateTracker();
-
-                        updateMonthlySummary();
-
-                        updateBudgetAlerts();
-
-                    }
-
-                };
-
-
-            actions.appendChild(
-                editButton
-            );
-
-            actions.appendChild(
-                deleteButton
-            );
-
-
-            const left =
-                document.createElement(
-                    "div"
-                );
-
-
-            left.className =
-                "transaction-left";
-
-
-            left.appendChild(
-                icon
-            );
-
-            left.appendChild(
-                details
-            );
-
-
-            const content =
-                document.createElement(
-                    "div"
-                );
-
-
-            content.className =
-                "transaction-content";
-
-
-            content.appendChild(
-                left
-            );
-
-            content.appendChild(
-                right
-            );
-
-
-            li.appendChild(
-                content
-            );
-
-            li.appendChild(
-                actions
-            );
-
-
-            list.appendChild(
-                li
-            );
+            }
 
         }
     );
 
 
-    document.getElementById(
-        "transactionCount"
-    ).textContent =
+    document.getElementById("transactionCount")
+        .textContent =
         "Showing " +
         count +
         " of " +
@@ -2351,98 +1434,60 @@ function renderTransactions() {
     if (count === 0) {
 
         const empty =
-            document.createElement(
-                "div"
-            );
+            document.createElement("li");
 
+        empty.textContent =
+            "🔍 No transactions found.";
 
-        empty.className =
-            "empty-transactions";
-
-
-        empty.innerHTML = `
-
-            <div>
-                💳
-            </div>
-
-            <h3>
-                No transactions found
-            </h3>
-
-            <p>
-                Try changing your search or filters.
-            </p>
-
-        `;
-
-
-        list.appendChild(
-            empty
-        );
+        list.appendChild(empty);
 
     }
 
 }
 
 
-
-/* ==================================================
+/* =========================================
    FILTERS
-================================================== */
+========================================= */
 
-document.getElementById(
-    "searchInput"
-).addEventListener(
-    "input",
-    renderTransactions
-);
+document.getElementById("searchInput")
+    .addEventListener(
+        "input",
+        renderTransactions
+    );
 
+document.getElementById("categoryFilter")
+    .addEventListener(
+        "change",
+        renderTransactions
+    );
 
-document.getElementById(
-    "categoryFilter"
-).addEventListener(
-    "change",
-    renderTransactions
-);
-
-
-document.getElementById(
-    "typeFilter"
-).addEventListener(
-    "change",
-    renderTransactions
-);
+document.getElementById("typeFilter")
+    .addEventListener(
+        "change",
+        renderTransactions
+    );
 
 
 function clearFilters() {
 
-    document.getElementById(
-        "searchInput"
-    ).value = "";
+    document.getElementById("searchInput")
+        .value = "";
 
+    document.getElementById("categoryFilter")
+        .value = "all";
 
-    document.getElementById(
-        "categoryFilter"
-    ).value =
-        "all";
-
-
-    document.getElementById(
-        "typeFilter"
-    ).value =
-        "all";
-
+    document.getElementById("typeFilter")
+        .value = "all";
 
     renderTransactions();
 
 }
 
 
-
-/* ==================================================
+/* =========================================
    BUDGET LIMITS
-================================================== */
+========================================= */
 
 function saveBudgetLimit() {
 
@@ -2460,10 +1505,7 @@ function saveBudgetLimit() {
         );
 
 
-    if (
-        !limit ||
-        limit <= 0
-    ) {
+    if (!limit || limit <= 0) {
 
         alert(
             "Please enter a valid budget limit."
@@ -2474,16 +1516,13 @@ function saveBudgetLimit() {
     }
 
 
-    budgetLimits[
-        category
-    ] = limit;
+    budgetLimits[category] =
+        limit;
 
 
     localStorage.setItem(
         "fateBudgetLimits",
-        JSON.stringify(
-            budgetLimits
-        )
+        JSON.stringify(budgetLimits)
     );
 
 
@@ -2494,15 +1533,21 @@ function saveBudgetLimit() {
 
     updateBudgetAlerts();
 
-    updateDashboard();
+    updateDashboardBudgetStatus();
+
+
+    alert(
+        "Budget limit saved for " +
+        category +
+        "!"
+    );
 
 }
 
 
-
-/* ==================================================
-   BUDGET ALERTS
-================================================== */
+/* =========================================
+   UPDATE BUDGET ALERTS
+========================================= */
 
 function updateBudgetAlerts() {
 
@@ -2513,15 +1558,11 @@ function updateBudgetAlerts() {
 
 
     if (
-        Object.keys(
-            budgetLimits
-        ).length === 0
+        Object.keys(budgetLimits).length === 0
     ) {
 
         container.innerHTML =
             "<p>No budget limits have been set yet.</p>";
-
-        updateDashboard();
 
         return;
 
@@ -2532,21 +1573,33 @@ function updateBudgetAlerts() {
         new Date();
 
 
-    const month =
-        now.getFullYear() +
-        "-" +
+    const currentYear =
+        now.getFullYear();
+
+    const currentMonth =
         String(
             now.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
 
 
-    const categories =
-        Object.keys(
-            budgetLimits
-        );
+    const currentMonthString =
+        currentYear +
+        "-" +
+        currentMonth;
+
+
+    const categories = [
+
+        "Food",
+        "Transport",
+        "School",
+        "Airtime/Data",
+        "Rent",
+        "Utilities",
+        "Shopping",
+        "Other"
+
+    ];
 
 
     let html = "";
@@ -2555,11 +1608,18 @@ function updateBudgetAlerts() {
     categories.forEach(
         function(category) {
 
+            if (
+                !budgetLimits[category]
+            ) {
+
+                return;
+
+            }
+
+
             const limit =
                 Number(
-                    budgetLimits[
-                        category
-                    ]
+                    budgetLimits[category]
                 );
 
 
@@ -2577,7 +1637,7 @@ function updateBudgetAlerts() {
                         String(
                             transaction.date
                         ).startsWith(
-                            month
+                            currentMonthString
                         )
                     ) {
 
@@ -2594,50 +1654,41 @@ function updateBudgetAlerts() {
 
             const percentage =
                 limit > 0
-                ? (
-                    spent /
-                    limit
-                  ) *
-                  100
+                ? (spent / limit) * 100
                 : 0;
 
 
-            const width =
+            const barWidth =
                 Math.min(
                     100,
                     percentage
                 );
 
 
-            let status =
+            let statusClass =
                 "safe";
 
-
             let message =
-                "🟢 Within budget";
+                "🟢 You're within your budget.";
 
 
-            if (
-                percentage >= 100
-            ) {
+            if (percentage >= 100) {
 
-                status =
+                statusClass =
                     "danger";
 
                 message =
-                    "🔴 Budget exceeded";
+                    "🔴 Budget exceeded!";
 
             }
 
-            else if (
-                percentage >= 80
-            ) {
+            else if (percentage >= 80) {
 
-                status =
+                statusClass =
                     "warning";
 
                 message =
-                    "🟡 Getting close to limit";
+                    "🟡 You're getting close to your limit.";
 
             }
 
@@ -2646,67 +1697,50 @@ function updateBudgetAlerts() {
 
                 <div class="budget-card">
 
-                    <div class="budget-card-top">
-
-                        <div>
-
-                            <strong>
-                                ${getCategoryEmoji(category)}
-                                ${escapeHTML(category)}
-                            </strong>
-
-                            <span>
-                                Monthly budget
-                            </span>
-
-                        </div>
+                    <div class="budget-title">
 
                         <strong>
-                            UGX ${spent.toLocaleString()}
-                            /
-                            UGX ${limit.toLocaleString()}
+                            ${getCategoryEmoji(category)}
+                            ${escapeHTML(category)}
                         </strong>
 
-                    </div>
+                        <span>
+                            UGX
+                            ${spent.toLocaleString()}
+                            /
+                            UGX
+                            ${limit.toLocaleString()}
+                        </span>
 
+                    </div>
 
                     <div class="progress-container">
 
                         <div
-                            class="progress-bar ${status}"
-                            style="width:${width}%">
+                            class="progress-bar ${statusClass}"
+                            style="width:${barWidth}%">
                         </div>
 
                     </div>
 
+                    <p>
+                        ${percentage.toFixed(1)}% used
+                    </p>
 
-                    <div class="budget-card-bottom">
-
-                        <span>
-                            ${percentage.toFixed(1)}% used
-                        </span>
-
-                        <strong>
-                            ${message}
-                        </strong>
-
-                    </div>
-
+                    <p class="budget-message">
+                        ${message}
+                    </p>
 
                     <div class="budget-buttons">
 
                         <button
                             onclick="editBudgetLimit('${category}')">
-
-                            ✏️ Edit
-
+                            ✏️ Edit Limit
                         </button>
 
                         <button
                             onclick="deleteBudgetLimit('${category}')">
-
-                            🗑️ Delete
-
+                            🗑️ Delete Limit
                         </button>
 
                     </div>
@@ -2720,172 +1754,376 @@ function updateBudgetAlerts() {
 
 
     container.innerHTML =
-        html;
-
-
-    updateDashboard();
+        html ||
+        "<p>No budget limits have been set yet.</p>";
 
 }
 
 
+/* =========================================
+   CATEGORY EMOJIS
+========================================= */
 
-/* ==================================================
-   DASHBOARD BUDGET PREVIEW
-================================================== */
+function getCategoryEmoji(category) {
 
-function updateDashboardBudget() {
+    const emojis = {
 
-    const container =
-        document.getElementById(
-            "dashboardBudgetStatus"
-        );
+        "Food": "🍔",
 
+        "Transport": "🚌",
+
+        "School": "📚",
+
+        "Airtime/Data": "📱",
+
+        "Rent": "🏠",
+
+        "Utilities": "💡",
+
+        "Shopping": "🛍️",
+
+        "Other": "📦"
+
+    };
+
+
+    return emojis[category] || "📦";
+
+}
+
+
+/* =========================================
+   EDIT BUDGET LIMIT
+========================================= */
+
+function editBudgetLimit(category) {
+
+    document.getElementById(
+        "budgetCategory"
+    ).value =
+        category;
+
+
+    document.getElementById(
+        "budgetLimit"
+    ).value =
+        budgetLimits[category];
+
+
+    document.getElementById("budgetAlerts")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =========================================
+   DELETE BUDGET LIMIT
+========================================= */
+
+function deleteBudgetLimit(category) {
 
     if (
-        Object.keys(
-            budgetLimits
-        ).length === 0
+        !confirm(
+            "Delete the budget limit for " +
+            category +
+            "?"
+        )
     ) {
-
-        container.innerHTML = `
-
-            <div class="empty-budget">
-
-                <span>
-                    ⚠️
-                </span>
-
-                <div>
-
-                    <strong>
-                        No budget limits
-                    </strong>
-
-                    <p>
-                        Set category limits to monitor your spending.
-                    </p>
-
-                </div>
-
-            </div>
-
-        `;
 
         return;
 
     }
 
 
-    const month =
-        new Date().toISOString().slice(
-            0,
-            7
-        );
+    delete budgetLimits[category];
 
 
-    let html = "";
+    localStorage.setItem(
+        "fateBudgetLimits",
+        JSON.stringify(budgetLimits)
+    );
 
 
-    Object.keys(
-        budgetLimits
-    )
-    .slice(0, 3)
-    .forEach(
-        function(category) {
+    updateBudgetAlerts();
 
-            const limit =
-                Number(
-                    budgetLimits[
-                        category
-                    ]
-                );
+    updateDashboardBudgetStatus();
+
+}
 
 
-            let spent = 0;
+/* =========================================
+   MONTHLY SUMMARY
+========================================= */
+
+function updateMonthlySummary() {
+
+    const selectedMonth =
+        document.getElementById(
+            "monthFilter"
+        ).value;
 
 
-            transactions.forEach(
-                function(transaction) {
+    let monthlyIncome = 0;
 
-                    if (
-                        transaction.type ===
-                        "expense" &&
-                        transaction.category ===
-                        category &&
-                        String(
-                            transaction.date
-                        ).startsWith(
-                            month
-                        )
-                    ) {
+    let monthlyExpenses = 0;
 
-                        spent +=
-                            Number(
-                                transaction.amount
-                            ) || 0;
 
-                    }
+    if (!selectedMonth) {
+
+        document.getElementById(
+            "monthlyIncome"
+        ).textContent =
+            "UGX 0";
+
+        document.getElementById(
+            "monthlyExpenses"
+        ).textContent =
+            "UGX 0";
+
+        document.getElementById(
+            "monthlyBalance"
+        ).textContent =
+            "UGX 0";
+
+        return;
+
+    }
+
+
+    transactions.forEach(
+        function(transaction) {
+
+            if (
+                String(transaction.date)
+                .startsWith(selectedMonth)
+            ) {
+
+                const amount =
+                    Number(transaction.amount) || 0;
+
+
+                if (
+                    transaction.type === "income"
+                ) {
+
+                    monthlyIncome += amount;
 
                 }
-            );
 
 
-            const percentage =
-                limit > 0
-                ? Math.min(
-                    100,
-                    (
-                        spent /
-                        limit
-                    ) *
-                    100
-                  )
-                : 0;
+                if (
+                    transaction.type === "expense"
+                ) {
 
+                    monthlyExpenses += amount;
 
-            html += `
+                }
 
-                <div class="dashboard-budget-row">
-
-                    <div class="dashboard-budget-info">
-
-                        <span>
-                            ${getCategoryEmoji(category)}
-                            ${escapeHTML(category)}
-                        </span>
-
-                        <strong>
-                            ${percentage.toFixed(0)}%
-                        </strong>
-
-                    </div>
-
-                    <div class="mini-progress">
-
-                        <div
-                            style="width:${percentage}%">
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `;
+            }
 
         }
     );
 
 
-    container.innerHTML =
-        html;
+    document.getElementById(
+        "monthlyIncome"
+    ).textContent =
+        "UGX " +
+        monthlyIncome.toLocaleString();
+
+
+    document.getElementById(
+        "monthlyExpenses"
+    ).textContent =
+        "UGX " +
+        monthlyExpenses.toLocaleString();
+
+
+    document.getElementById(
+        "monthlyBalance"
+    ).textContent =
+        "UGX " +
+        (
+            monthlyIncome -
+            monthlyExpenses
+        ).toLocaleString();
 
 }
 
 
+document.getElementById("monthFilter")
+    .addEventListener(
+        "change",
+        updateMonthlySummary
+    );
 
-/* ==================================================
+
+/* =========================================
+   CHART
+========================================= */
+
+function updateChart(categoryTotals) {
+
+    const canvas =
+        document.getElementById(
+            "spendingChart"
+        );
+
+
+    if (spendingChart) {
+
+        spendingChart.destroy();
+
+    }
+
+
+    spendingChart =
+        new Chart(
+            canvas,
+            {
+
+                type: "doughnut",
+
+                data: {
+
+                    labels:
+                        Object.keys(
+                            categoryTotals
+                        ),
+
+                    datasets: [
+
+                        {
+
+                            label:
+                                "Spending by Category",
+
+                            data:
+                                Object.values(
+                                    categoryTotals
+                                )
+
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    plugins: {
+
+                        legend: {
+
+                            position: "bottom"
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================
+   EXPORT
+========================================= */
+
+function exportTransactions() {
+
+    if (transactions.length === 0) {
+
+        alert(
+            "There are no transactions to export."
+        );
+
+        return;
+
+    }
+
+
+    let csv =
+        "Description,Amount,Date,Type,Category\n";
+
+
+    transactions.forEach(
+        function(transaction) {
+
+            const description =
+                String(
+                    transaction.description
+                ).replace(/"/g, '""');
+
+
+            const category =
+                String(
+                    transaction.category
+                ).replace(/"/g, '""');
+
+
+            csv +=
+                '"' +
+                description +
+                '",' +
+                transaction.amount +
+                ',' +
+                transaction.date +
+                ',' +
+                transaction.type +
+                ',"' +
+                category +
+                '"\n';
+
+        }
+    );
+
+
+    const blob =
+        new Blob(
+            [csv],
+            {
+                type:
+                    "text/csv;charset=utf-8;"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+    link.download =
+        "THE_FATE_BUDGET_TRACKER.csv";
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* =========================================
    SAVINGS GOAL
-================================================== */
+========================================= */
 
 function saveGoal() {
 
@@ -2922,10 +2160,7 @@ function saveGoal() {
     }
 
 
-    if (
-        !target ||
-        target <= 0
-    ) {
+    if (!target || target <= 0) {
 
         alert(
             "Please enter a valid target amount."
@@ -2936,9 +2171,7 @@ function saveGoal() {
     }
 
 
-    if (
-        saved < 0
-    ) {
+    if (saved < 0) {
 
         alert(
             "Saved amount cannot be negative."
@@ -2951,37 +2184,25 @@ function saveGoal() {
 
     savingsGoal = {
 
-        name:
-            name,
+        name: name,
 
-        target:
-            target,
+        target: target,
 
-        saved:
-            saved
+        saved: saved
 
     };
 
 
     localStorage.setItem(
         "fateSavingsGoal",
-        JSON.stringify(
-            savingsGoal
-        )
+        JSON.stringify(savingsGoal)
     );
 
 
     displayGoal();
 
-    updateDashboard();
-
 }
 
-
-
-/* ==================================================
-   DISPLAY GOAL
-================================================== */
 
 function displayGoal() {
 
@@ -3015,8 +2236,7 @@ function displayGoal() {
             (
                 savingsGoal.saved /
                 savingsGoal.target
-            ) *
-            100
+            ) * 100
         );
 
 
@@ -3030,91 +2250,79 @@ function displayGoal() {
 
     display.innerHTML = `
 
-        <div class="goal-card">
+        <div
+            style="
+                margin-top:25px;
+                padding:20px;
+                border-radius:15px;
+                background:#f8fafc;
+            "
+        >
 
-            <div class="goal-card-header">
+            <h3>
+                🎯
+                ${escapeHTML(
+                    savingsGoal.name
+                )}
+            </h3>
 
-                <div class="goal-icon">
-                    🎯
-                </div>
+            <p>
+                Saved:
+                <strong>
+                    UGX
+                    ${savingsGoal.saved.toLocaleString()}
+                </strong>
+            </p>
 
-                <div>
+            <p>
+                Target:
+                <strong>
+                    UGX
+                    ${savingsGoal.target.toLocaleString()}
+                </strong>
+            </p>
 
-                    <span>
-                        SAVINGS GOAL
-                    </span>
+            <p>
+                Remaining:
+                <strong>
+                    UGX
+                    ${remaining.toLocaleString()}
+                </strong>
+            </p>
 
-                    <h3>
-                        ${escapeHTML(
-                            savingsGoal.name
-                        )}
-                    </h3>
-
-                </div>
-
-            </div>
-
-
-            <div class="goal-amounts">
-
-                <div>
-
-                    <span>
-                        Saved
-                    </span>
-
-                    <strong>
-                        UGX
-                        ${savingsGoal.saved.toLocaleString()}
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span>
-                        Target
-                    </span>
-
-                    <strong>
-                        UGX
-                        ${savingsGoal.target.toLocaleString()}
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <div class="goal-progress">
-
-                <div class="goal-progress-bar">
-
-                    <div
-                        style="width:${percentage}%">
-                    </div>
-
-                </div>
-
+            <p>
                 <strong>
                     ${percentage.toFixed(1)}%
+                    Complete
                 </strong>
+            </p>
+
+            <div
+                style="
+                    width:100%;
+                    height:22px;
+                    background:#e2e8f0;
+                    border-radius:20px;
+                    overflow:hidden;
+                "
+            >
+
+                <div
+                    style="
+                        width:${percentage}%;
+                        height:100%;
+                        background:#2563eb;
+                        border-radius:20px;
+                    "
+                ></div>
 
             </div>
 
-
-            <p class="goal-remaining">
-
-                ${
-                    percentage >= 100
-                    ? "🎉 Goal achieved!"
-                    : "UGX " +
-                      remaining.toLocaleString() +
-                      " remaining"
-                }
-
-            </p>
+            ${
+                percentage >= 100
+                ? "<p>🎉 Goal Achieved!</p>"
+                : ""
+            }
 
         </div>
 
@@ -3122,117 +2330,17 @@ function displayGoal() {
 
 
     deleteButton.style.display =
-        "block";
+        "inline-block";
 
 }
 
-
-
-/* ==================================================
-   DASHBOARD GOAL
-================================================== */
-
-function updateDashboardGoal() {
-
-    const container =
-        document.getElementById(
-            "dashboardGoal"
-        );
-
-
-    if (!savingsGoal) {
-
-        container.innerHTML = `
-
-            <div class="goal-empty">
-
-                <span>
-                    🎯
-                </span>
-
-                <p>
-                    No savings goal yet.
-                </p>
-
-                <a href="#goals">
-                    Create a goal
-                </a>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    const percentage =
-        Math.min(
-            100,
-            (
-                savingsGoal.saved /
-                savingsGoal.target
-            ) *
-            100
-        );
-
-
-    container.innerHTML = `
-
-        <div class="dashboard-goal-content">
-
-            <div class="goal-small-icon">
-                🎯
-            </div>
-
-            <div class="goal-small-info">
-
-                <strong>
-                    ${escapeHTML(
-                        savingsGoal.name
-                    )}
-                </strong>
-
-                <span>
-                    UGX
-                    ${savingsGoal.saved.toLocaleString()}
-                    of
-                    UGX
-                    ${savingsGoal.target.toLocaleString()}
-                </span>
-
-            </div>
-
-            <strong class="goal-percentage">
-                ${percentage.toFixed(0)}%
-            </strong>
-
-        </div>
-
-
-        <div class="goal-mini-progress">
-
-            <div
-                style="width:${percentage}%">
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-
-/* ==================================================
-   DELETE GOAL
-================================================== */
 
 function deleteGoal() {
 
     if (!savingsGoal) {
+
         return;
+
     }
 
 
@@ -3244,7 +2352,6 @@ function deleteGoal() {
 
         savingsGoal = null;
 
-
         localStorage.removeItem(
             "fateSavingsGoal"
         );
@@ -3254,11 +2361,9 @@ function deleteGoal() {
             "goalName"
         ).value = "";
 
-
         document.getElementById(
             "goalTarget"
         ).value = "";
-
 
         document.getElementById(
             "goalSaved"
@@ -3267,596 +2372,30 @@ function deleteGoal() {
 
         displayGoal();
 
-        updateDashboard();
-
     }
 
 }
 
 
-
-/* ==================================================
-   BUDGET EDIT
-================================================== */
-
-function editBudgetLimit(
-    category
-) {
-
-    document.getElementById(
-        "budgetCategory"
-    ).value =
-        category;
-
-
-    document.getElementById(
-        "budgetLimit"
-    ).value =
-        budgetLimits[
-            category
-        ];
-
-
-    location.hash =
-        "budgetAlerts";
-
-}
-
-
-
-/* ==================================================
-   BUDGET DELETE
-================================================== */
-
-function deleteBudgetLimit(
-    category
-) {
-
-    if (
-        !confirm(
-            "Delete the budget limit for " +
-            category +
-            "?"
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    delete budgetLimits[
-        category
-    ];
-
-
-    localStorage.setItem(
-        "fateBudgetLimits",
-        JSON.stringify(
-            budgetLimits
-        )
-    );
-
-
-    updateBudgetAlerts();
-
-}
-
-
-
-/* ==================================================
-   MONTHLY SUMMARY
-================================================== */
-
-function updateMonthlySummary() {
-
-    const selectedMonth =
-        document.getElementById(
-            "monthFilter"
-        ).value;
-
-
-    let monthlyIncome = 0;
-
-    let monthlyExpenses = 0;
-
-
-    if (!selectedMonth) {
-
-        document.getElementById(
-            "monthlyIncome"
-        ).textContent =
-            "UGX 0";
-
-
-        document.getElementById(
-            "monthlyExpenses"
-        ).textContent =
-            "UGX 0";
-
-
-        document.getElementById(
-            "monthlyBalance"
-        ).textContent =
-            "UGX 0";
-
-
-        return;
-
-    }
-
-
-    transactions.forEach(
-        function(transaction) {
-
-            if (
-                String(
-                    transaction.date
-                ).startsWith(
-                    selectedMonth
-                )
-            ) {
-
-                const amount =
-                    Number(
-                        transaction.amount
-                    ) || 0;
-
-
-                if (
-                    transaction.type ===
-                    "income"
-                ) {
-
-                    monthlyIncome +=
-                        amount;
-
-                }
-
-
-                if (
-                    transaction.type ===
-                    "expense"
-                ) {
-
-                    monthlyExpenses +=
-                        amount;
-
-                }
-
-            }
-
-        }
-    );
-
-
-    document.getElementById(
-        "monthlyIncome"
-    ).textContent =
-        "UGX " +
-        monthlyIncome.toLocaleString();
-
-
-    document.getElementById(
-        "monthlyExpenses"
-    ).textContent =
-        "UGX " +
-        monthlyExpenses.toLocaleString();
-
-
-    document.getElementById(
-        "monthlyBalance"
-    ).textContent =
-        "UGX " +
-        (
-            monthlyIncome -
-            monthlyExpenses
-        ).toLocaleString();
-
-}
-
-
-document.getElementById(
-    "monthFilter"
-).addEventListener(
-    "change",
-    updateMonthlySummary
-);
-
-
-
-/* ==================================================
-   CHART
-================================================== */
-
-function createChart(
-    canvas,
-    categoryTotals
-) {
-
-    if (!canvas) {
-        return null;
-    }
-
-
-    const values =
-        Object.values(
-            categoryTotals
-        );
-
-
-    const hasSpending =
-        values.some(
-            function(value) {
-                return value > 0;
-            }
-        );
-
-
-    return new Chart(
-        canvas,
-        {
-
-            type:
-                "doughnut",
-
-            data: {
-
-                labels:
-                    Object.keys(
-                        categoryTotals
-                    ),
-
-                datasets: [
-
-                    {
-
-                        data:
-                            values,
-
-                        borderWidth:
-                            0
-
-                    }
-
-                ]
-
-            },
-
-            options: {
-
-                responsive:
-                    true,
-
-                maintainAspectRatio:
-                    false,
-
-                cutout:
-                    "68%",
-
-                plugins: {
-
-                    legend: {
-
-                        position:
-                            "bottom",
-
-                        display:
-                            true
-
-                    }
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-
-function updateChart(
-    categoryTotals
-) {
-
-    const canvas =
-        document.getElementById(
-            "spendingChart"
-        );
-
-
-    if (
-        spendingChart
-    ) {
-
-        spendingChart.destroy();
-
-    }
-
-
-    spendingChart =
-        createChart(
-            canvas,
-            categoryTotals
-        );
-
-}
-
-
-
-function updateDashboardChart(
-    categoryTotals
-) {
-
-    const canvas =
-        document.getElementById(
-            "dashboardChart"
-        );
-
-
-    if (
-        dashboardChart
-    ) {
-
-        dashboardChart.destroy();
-
-    }
-
-
-    dashboardChart =
-        createChart(
-            canvas,
-            categoryTotals
-        );
-
-}
-
-
-
-/* ==================================================
-   EXPORT
-================================================== */
-
-function exportTransactions() {
-
-    if (
-        transactions.length === 0
-    ) {
-
-        alert(
-            "There are no transactions to export."
-        );
-
-        return;
-
-    }
-
-
-    let csv =
-        "Description,Amount,Date,Type,Category\n";
-
-
-    transactions.forEach(
-        function(transaction) {
-
-            const description =
-                String(
-                    transaction.description
-                    || ""
-                )
-                .replace(
-                    /"/g,
-                    '""'
-                );
-
-
-            const category =
-                String(
-                    transaction.category
-                    || ""
-                )
-                .replace(
-                    /"/g,
-                    '""'
-                );
-
-
-            csv +=
-                '"' +
-                description +
-                '",' +
-                transaction.amount +
-                ',' +
-                transaction.date +
-                ',' +
-                transaction.type +
-                ',"' +
-                category +
-                '"\n';
-
-        }
-    );
-
-
-    const blob =
-        new Blob(
-            [csv],
-            {
-                type:
-                    "text/csv;charset=utf-8;"
-            }
-        );
-
-
-    const url =
-        URL.createObjectURL(
-            blob
-        );
-
-
-    const link =
-        document.createElement(
-            "a"
-        );
-
-
-    link.href =
-        url;
-
-
-    link.download =
-        "THE_FATE_BUDGET_TRACKER.csv";
-
-
-    document.body.appendChild(
-        link
-    );
-
-
-    link.click();
-
-
-    document.body.removeChild(
-        link
-    );
-
-
-    URL.revokeObjectURL(
-        url
-    );
-
-}
-
-
-
-/* ==================================================
-   CATEGORY EMOJIS
-================================================== */
-
-function getCategoryEmoji(
-    category
-) {
-
-    const emojis = {
-
-        Food:
-            "🍔",
-
-        Transport:
-            "🚌",
-
-        School:
-            "📚",
-
-        "Airtime/Data":
-            "📱",
-
-        Rent:
-            "🏠",
-
-        Utilities:
-            "💡",
-
-        Shopping:
-            "🛍️",
-
-        Other:
-            "📦"
-
-    };
-
-
-    return (
-        emojis[category]
-        ||
-        "📦"
-    );
-
-}
-
-
-
-/* ==================================================
-   DATE FORMAT
-================================================== */
-
-function formatDate(
-    date
-) {
-
-    if (!date) {
-        return "No date";
-    }
-
-
-    const parts =
-        String(date).split("-");
-
-
-    if (
-        parts.length !== 3
-    ) {
-
-        return date;
-
-    }
-
-
-    return (
-        parts[1] +
-        "/" +
-        parts[2] +
-        "/" +
-        parts[0]
-    );
-
-}
-
-
-
-/* ==================================================
+/* =========================================
    ESCAPE HTML
-================================================== */
+========================================= */
 
-function escapeHTML(
-    text
-) {
+function escapeHTML(text) {
 
     const div =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
-
-    div.textContent =
-        text;
-
+    div.textContent = text;
 
     return div.innerHTML;
 
 }
 
 
-
-/* ==================================================
-   DASHBOARD UPDATE
-================================================== */
-
-function updateDashboard() {
-
-    updateDashboardBudget();
-
-    updateDashboardGoal();
-
-}
-
-
-
-/* ==================================================
+/* =========================================
    DARK MODE
-================================================== */
+========================================= */
 
 function toggleTheme() {
 
@@ -3873,16 +2412,13 @@ function toggleTheme() {
 
     localStorage.setItem(
         "fateDarkMode",
-        darkMode
-        ? "true"
-        : "false"
+        darkMode ? "true" : "false"
     );
 
 
     updateThemeButton();
 
 }
-
 
 
 function updateThemeButton() {
@@ -3900,26 +2436,59 @@ function updateThemeButton() {
     ) {
 
         button.textContent =
-            "☀️";
-
-        button.title =
-            "Switch to light mode";
+            "☀️ Light Mode";
 
     }
 
     else {
 
         button.textContent =
-            "🌙";
-
-        button.title =
-            "Switch to dark mode";
+            "🌙 Dark Mode";
 
     }
 
 }
 
 
+/* =========================================
+   BOTTOM NAV ACTIVE STATE
+========================================= */
+
+const bottomNavItems =
+    document.querySelectorAll(
+        ".bottom-nav-item"
+    );
+
+
+bottomNavItems.forEach(function(item) {
+
+    item.addEventListener(
+        "click",
+        function() {
+
+            bottomNavItems.forEach(
+                function(navItem) {
+
+                    navItem.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+            item.classList.add(
+                "active"
+            );
+
+        }
+    );
+
+});
+
+
+/* =========================================
+   LOAD DARK MODE
+========================================= */
 
 if (
     localStorage.getItem(
@@ -3933,105 +2502,12 @@ if (
 
 }
 
-
 updateThemeButton();
 
 
-
-/* ==================================================
-   MOBILE NAVIGATION
-================================================== */
-
-const navItems =
-    document.querySelectorAll(
-        ".nav-item"
-    );
-
-
-navItems.forEach(
-    function(item) {
-
-        item.addEventListener(
-            "click",
-            function() {
-
-                navItems.forEach(
-                    function(nav) {
-
-                        nav.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                item.classList.add(
-                    "active"
-                );
-
-            }
-        );
-
-    }
-);
-
-
-
-/* ==================================================
-   ACTIVE NAVIGATION ON SCROLL / HASH
-================================================== */
-
-window.addEventListener(
-    "hashchange",
-    function() {
-
-        updateActiveNavigation();
-
-    }
-);
-
-
-function updateActiveNavigation() {
-
-    const hash =
-        location.hash ||
-        "#dashboard";
-
-
-    navItems.forEach(
-        function(item) {
-
-            item.classList.remove(
-                "active"
-            );
-
-
-            if (
-                item.getAttribute(
-                    "href"
-                ) === hash
-            ) {
-
-                item.classList.add(
-                    "active"
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-updateActiveNavigation();
-
-
-
-/* ==================================================
+/* =========================================
    START APP
-================================================== */
+========================================= */
 
 updateTracker();
 
@@ -4041,17 +2517,14 @@ displayGoal();
 
 updateBudgetAlerts();
 
-updateDashboard();
+updateDashboardBudgetStatus();
 
 
-
-/* ==================================================
+/* =========================================
    SERVICE WORKER
-================================================== */
+========================================= */
 
-if (
-    "serviceWorker" in navigator
-) {
+if ("serviceWorker" in navigator) {
 
     window.addEventListener(
         "load",
@@ -4061,25 +2534,21 @@ if (
                 .register(
                     "./service-worker.js"
                 )
-                .then(
-                    function() {
+                .then(function() {
 
-                        console.log(
-                            "THE FATE BUDGET TRACKER is ready for offline use."
-                        );
+                    console.log(
+                        "THE FATE BUDGET TRACKER is ready for offline use."
+                    );
 
-                    }
-                )
-                .catch(
-                    function(error) {
+                })
+                .catch(function(error) {
 
-                        console.log(
-                            "Service Worker Error:",
-                            error
-                        );
+                    console.log(
+                        "Service Worker Error:",
+                        error
+                    );
 
-                    }
-                );
+                });
 
         }
     );
@@ -4089,5 +2558,4 @@ if (
 </script>
 
 </body>
-
 </html>

@@ -1,10 +1,16 @@
-/* =====================================
+/* =========================================================
    THE FATE BUDGET TRACKER
-   COMPLETE STYLE
-===================================== */
+   PROFESSIONAL MOBILE DASHBOARD
+========================================================= */
+
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
@@ -12,545 +18,740 @@ html {
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #eef2f7;
-    color: #1e293b;
-    line-height: 1.6;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background: #f1f5f9;
+    color: #0f172a;
+
+    min-height: 100vh;
+
+    line-height: 1.5;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
 }
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =========================================================
+   MAIN APP CONTAINER
+========================================================= */
 
 .container {
     width: 100%;
     max-width: 1100px;
-    margin: auto;
-    padding: 20px;
+    margin: 0 auto;
+    padding: 18px;
 }
 
-/* =====================================
+/* =========================================================
    HEADER
-===================================== */
+========================================================= */
 
 header {
-    text-align: center;
-    padding: 25px 10px;
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1e3a8a,
+            #2563eb,
+            #3b82f6
+        );
+
+    color: white;
+
+    border-radius: 24px;
+
+    padding: 28px 22px;
+
+    margin-bottom: 16px;
+
+    box-shadow:
+        0 12px 30px rgba(30, 58, 138, 0.20);
+
+    overflow: hidden;
+}
+
+header::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    right: -55px;
+    top: -55px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.10);
 }
 
 header h1 {
-    margin: 0;
-    color: #173b82;
-    font-size: 32px;
+    position: relative;
+    z-index: 1;
+
+    font-size: 1.45rem;
     font-weight: 800;
+
+    letter-spacing: -0.4px;
+
+    margin-bottom: 6px;
 }
 
 header p {
-    color: #64748b;
-    font-size: 18px;
-    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+
+    font-size: 0.9rem;
+
+    opacity: 0.9;
 }
 
-
-/* =====================================
-   BUTTONS
-===================================== */
-
-button {
-    border: none;
-    border-radius: 12px;
-    padding: 13px 18px;
-    margin: 8px 4px;
-    background: #2563eb;
-    color: white !important;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #1d4ed8;
-}
-
-
-/* =====================================
-   DARK MODE BUTTON
-===================================== */
+/* =========================================================
+   THEME BUTTON
+========================================================= */
 
 .theme-button {
-    display: block;
     width: 100%;
-    margin: 10px 0 25px;
-    background: #244391;
-    color: white !important;
-    font-size: 18px;
+
+    border: none;
+
+    background: white;
+    color: #1e3a8a;
+
+    padding: 13px 16px;
+
+    border-radius: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 16px;
+
+    box-shadow:
+        0 5px 15px rgba(15, 23, 42, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
+.theme-button:hover {
+    transform: translateY(-2px);
 
-/* =====================================
-   NAVIGATION
-===================================== */
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+.theme-button:active {
+    transform: scale(0.98);
+}
+
+/* =========================================================
+   APP NAVIGATION
+========================================================= */
 
 .dashboard-nav {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin: 20px 0 30px;
+    display: flex;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    padding: 4px 2px 12px;
+
+    margin-bottom: 12px;
+
+    scrollbar-width: none;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 20;
+
+    background: #f1f5f9;
+}
+
+.dashboard-nav::-webkit-scrollbar {
+    display: none;
 }
 
 .dashboard-nav a {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    min-height: 52px;
-    padding: 12px 8px;
-    background: #2563eb !important;
-    color: #ffffff !important;
-    text-decoration: none !important;
-    border-radius: 12px;
+    flex: 0 0 auto;
+
+    background: white;
+
+    color: #475569;
+
+    padding: 10px 14px;
+
+    border-radius: 999px;
+
+    font-size: 0.82rem;
+
     font-weight: 700;
-    font-size: 15px;
-    text-align: center;
-    visibility: visible !important;
-    opacity: 1 !important;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow:
+        0 3px 8px rgba(15, 23, 42, 0.05);
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .dashboard-nav a:hover {
-    background: #1d4ed8 !important;
-    color: #ffffff !important;
+    background: #2563eb;
+    color: white;
+
+    transform: translateY(-1px);
 }
 
-
-/* =====================================
+/* =========================================================
    BALANCE CARD
-===================================== */
+========================================================= */
 
 .balance-card {
-    background: white;
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #1e293b
+        );
+
+    color: white;
+
+    padding: 28px 24px;
+
     border-radius: 24px;
-    padding: 35px 20px;
-    text-align: center;
-    margin: 20px 0;
-    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+
+    margin-bottom: 16px;
+
+    min-height: 155px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.18);
+}
+
+.balance-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    border-radius: 50%;
+
+    right: -70px;
+    bottom: -80px;
+
+    background: rgba(59, 130, 246, 0.22);
 }
 
 .balance-card h2 {
-    color: #475569;
-    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+
+    color: #cbd5e1;
+
+    margin-bottom: 8px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.8px;
 }
 
 .balance-card h3 {
-    color: #173b82;
-    font-size: 38px;
-    margin: 0;
+    position: relative;
+    z-index: 1;
+
+    font-size: clamp(2rem, 8vw, 3rem);
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
 }
 
-
-/* =====================================
+/* =========================================================
    SUMMARY CARDS
-===================================== */
+========================================================= */
 
 .summary {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin: 20px 0;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+
+    margin-bottom: 16px;
 }
 
 .summary-card {
     background: white;
-    border-radius: 22px;
-    padding: 25px 15px;
-    text-align: center;
-    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow:
+        0 5px 16px rgba(15, 23, 42, 0.05);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 22px rgba(15, 23, 42, 0.08);
 }
 
 .summary-card h3 {
-    color: #334155;
-    margin-top: 0;
+    font-size: 0.82rem;
+
+    color: #64748b;
+
+    font-weight: 700;
+
+    margin-bottom: 7px;
 }
 
 .summary-card p {
-    color: #173b82;
-    font-size: 25px;
+    font-size: 1.15rem;
+
     font-weight: 800;
+
+    color: #0f172a;
+
+    word-break: break-word;
 }
 
-
-/* =====================================
-   FORM SECTIONS
-===================================== */
+/* =========================================================
+   GENERAL SECTIONS
+========================================================= */
 
 .form-section,
 .transactions,
 .monthly-summary,
 .chart-section {
     background: white;
-    border-radius: 24px;
-    padding: 30px;
-    margin: 25px 0;
-    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    margin-bottom: 16px;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow:
+        0 5px 18px rgba(15, 23, 42, 0.05);
 }
 
 .form-section h2,
 .transactions h2,
 .monthly-summary h2,
 .chart-section h2 {
-    color: #173b82;
-    margin-top: 0;
+    font-size: 1.15rem;
+
+    font-weight: 800;
+
+    margin-bottom: 16px;
+
+    color: #0f172a;
 }
 
-
-/* =====================================
-   LABELS
-===================================== */
+/* =========================================================
+   FORM LABELS
+========================================================= */
 
 label {
     display: block;
-    margin-top: 15px;
-    margin-bottom: 7px;
-    color: #334155;
-    font-size: 16px;
+
+    margin-top: 14px;
+    margin-bottom: 6px;
+
+    font-size: 0.84rem;
+
     font-weight: 700;
+
+    color: #475569;
 }
 
-
-/* =====================================
+/* =========================================================
    INPUTS & SELECTS
-===================================== */
+========================================================= */
 
 input,
 select {
     width: 100%;
-    padding: 14px;
+
     border: 1px solid #cbd5e1;
-    border-radius: 12px;
-    background: white;
-    color: #1e293b;
-    font-size: 16px;
+
+    background: #f8fafc;
+
+    color: #0f172a;
+
+    padding: 13px 14px;
+
+    border-radius: 13px;
+
     outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 input:focus,
 select:focus {
     border-color: #2563eb;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
+input::placeholder {
+    color: #94a3b8;
+}
 
-/* =====================================
-   FILTER
-===================================== */
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+button {
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 12px 16px;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+
+    margin-top: 14px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(37, 99, 235, 0.20);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button:hover {
+    opacity: 0.95;
+}
+
+/* =========================================================
+   FORM ACTION BUTTONS
+========================================================= */
+
+#saveButton {
+    width: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    padding: 14px;
+
+    font-size: 0.95rem;
+
+    margin-top: 20px;
+}
+
+#cancelButton {
+    width: 100%;
+
+    background: #64748b;
+}
+
+/* =========================================================
+   SPENDING ADVICE
+========================================================= */
+
+.form-section p {
+    color: #64748b;
+
+    font-size: 0.9rem;
+}
+
+#spendingAdvice {
+    background: #eff6ff;
+
+    color: #1e40af;
+
+    border-radius: 14px;
+
+    padding: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.6;
+}
+
+/* =========================================================
+   TRANSACTION FILTER
+========================================================= */
 
 .filter-section {
     background: #f8fafc;
-    padding: 20px;
-    border-radius: 18px;
-    margin-bottom: 20px;
+
+    border-radius: 16px;
+
+    padding: 16px;
+
+    margin-bottom: 16px;
+
+    border: 1px solid #e2e8f0;
 }
 
 .filter-section h3 {
-    margin-top: 0;
+    font-size: 0.95rem;
+
+    margin-bottom: 10px;
+
     color: #334155;
 }
 
+.filter-section button {
+    width: 100%;
 
-/* =====================================
+    background: #64748b;
+}
+
+/* =========================================================
+   TRANSACTION COUNT
+========================================================= */
+
+#transactionCount {
+    font-size: 0.82rem;
+
+    color: #64748b;
+
+    margin-bottom: 10px;
+}
+
+/* =========================================================
    TRANSACTION LIST
-===================================== */
+========================================================= */
 
 #transactionList {
     list-style: none;
-    padding: 0;
-    margin: 20px 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
 }
 
 #transactionList li {
     background: #f8fafc;
-    border-radius: 14px;
-    padding: 15px;
-    margin: 10px 0;
-    border-left: 5px solid #2563eb;
-}
 
-#transactionList button {
-    margin-top: 12px;
-}
-
-
-/* =====================================
-   EXPORT
-===================================== */
-
-.export-section {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.export-section button {
-    background: #16a34a !important;
-}
-
-
-/* =====================================
-   BUDGET LIMITS
-===================================== */
-
-#budgetLimits {
-    border-top: 6px solid #f59e0b;
-}
-
-#budgetLimits h2 {
-    color: #b45309;
-}
-
-#budgetAlerts {
-    margin-top: 20px;
-}
-
-.budget-alert-safe {
-    padding: 18px;
-    margin-top: 20px;
-    border-radius: 15px;
-    background: #dcfce7;
-    border-left: 6px solid #16a34a;
-    color: #166534;
-}
-
-.budget-alert-warning {
-    padding: 18px;
-    margin-top: 20px;
-    border-radius: 15px;
-    background: #fef3c7;
-    border-left: 6px solid #f59e0b;
-    color: #92400e;
-}
-
-.budget-alert-item {
-    padding: 10px;
-    margin: 8px 0;
-}
-
-
-/* =====================================
-   BUDGET PROGRESS CARDS
-===================================== */
-
-#budgetProgressContainer {
-    margin-top: 25px;
-}
-
-.budget-progress-card {
-    background: #f8fafc;
-    padding: 20px;
-    margin: 18px 0;
-    border-radius: 18px;
     border: 1px solid #e2e8f0;
+
+    border-radius: 15px;
+
+    padding: 14px;
+
+    font-size: 0.84rem;
+
+    color: #334155;
+
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
 }
 
-.budget-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    font-size: 18px;
+#transactionList li button {
+    margin-right: 6px;
+
+    padding: 8px 10px;
+
+    font-size: 0.76rem;
 }
 
-.budget-progress {
-    width: 100%;
-    height: 24px;
-    margin: 15px 0;
-    background: #e2e8f0;
-    border-radius: 30px;
-    overflow: hidden;
+#transactionList li button:first-of-type {
+    background: #2563eb;
 }
 
-.budget-progress-fill {
-    height: 100%;
-    border-radius: 30px;
-    transition: width 0.5s ease;
-}
-
-.budget-safe {
-    background: #16a34a;
-}
-
-.budget-warning {
-    background: #f59e0b;
-}
-
-.budget-danger {
+#transactionList li button:last-of-type {
     background: #dc2626;
 }
 
-.budget-status {
+/* =========================================================
+   EXPORT
+========================================================= */
+
+.export-section {
+    margin-top: 12px;
+}
+
+.export-section button {
+    width: 100%;
+
+    background: #0f766e;
+}
+
+/* =========================================================
+   BUDGET CARD
+========================================================= */
+
+.budget-card {
+    margin-top: 14px;
+
+    padding: 17px;
+
+    border-radius: 17px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+}
+
+.budget-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    font-size: 0.85rem;
+}
+
+.budget-title strong {
+    color: #0f172a;
+}
+
+.progress-container {
+    width: 100%;
+
+    height: 12px;
+
+    background: #e2e8f0;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin: 12px 0;
+}
+
+.progress-bar {
+    height: 100%;
+
+    width: 0%;
+
+    transition:
+        width 0.5s ease;
+}
+
+.safe {
+    background: #22c55e;
+}
+
+.warning {
+    background: #f59e0b;
+}
+
+.danger {
+    background: #ef4444;
+}
+
+.budget-card p {
+    font-size: 0.8rem;
+
+    margin-top: 5px;
+}
+
+.budget-message {
     font-weight: 800;
 }
 
+.budget-buttons {
+    display: flex;
 
-/* =====================================
-   SAVINGS GOAL
-===================================== */
+    gap: 8px;
 
-#goalDisplay {
-    margin-top: 20px;
+    flex-wrap: wrap;
 }
 
+.budget-buttons button {
+    margin-top: 8px;
 
-/* =====================================
-   CHART
-===================================== */
+    font-size: 0.75rem;
 
-.chart-section {
-    min-height: 400px;
+    padding: 9px 11px;
 }
 
-.chart-section canvas {
-    display: block !important;
-    width: 100% !important;
-    max-width: 700px;
-    height: 350px !important;
-    margin: 20px auto;
-}
-
-
-/* =====================================
-   FOOTER
-===================================== */
-
-footer {
-    text-align: center;
-    padding: 40px 10px;
-    color: #64748b;
-}
-
-footer p {
-    margin: 8px;
-}
-
-
-/* =====================================
-   DARK MODE
-===================================== */
-
-body.dark-mode {
-    background: #0f172a;
-    color: #e2e8f0;
-}
-
-.dark-mode header h1 {
-    color: #93c5fd;
-}
-
-.dark-mode header p {
-    color: #94a3b8;
-}
-
-.dark-mode .balance-card,
-.dark-mode .summary-card,
-.dark-mode .form-section,
-.dark-mode .transactions,
-.dark-mode .monthly-summary,
-.dark-mode .chart-section {
-    background: #1e293b;
-    color: #e2e8f0;
-}
-
-.dark-mode .balance-card h2,
-.dark-mode .summary-card h3,
-.dark-mode label,
-.dark-mode .filter-section h3 {
-    color: #cbd5e1;
-}
-
-.dark-mode .balance-card h3,
-.dark-mode .summary-card p,
-.dark-mode .form-section h2,
-.dark-mode .transactions h2,
-.dark-mode .monthly-summary h2,
-.dark-mode .chart-section h2 {
-    color: #93c5fd;
-}
-
-.dark-mode input,
-.dark-mode select {
-    background: #0f172a;
-    color: #e2e8f0;
-    border-color: #475569;
-}
-
-.dark-mode .filter-section,
-.dark-mode #transactionList li,
-.dark-mode .budget-progress-card {
-    background: #0f172a;
-    color: #e2e8f0;
-}
-
-.dark-mode .budget-alert-safe {
-    background: #14532d;
-    color: #dcfce7;
-}
-
-.dark-mode .budget-alert-warning {
-    background: #78350f;
-    color: #fef3c7;
-}
-
-.dark-mode footer {
-    color: #94a3b8;
-}
-
-
-/* =====================================
-   MOBILE
-===================================== */
-
-@media (max-width: 700px) {
-
-    .container {
-        padding: 12px;
-    }
-
-    header h1 {
-        font-size: 28px;
-    }
-
-    header p {
-        font-size: 17px;
-    }
-
-    .dashboard-nav {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-nav a {
-        min-height: 55px;
-        font-size: 17px;
-    }
-
-    .summary {
-        grid-template-columns: 1fr;
-    }
-
-    .form-section,
-    .transactions,
-    .monthly-summary,
-    .chart-section {
-        padding: 20px 15px;
-        border-radius: 20px;
-    }
-
-    .balance-card h3 {
-        font-size: 32px;
-    }
-
-    .summary-card p {
-        font-size: 24px;
-    }
-
-    .budget-header {
-        font-size: 16px;
-    }
-
-    .chart-section canvas {
-        height: 300px !important;
-    }
-
-}
+.budget-buttons button:last

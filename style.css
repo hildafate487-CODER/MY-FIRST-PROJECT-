@@ -1,6 +1,6 @@
 /* =========================================================
    THE FATE BUDGET TRACKER
-   PROFESSIONAL MOBILE FINANCE APP STYLE
+   Professional Mobile Finance App CSS
 ========================================================= */
 
 * {
@@ -19,14 +19,15 @@ body {
         BlinkMacSystemFont,
         "Segoe UI",
         Roboto,
-        Helvetica,
         Arial,
         sans-serif;
 
     background: #f1f5f9;
     color: #0f172a;
-    line-height: 1.5;
     min-height: 100vh;
+    line-height: 1.5;
+
+    padding-bottom: 90px;
 
     transition:
         background 0.3s ease,
@@ -40,8 +41,8 @@ body {
 .container {
     width: 100%;
     max-width: 520px;
-    margin: 0 auto;
-    padding: 0 16px 100px;
+    margin: auto;
+    padding: 0 15px;
 }
 
 /* =========================================================
@@ -49,37 +50,21 @@ body {
 ========================================================= */
 
 header {
-    margin: 0 -16px;
-    padding: 28px 20px 26px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #1e3a8a,
-            #2563eb,
-            #3b82f6
-        );
-
-    color: white;
-
-    border-radius:
-        0 0 28px 28px;
-
-    box-shadow:
-        0 8px 25px rgba(30, 58, 138, 0.25);
+    padding: 25px 5px 18px;
+    text-align: left;
 }
 
 header h1 {
-    font-size: 24px;
+    font-size: 23px;
     font-weight: 800;
     letter-spacing: -0.5px;
-    line-height: 1.2;
+    color: #0f172a;
 }
 
 header p {
-    margin-top: 7px;
+    margin-top: 5px;
     font-size: 13px;
-    opacity: 0.9;
+    color: #64748b;
 }
 
 /* =========================================================
@@ -87,32 +72,30 @@ header p {
 ========================================================= */
 
 .theme-button {
-    display: block;
-
     width: 100%;
-    margin: 14px 0;
-
-    padding: 12px 16px;
-
-    border: 1px solid #dbeafe;
+    border: none;
     border-radius: 14px;
+    padding: 13px 16px;
+    margin-bottom: 15px;
 
-    background: white;
+    background: #ffffff;
     color: #1e3a8a;
 
     font-size: 14px;
     font-weight: 700;
 
+    box-shadow:
+        0 4px 14px rgba(15, 23, 42, 0.08);
+
     cursor: pointer;
 
-    box-shadow:
-        0 3px 10px rgba(15, 23, 42, 0.08);
-
-    transition: 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .theme-button:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
 }
 
 /* =========================================================
@@ -121,16 +104,21 @@ header p {
 
 .dashboard-nav {
     display: flex;
-
     gap: 8px;
 
     overflow-x: auto;
+    white-space: nowrap;
 
-    padding: 4px 2px 12px;
-
-    margin-bottom: 8px;
+    padding: 5px 2px 14px;
 
     scrollbar-width: none;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 50;
+
+    background: #f1f5f9;
 }
 
 .dashboard-nav::-webkit-scrollbar {
@@ -138,32 +126,30 @@ header p {
 }
 
 .dashboard-nav a {
-    flex: 0 0 auto;
+    flex-shrink: 0;
 
     text-decoration: none;
 
-    padding: 9px 13px;
-
-    background: white;
-
-    color: #475569;
+    padding: 10px 14px;
 
     border-radius: 12px;
 
-    font-size: 12px;
+    background: #ffffff;
+    color: #475569;
+
+    font-size: 13px;
     font-weight: 700;
 
-    border: 1px solid #e2e8f0;
-
     box-shadow:
-        0 2px 8px rgba(15, 23, 42, 0.05);
+        0 3px 10px rgba(15, 23, 42, 0.06);
 
     transition: 0.2s ease;
 }
 
-.dashboard-nav a:hover {
-    background: #eff6ff;
-    color: #2563eb;
+.dashboard-nav a:hover,
+.dashboard-nav a:active {
+    background: #1e3a8a;
+    color: white;
 }
 
 /* =========================================================
@@ -173,33 +159,25 @@ header p {
 .balance-card {
     position: relative;
 
-    margin-top: 8px;
-    margin-bottom: 14px;
-
     padding: 25px 22px;
 
-    min-height: 160px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    overflow: hidden;
+    margin: 8px 0 15px;
 
     border-radius: 24px;
-
-    color: white;
 
     background:
         linear-gradient(
             135deg,
-            #172554,
             #1e3a8a,
             #2563eb
         );
 
+    color: white;
+
+    overflow: hidden;
+
     box-shadow:
-        0 12px 30px rgba(30, 58, 138, 0.28);
+        0 12px 30px rgba(30, 58, 138, 0.25);
 }
 
 .balance-card::after {
@@ -210,36 +188,46 @@ header p {
     width: 150px;
     height: 150px;
 
-    right: -45px;
-    top: -45px;
+    border-radius: 50%;
+
+    right: -55px;
+    top: -55px;
+
+    background: rgba(255,255,255,0.08);
+}
+
+.balance-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
 
     border-radius: 50%;
 
-    background: rgba(255, 255, 255, 0.08);
+    right: 40px;
+    bottom: -60px;
+
+    background: rgba(255,255,255,0.06);
 }
 
 .balance-card h2 {
-    position: relative;
-    z-index: 1;
-
     font-size: 13px;
     font-weight: 600;
-
     opacity: 0.85;
-
-    margin-bottom: 6px;
 }
 
 .balance-card h3 {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+
+    margin-top: 8px;
 
     font-size: 31px;
     font-weight: 800;
 
     letter-spacing: -1px;
-
-    word-break: break-word;
 }
 
 /* =========================================================
@@ -249,87 +237,66 @@ header p {
 .summary {
     display: grid;
 
-    grid-template-columns:
-        repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 
-    gap: 10px;
+    gap: 12px;
 
-    margin-bottom: 14px;
+    margin-bottom: 15px;
 }
 
 .summary-card {
-    background: white;
-
-    border: 1px solid #e2e8f0;
+    background: #ffffff;
 
     border-radius: 18px;
 
-    padding: 16px;
-
-    min-width: 0;
+    padding: 17px;
 
     box-shadow:
-        0 4px 12px rgba(15, 23, 42, 0.05);
+        0 5px 18px rgba(15, 23, 42, 0.06);
 
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
+    border: 1px solid #e2e8f0;
 
-.summary-card:active {
-    transform: scale(0.98);
+    min-width: 0;
 }
 
 .summary-card h3 {
+    font-size: 12px;
     color: #64748b;
 
-    font-size: 11px;
+    margin-bottom: 7px;
 
     font-weight: 700;
-
-    margin-bottom: 7px;
 }
 
 .summary-card p {
-    color: #0f172a;
-
-    font-size: 18px;
-
+    font-size: 17px;
     font-weight: 800;
+
+    color: #0f172a;
 
     word-break: break-word;
 }
 
-/* First summary section */
-.summary-card:nth-child(1) p {
-    color: #16a34a;
-}
-
-.summary-card:nth-child(2) p,
-.summary-card:nth-child(3) p {
-    color: #dc2626;
-}
-
 /* =========================================================
-   GENERAL SECTIONS
+   SECTIONS
 ========================================================= */
 
 .form-section,
 .transactions,
 .monthly-summary,
 .chart-section {
-    background: white;
+    background: #ffffff;
 
-    border: 1px solid #e2e8f0;
-
-    border-radius: 22px;
+    border-radius: 20px;
 
     padding: 20px;
 
-    margin-bottom: 14px;
+    margin-bottom: 15px;
 
     box-shadow:
-        0 4px 14px rgba(15, 23, 42, 0.05);
+        0 5px 18px rgba(15, 23, 42, 0.05);
+
+    border: 1px solid #e2e8f0;
 }
 
 .form-section h2,
@@ -338,15 +305,15 @@ header p {
 .chart-section h2 {
     font-size: 18px;
 
+    margin-bottom: 16px;
+
     font-weight: 800;
 
     color: #0f172a;
-
-    margin-bottom: 16px;
 }
 
 /* =========================================================
-   LABELS
+   FORM LABELS
 ========================================================= */
 
 label {
@@ -355,7 +322,7 @@ label {
     margin-top: 13px;
     margin-bottom: 6px;
 
-    font-size: 12px;
+    font-size: 13px;
 
     font-weight: 700;
 
@@ -370,9 +337,7 @@ input,
 select {
     width: 100%;
 
-    min-height: 46px;
-
-    padding: 11px 13px;
+    padding: 13px 14px;
 
     border: 1px solid #cbd5e1;
 
@@ -396,7 +361,7 @@ input:focus,
 select:focus {
     border-color: #2563eb;
 
-    background: white;
+    background: #ffffff;
 
     box-shadow:
         0 0 0 3px rgba(37, 99, 235, 0.12);
@@ -415,11 +380,11 @@ button {
 
     border-radius: 13px;
 
-    padding: 11px 15px;
+    padding: 12px 15px;
 
-    margin-top: 12px;
+    margin-top: 10px;
 
-    background: #2563eb;
+    background: #1e3a8a;
 
     color: white;
 
@@ -431,78 +396,19 @@ button {
 
     transition:
         transform 0.15s ease,
-        opacity 0.2s ease,
-        box-shadow 0.2s ease;
+        opacity 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
 button:hover {
     opacity: 0.93;
 
     box-shadow:
-        0 5px 12px rgba(37, 99, 235, 0.18);
+        0 5px 14px rgba(30, 58, 138, 0.18);
 }
 
 button:active {
-    transform: scale(0.97);
-}
-
-/* Cancel button */
-#cancelButton {
-    background: #64748b;
-}
-
-/* =========================================================
-   SPENDING ADVICE
-========================================================= */
-
-#spendingAdvice {
-    padding: 15px;
-
-    border-radius: 15px;
-
-    background: #eff6ff;
-
-    border-left: 4px solid #2563eb;
-
-    color: #334155;
-
-    font-size: 13px;
-
-    font-weight: 600;
-}
-
-/* =========================================================
-   SEARCH / FILTER
-========================================================= */
-
-.filter-section {
-    padding: 15px;
-
-    background: #f8fafc;
-
-    border-radius: 16px;
-
-    border: 1px solid #e2e8f0;
-
-    margin-bottom: 15px;
-}
-
-.filter-section h3 {
-    font-size: 14px;
-
-    margin-bottom: 10px;
-
-    color: #334155;
-}
-
-#transactionCount {
-    margin-bottom: 10px;
-
-    font-size: 12px;
-
-    color: #64748b;
-
-    font-weight: 600;
+    transform: scale(0.96);
 }
 
 /* =========================================================
@@ -512,29 +418,26 @@ button:active {
 #transactionList {
     list-style: none;
 
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 9px;
+    margin-top: 12px;
 }
 
 #transactionList li {
-    padding: 13px;
-
     background: #f8fafc;
 
     border: 1px solid #e2e8f0;
 
-    border-radius: 15px;
+    border-radius: 16px;
 
-    font-size: 12px;
+    padding: 15px;
+
+    margin-bottom: 10px;
+
+    font-size: 13px;
 
     color: #334155;
 
-    line-height: 1.6;
-
-    word-break: break-word;
+    box-shadow:
+        0 3px 9px rgba(15, 23, 42, 0.04);
 }
 
 #transactionList li button {
@@ -542,11 +445,39 @@ button:active {
 
     padding: 8px 10px;
 
-    font-size: 11px;
+    font-size: 12px;
 }
 
-#transactionList li button:last-child {
-    background: #dc2626;
+/* =========================================================
+   SEARCH & FILTERS
+========================================================= */
+
+.filter-section {
+    padding: 15px;
+
+    border-radius: 16px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    margin-bottom: 14px;
+}
+
+.filter-section h3 {
+    font-size: 14px;
+
+    margin-bottom: 8px;
+
+    color: #334155;
+}
+
+#transactionCount {
+    font-size: 12px;
+
+    color: #64748b;
+
+    margin-bottom: 8px;
 }
 
 /* =========================================================
@@ -554,13 +485,11 @@ button:active {
 ========================================================= */
 
 .export-section {
-    margin-top: 12px;
+    margin-top: 10px;
 }
 
 .export-section button {
     width: 100%;
-
-    background: #0f766e;
 }
 
 /* =========================================================
@@ -568,15 +497,18 @@ button:active {
 ========================================================= */
 
 .budget-card {
-    margin-top: 12px !important;
+    margin-top: 15px;
 
-    padding: 16px !important;
+    padding: 17px;
 
-    border-radius: 17px !important;
+    border-radius: 17px;
 
-    background: #f8fafc !important;
+    background: #f8fafc;
 
     border: 1px solid #e2e8f0;
+
+    box-shadow:
+        0 3px 10px rgba(15, 23, 42, 0.04);
 }
 
 .budget-title {
@@ -590,13 +522,13 @@ button:active {
 
     flex-wrap: wrap;
 
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .progress-container {
     width: 100%;
 
-    height: 10px !important;
+    height: 13px;
 
     background: #e2e8f0;
 
@@ -612,9 +544,9 @@ button:active {
 
     width: 0%;
 
-    transition: width 0.4s ease;
-
     border-radius: 20px;
+
+    transition: width 0.5s ease;
 }
 
 .safe {
@@ -637,10 +569,8 @@ button:active {
     margin-top: 5px;
 }
 
-.budget-card .budget-message {
-    font-weight: 800;
-
-    color: #334155;
+.budget-message {
+    font-weight: 800 !important;
 }
 
 .budget-buttons {
@@ -652,63 +582,50 @@ button:active {
 }
 
 .budget-buttons button {
-    margin-right: 0;
-
     font-size: 11px;
 
     padding: 8px 10px;
-}
-
-.budget-buttons button:last-child {
-    background: #dc2626;
 }
 
 /* =========================================================
    SAVINGS GOAL
 ========================================================= */
 
+#goalDisplay {
+    margin-top: 10px;
+}
+
 #goalDisplay > div {
     background: #f8fafc !important;
 
     border: 1px solid #e2e8f0;
 
-    box-shadow: none;
+    box-shadow:
+        0 3px 10px rgba(15, 23, 42, 0.04);
 }
 
 #goalDisplay h3 {
     font-size: 17px;
 
-    color: #0f172a;
+    margin-bottom: 10px;
 
-    margin-bottom: 12px;
+    color: #0f172a;
 }
 
 #goalDisplay p {
     font-size: 13px;
 
-    color: #475569;
-
     margin: 7px 0;
-}
 
-#goalDisplay strong {
-    color: #0f172a;
+    color: #475569;
 }
 
 /* =========================================================
    MONTHLY SUMMARY
 ========================================================= */
 
-.monthly-summary .summary {
-    margin-top: 15px;
-}
-
-.monthly-summary .summary-card {
-    padding: 13px;
-}
-
-.monthly-summary .summary-card p {
-    font-size: 15px;
+.monthly-summary > input {
+    margin-bottom: 15px;
 }
 
 /* =========================================================
@@ -716,13 +633,23 @@ button:active {
 ========================================================= */
 
 .chart-section {
-    overflow: hidden;
+    min-height: 330px;
 }
 
 #spendingChart {
     width: 100% !important;
 
-    max-height: 310px;
+    max-height: 280px;
+}
+
+/* =========================================================
+   SPENDING ADVICE
+========================================================= */
+
+.form-section p {
+    font-size: 13px;
+
+    color: #64748b;
 }
 
 /* =========================================================
@@ -742,27 +669,62 @@ footer {
 footer p:first-child {
     font-weight: 700;
 
+    color: #64748b;
+
     margin-bottom: 4px;
 }
 
 /* =========================================================
-   MOBILE APP BOTTOM SPACE
+   MOBILE APP FEEL
 ========================================================= */
 
-body::after {
-    content: "";
+@media (max-width: 380px) {
 
-    position: fixed;
+    .container {
+        padding: 0 11px;
+    }
 
-    bottom: 0;
-    left: 0;
-    right: 0;
+    header h1 {
+        font-size: 20px;
+    }
 
-    height: 3px;
+    .balance-card h3 {
+        font-size: 27px;
+    }
 
-    background: #2563eb;
+    .summary {
+        gap: 8px;
+    }
 
-    z-index: 999;
+    .summary-card {
+        padding: 13px;
+    }
+
+    .summary-card p {
+        font-size: 15px;
+    }
+
+}
+
+/* =========================================================
+   TABLET / DESKTOP
+========================================================= */
+
+@media (min-width: 700px) {
+
+    .container {
+        max-width: 900px;
+    }
+
+    .summary {
+        grid-template-columns:
+            repeat(4, 1fr);
+    }
+
+    .dashboard-nav {
+        justify-content: center;
+    }
+
 }
 
 /* =========================================================
@@ -775,46 +737,39 @@ body::after {
     color: #e2e8f0;
 }
 
-.dark-mode header {
-    background:
-        linear-gradient(
-            135deg,
-            #0f172a,
-            #172554,
-            #1e3a8a
-        );
+.dark-mode header h1 {
+    color: #f8fafc;
 }
 
-.dark-mode .theme-button {
-    background: #1e293b;
+.dark-mode header p {
+    color: #94a3b8;
+}
 
-    color: #bfdbfe;
-
-    border-color: #334155;
+.dark-mode .dashboard-nav {
+    background: #020617;
 }
 
 .dark-mode .dashboard-nav a {
-    background: #1e293b;
+    background: #0f172a;
 
     color: #cbd5e1;
 
-    border-color: #334155;
+    border: 1px solid #1e293b;
 }
 
-.dark-mode .dashboard-nav a:hover {
-    background: #172554;
+.dark-mode .dashboard-nav a:hover,
+.dark-mode .dashboard-nav a:active {
+    background: #2563eb;
+
+    color: white;
+}
+
+.dark-mode .theme-button {
+    background: #0f172a;
 
     color: #93c5fd;
-}
 
-.dark-mode .balance-card {
-    background:
-        linear-gradient(
-            135deg,
-            #020617,
-            #172554,
-            #1e3a8a
-        );
+    border: 1px solid #1e293b;
 }
 
 .dark-mode .summary-card,
@@ -827,11 +782,10 @@ body::after {
     border-color: #1e293b;
 
     box-shadow:
-        0 5px 18px rgba(0, 0, 0, 0.2);
+        0 5px 18px rgba(0,0,0,0.25);
 }
 
-.dark-mode .summary-card h3,
-.dark-mode label {
+.dark-mode .summary-card h3 {
     color: #94a3b8;
 }
 
@@ -846,9 +800,13 @@ body::after {
     color: #f8fafc;
 }
 
+.dark-mode label {
+    color: #cbd5e1;
+}
+
 .dark-mode input,
 .dark-mode select {
-    background: #1e293b;
+    background: #020617;
 
     color: #f8fafc;
 
@@ -857,7 +815,7 @@ body::after {
 
 .dark-mode input:focus,
 .dark-mode select:focus {
-    background: #1e293b;
+    background: #020617;
 
     border-color: #3b82f6;
 }
@@ -866,18 +824,10 @@ body::after {
     color: #64748b;
 }
 
-.dark-mode #spendingAdvice {
-    background: #172554;
-
-    color: #cbd5e1;
-
-    border-color: #3b82f6;
-}
-
 .dark-mode .filter-section {
-    background: #1e293b;
+    background: #020617;
 
-    border-color: #334155;
+    border-color: #1e293b;
 }
 
 .dark-mode .filter-section h3 {
@@ -885,9 +835,9 @@ body::after {
 }
 
 .dark-mode #transactionList li {
-    background: #1e293b;
+    background: #020617;
 
-    border-color: #334155;
+    border-color: #1e293b;
 
     color: #cbd5e1;
 }
@@ -897,35 +847,38 @@ body::after {
 }
 
 .dark-mode .budget-card {
-    background: #1e293b !important;
+    background: #020617;
 
-    border-color: #334155;
+    border-color: #1e293b;
 }
 
-.dark-mode .progress-container {
-    background: #334155;
+.dark-mode .budget-title {
+    color: #e2e8f0;
 }
 
 .dark-mode .budget-card p {
     color: #94a3b8;
 }
 
-.dark-mode .budget-card .budget-message {
-    color: #e2e8f0;
+.dark-mode .progress-container {
+    background: #334155;
 }
 
 .dark-mode #goalDisplay > div {
-    background: #1e293b !important;
+    background: #020617 !important;
 
-    border-color: #334155;
+    border-color: #1e293b;
 }
 
-.dark-mode #goalDisplay h3,
-.dark-mode #goalDisplay strong {
+.dark-mode #goalDisplay h3 {
     color: #f8fafc;
 }
 
 .dark-mode #goalDisplay p {
+    color: #cbd5e1;
+}
+
+.dark-mode .form-section p {
     color: #94a3b8;
 }
 
@@ -933,90 +886,86 @@ body::after {
     color: #64748b;
 }
 
-/* =========================================================
-   TABLET / DESKTOP
-========================================================= */
-
-@media (min-width: 600px) {
-
-    .container {
-        max-width: 760px;
-
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-
-    header {
-        margin-left: -24px;
-        margin-right: -24px;
-
-        padding-left: 28px;
-        padding-right: 28px;
-    }
-
-    .summary {
-        grid-template-columns:
-            repeat(4, 1fr);
-    }
-
-    .summary-card p {
-        font-size: 17px;
-    }
-
-    .theme-button {
-        width: auto;
-
-        margin-left: auto;
-    }
-
-    .dashboard-nav {
-        justify-content: center;
-    }
+.dark-mode footer p:first-child {
+    color: #94a3b8;
 }
 
 /* =========================================================
-   VERY SMALL PHONES
+   SMOOTH SCROLL / TOUCH
 ========================================================= */
 
-@media (max-width: 360px) {
-
-    .container {
-        padding-left: 11px;
-        padding-right: 11px;
-    }
-
-    header {
-        margin-left: -11px;
-        margin-right: -11px;
-
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-
-    header h1 {
-        font-size: 21px;
-    }
-
-    .balance-card h3 {
-        font-size: 26px;
-    }
-
-    .summary {
-        gap: 7px;
-    }
-
-    .summary-card {
-        padding: 12px;
-    }
-
-    .summary-card p {
-        font-size: 15px;
-    }
-
-    .form-section,
-    .transactions,
-    .monthly-summary,
-    .chart-section {
-        padding: 15px;
-    }
+button,
+a,
+input,
+select {
+    -webkit-tap-highlight-color: transparent;
 }
+
+button {
+    touch-action: manipulation;
+}
+
+.dashboard-nav {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================================
+   PROFESSIONAL SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+
+    border-radius: 10px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+/* =========================================================
+   APP-LIKE SECTION SPACING
+========================================================= */
+
+section {
+    scroll-margin-top: 70px;
+}
+
+/* =========================================================
+   BUTTON FULL WIDTH FOR MAIN ACTIONS
+========================================================= */
+
+#saveButton,
+#cancelButton {
+    width: 100%;
+}
+
+#deleteGoalButton {
+    width: 100%;
+}
+
+/* =========================================================
+   BETTER MOBILE TRANSACTION BUTTONS
+========================================================= */
+
+@media (max-width: 520px) {
+
+    #transactionList li button {
+        display: inline-block;
+    }
+
+    .budget-buttons button {
+        flex: 1;
+    }
+
+}
+
+/* =========================================================
+   END
+   THE FATE BUDGET TRACKER
+========================================================= */

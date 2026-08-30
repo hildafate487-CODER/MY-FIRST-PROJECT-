@@ -1,6 +1,6 @@
 /* =========================================================
    THE FATE BUDGET TRACKER
-   PROFESSIONAL MOBILE APP DESIGN
+   PROFESSIONAL MOBILE FINANCE APP
 ========================================================= */
 
 * {
@@ -28,7 +28,7 @@ body {
     min-height: 100vh;
     line-height: 1.5;
 
-    padding-bottom: 90px;
+    padding-bottom: 40px;
 
     transition:
         background 0.3s ease,
@@ -36,13 +36,13 @@ body {
 }
 
 /* =========================================================
-   CONTAINER
+   MAIN CONTAINER
 ========================================================= */
 
 .container {
     width: 100%;
     max-width: 520px;
-    margin: auto;
+    margin: 0 auto;
     padding: 0 14px;
 }
 
@@ -51,24 +51,26 @@ body {
 ========================================================= */
 
 header {
-    padding: 22px 4px 14px;
+    padding: 24px 4px 16px;
 }
 
 header p:first-child {
     font-size: 12px;
     color: #64748b;
+    margin-bottom: 3px;
 }
 
 header h1 {
     font-size: 25px;
-    font-weight: 800;
+    font-weight: 900;
+    letter-spacing: -0.7px;
     color: #0f172a;
-    margin: 2px 0;
 }
 
 header p:last-child {
     font-size: 13px;
     color: #64748b;
+    margin-top: 3px;
 }
 
 /* =========================================================
@@ -78,22 +80,21 @@ header p:last-child {
 .theme-button {
     width: 100%;
     margin: 0 0 14px;
-
     padding: 13px;
 
-    border: none;
-    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
 
-    background: white;
+    background: #ffffff;
     color: #1e3a8a;
 
-    font-weight: 700;
-    font-size: 14px;
-
-    box-shadow:
-        0 4px 14px rgba(15, 23, 42, 0.08);
+    font-size: 13px;
+    font-weight: 800;
 
     cursor: pointer;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.06);
 }
 
 /* =========================================================
@@ -102,18 +103,19 @@ header p:last-child {
 
 .dashboard-nav {
     display: flex;
-    gap: 7px;
+    gap: 8px;
 
     overflow-x: auto;
+    white-space: nowrap;
 
-    padding: 4px 2px 14px;
+    padding: 3px 1px 14px;
 
     scrollbar-width: none;
 
     position: sticky;
     top: 0;
 
-    z-index: 50;
+    z-index: 100;
 
     background: #f1f5f9;
 }
@@ -127,36 +129,38 @@ header p:last-child {
 
     text-decoration: none;
 
-    padding: 9px 12px;
+    padding: 9px 13px;
 
-    border-radius: 11px;
+    border-radius: 12px;
 
-    background: white;
+    background: #ffffff;
     color: #475569;
 
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 800;
+
+    border: 1px solid #e2e8f0;
 
     box-shadow:
-        0 3px 10px rgba(15, 23, 42, 0.06);
+        0 3px 8px rgba(15, 23, 42, 0.05);
 }
 
-.dashboard-nav a:active,
-.dashboard-nav a:hover {
+.dashboard-nav a:active {
     background: #1e3a8a;
-    color: white;
+    color: #ffffff;
 }
 
 /* =========================================================
-   DASHBOARD TITLES
+   DASHBOARD TITLE
 ========================================================= */
 
-main > p {
-    margin-bottom: 2px;
+#dashboard > p {
+    margin-top: 5px;
 }
 
-main > h2 {
-    margin-bottom: 12px;
+#dashboard > h2 {
+    color: #0f172a;
+    font-weight: 900;
 }
 
 /* =========================================================
@@ -166,11 +170,13 @@ main > h2 {
 .balance-card {
     position: relative;
 
+    overflow: hidden;
+
     margin: 0 0 14px;
 
-    padding: 22px 18px;
+    padding: 22px;
 
-    border-radius: 22px;
+    border-radius: 23px;
 
     background:
         linear-gradient(
@@ -179,64 +185,32 @@ main > h2 {
             #2563eb
         );
 
-    color: white;
-
-    overflow: hidden;
+    color: #ffffff;
 
     box-shadow:
         0 12px 28px rgba(30, 58, 138, 0.25);
-}
-
-.balance-card::after {
-    content: "";
-
-    position: absolute;
-
-    width: 150px;
-    height: 150px;
-
-    border-radius: 50%;
-
-    right: -65px;
-    top: -65px;
-
-    background: rgba(255,255,255,0.08);
-}
-
-.balance-card::before {
-    content: "";
-
-    position: absolute;
-
-    width: 100px;
-    height: 100px;
-
-    border-radius: 50%;
-
-    right: 20px;
-    bottom: -65px;
-
-    background: rgba(255,255,255,0.06);
 }
 
 .balance-card h2 {
     position: relative;
     z-index: 2;
 
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
 
-    opacity: 0.9;
+    opacity: 0.85;
 }
 
 .balance-card h3 {
     position: relative;
     z-index: 2;
 
-    font-size: 30px;
-    font-weight: 800;
-
     margin-top: 7px;
+
+    font-size: 30px;
+    font-weight: 900;
+
+    letter-spacing: -1px;
 }
 
 .balance-card p {
@@ -244,9 +218,35 @@ main > h2 {
     z-index: 2;
 }
 
+.balance-card::before,
+.balance-card::after {
+    content: "";
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.08);
+}
+
+.balance-card::before {
+    width: 150px;
+    height: 150px;
+
+    right: -65px;
+    top: -65px;
+}
+
+.balance-card::after {
+    width: 100px;
+    height: 100px;
+
+    right: 45px;
+    bottom: -65px;
+}
+
 /* =========================================================
-   SUMMARY CARDS
-   IMPORTANT: 2 COLUMNS
+   SUMMARY BOXES
 ========================================================= */
 
 .summary {
@@ -256,32 +256,27 @@ main > h2 {
 
     gap: 10px;
 
-    margin-bottom: 16px;
+    margin-bottom: 15px;
 }
 
 .summary-card {
     min-width: 0;
 
-    background: white;
+    padding: 15px;
+
+    background: #ffffff;
 
     border: 1px solid #e2e8f0;
 
-    border-radius: 16px;
-
-    padding: 15px;
-
-    min-height: 88px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    border-radius: 17px;
 
     box-shadow:
-        0 5px 16px rgba(15, 23, 42, 0.06);
+        0 4px 13px rgba(15, 23, 42, 0.05);
 }
 
 .summary-card h3 {
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: 800;
 
     color: #64748b;
 
@@ -290,8 +285,7 @@ main > h2 {
 
 .summary-card p {
     font-size: 16px;
-
-    font-weight: 800;
+    font-weight: 900;
 
     color: #0f172a;
 
@@ -303,19 +297,31 @@ main > h2 {
 ========================================================= */
 
 .quick-actions {
-    margin-bottom: 16px;
+    padding: 17px;
 
-    padding: 16px;
-
-    background: white;
-
-    border-radius: 18px;
+    background: #ffffff;
 
     border: 1px solid #e2e8f0;
+
+    border-radius: 20px;
 
     box-shadow:
         0 5px 16px rgba(15, 23, 42, 0.05);
 }
+
+.quick-actions > p {
+    color: #64748b !important;
+    font-weight: 800;
+}
+
+.quick-actions h2 {
+    color: #0f172a;
+    font-weight: 900;
+}
+
+/* IMPORTANT:
+   The buttons are arranged in a clean 2 × 2 grid.
+*/
 
 .quick-actions > div {
     display: grid !important;
@@ -323,7 +329,7 @@ main > h2 {
     grid-template-columns:
         repeat(2, minmax(0, 1fr)) !important;
 
-    gap: 9px !important;
+    gap: 10px !important;
 
     width: 100%;
 }
@@ -331,23 +337,29 @@ main > h2 {
 .quick-actions button {
     width: 100%;
 
-    min-height: 48px;
+    min-height: 52px;
 
     margin: 0 !important;
 
-    padding: 10px 8px;
+    padding: 11px 8px;
 
-    border-radius: 12px;
-
-    font-size: 11px;
+    border-radius: 14px;
 
     background: #1e3a8a;
 
-    color: white;
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 800;
 
     border: none;
 
-    font-weight: 700;
+    box-shadow:
+        0 4px 10px rgba(30, 58, 138, 0.16);
+}
+
+.quick-actions button:active {
+    transform: scale(0.96);
 }
 
 /* =========================================================
@@ -358,17 +370,15 @@ main > h2 {
 .transactions,
 .monthly-summary,
 .chart-section {
-    width: 100%;
-
-    background: white;
-
-    border-radius: 18px;
+    margin-bottom: 15px;
 
     padding: 18px;
 
-    margin-bottom: 15px;
+    background: #ffffff;
 
     border: 1px solid #e2e8f0;
+
+    border-radius: 20px;
 
     box-shadow:
         0 5px 16px rgba(15, 23, 42, 0.05);
@@ -378,11 +388,10 @@ main > h2 {
 .transactions h2,
 .monthly-summary h2,
 .chart-section h2 {
-    font-size: 18px;
-
-    font-weight: 800;
-
     color: #0f172a;
+
+    font-size: 17px;
+    font-weight: 900;
 
     margin-bottom: 14px;
 }
@@ -392,11 +401,7 @@ main > h2 {
 ========================================================= */
 
 .form-section > p {
-    font-size: 13px;
-
     color: #64748b;
-
-    margin-bottom: 5px;
 }
 
 .form-section > p strong {
@@ -404,53 +409,136 @@ main > h2 {
 }
 
 /* =========================================================
+   LABELS
+========================================================= */
+
+label {
+    display: block;
+
+    margin-top: 12px;
+    margin-bottom: 6px;
+
+    color: #475569;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+input,
+select {
+    width: 100%;
+
+    min-height: 45px;
+
+    padding: 11px 13px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 13px;
+
+    background: #f8fafc;
+
+    color: #0f172a;
+
+    font-size: 14px;
+
+    outline: none;
+
+    -webkit-appearance: none;
+}
+
+input:focus,
+select:focus {
+    border-color: #2563eb;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+/* =========================================================
+   GENERAL BUTTONS
+========================================================= */
+
+button {
+    border: none;
+
+    border-radius: 13px;
+
+    padding: 11px 14px;
+
+    margin-top: 10px;
+
+    background: #1e3a8a;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+/* =========================================================
+   SAVE / CANCEL
+========================================================= */
+
+#saveButton,
+#cancelButton {
+    width: 100%;
+}
+
+#cancelButton {
+    background: #64748b;
+}
+
+/* =========================================================
    BUDGET
 ========================================================= */
 
 .budget-card {
-    width: 100%;
-
-    margin-top: 10px;
-
-    padding: 15px;
-
-    border-radius: 16px;
+    padding: 16px;
 
     background: #f8fafc;
 
     border: 1px solid #e2e8f0;
+
+    border-radius: 17px;
 }
 
 .budget-title {
     display: flex;
 
     justify-content: space-between;
-
     align-items: center;
 
     font-size: 13px;
 }
 
-.budget-card p {
-    font-size: 12px;
-
-    color: #64748b;
-
-    margin-top: 7px;
-}
-
 .progress-container {
     width: 100%;
+    height: 12px;
 
-    height: 10px;
-
-    background: #e2e8f0;
-
-    border-radius: 20px;
+    margin: 12px 0;
 
     overflow: hidden;
 
-    margin: 12px 0;
+    border-radius: 20px;
+
+    background: #e2e8f0;
 }
 
 .progress-bar {
@@ -478,123 +566,75 @@ main > h2 {
 .budget-buttons {
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
     gap: 8px;
-
-    margin-top: 10px;
 }
 
 .budget-buttons button {
     width: 100%;
-
-    margin: 0;
-
-    padding: 10px;
-
-    font-size: 11px;
 }
 
 /* =========================================================
    SAVINGS GOAL
 ========================================================= */
 
-#goalDisplay {
-    width: 100%;
-}
-
 #goalDisplay > div {
-    width: 100%;
-
     background: #f8fafc !important;
 
     border: 1px solid #e2e8f0;
 
-    border-radius: 16px;
-
-    padding: 16px !important;
+    border-radius: 17px;
 }
 
 #goalDisplay h3 {
-    font-size: 17px;
-
     color: #0f172a;
-
-    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 900;
 }
 
 #goalDisplay p {
+    color: #475569;
     font-size: 12px;
-
-    color: #64748b;
-
-    margin: 7px 0;
 }
 
-#goalDisplay button {
-    margin-right: 5px;
-
-    font-size: 11px;
-
-    padding: 9px 11px;
+#editGoalButton,
+#deleteGoalButton {
+    width: 100%;
 }
 
 /* =========================================================
-   RECENT TRANSACTIONS
+   TRANSACTIONS
 ========================================================= */
 
-#recentTransactions {
-    list-style: none;
-
-    margin: 0;
-}
-
-#recentTransactions li {
-    padding: 12px 0;
-
-    border-bottom: 1px solid #e2e8f0;
-
-    font-size: 12px;
-
-    color: #334155;
-}
-
-#recentTransactions li:last-child {
-    border-bottom: none;
-}
-
-/* =========================================================
-   TRANSACTION LIST
-========================================================= */
-
+#recentTransactions,
 #transactionList {
     list-style: none;
 
     margin-top: 10px;
 }
 
+#recentTransactions li,
 #transactionList li {
+    padding: 13px;
+
+    margin-bottom: 9px;
+
     background: #f8fafc;
 
     border: 1px solid #e2e8f0;
 
     border-radius: 15px;
 
-    padding: 14px;
-
-    margin-bottom: 9px;
+    color: #334155;
 
     font-size: 12px;
-
-    color: #334155;
 }
 
-#transactionList button {
-    margin-right: 5px;
-
-    padding: 8px 10px;
-
-    font-size: 11px;
+#recentTransactions li strong,
+#transactionList li strong {
+    font-weight: 900;
 }
 
 /* =========================================================
@@ -602,127 +642,45 @@ main > h2 {
 ========================================================= */
 
 .filter-section {
-    width: 100%;
-
     padding: 14px;
 
     background: #f8fafc;
 
     border: 1px solid #e2e8f0;
 
-    border-radius: 15px;
-
-    margin-bottom: 12px;
+    border-radius: 16px;
 }
 
 .filter-section h3 {
+    margin-bottom: 9px;
+
+    color: #334155;
+
     font-size: 13px;
-
-    margin-bottom: 8px;
-}
-
-#transactionCount {
-    font-size: 12px;
-
-    color: #64748b;
-
-    margin-bottom: 8px;
 }
 
 /* =========================================================
-   INPUTS
+   TRANSACTION BUTTONS
 ========================================================= */
 
-label {
-    display: block;
+#transactionList li button {
+    display: inline-block;
 
-    font-size: 12px;
+    width: auto;
 
-    font-weight: 700;
+    padding: 8px 10px;
 
-    color: #475569;
+    margin-right: 5px;
 
-    margin-top: 11px;
-
-    margin-bottom: 5px;
+    font-size: 11px;
 }
 
-input,
-select {
+/* =========================================================
+   EXPORT
+========================================================= */
+
+.export-section button {
     width: 100%;
-
-    padding: 12px 13px;
-
-    border: 1px solid #cbd5e1;
-
-    border-radius: 12px;
-
-    background: #f8fafc;
-
-    color: #0f172a;
-
-    font-size: 14px;
-
-    outline: none;
-}
-
-input:focus,
-select:focus {
-    border-color: #2563eb;
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.12);
-}
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-button {
-    border: none;
-
-    border-radius: 12px;
-
-    padding: 11px 14px;
-
-    background: #1e3a8a;
-
-    color: white;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    touch-action: manipulation;
-
-    transition:
-        transform 0.15s ease,
-        opacity 0.15s ease;
-}
-
-button:active {
-    transform: scale(0.97);
-}
-
-button:hover {
-    opacity: 0.92;
-}
-
-/* =========================================================
-   FORM BUTTONS
-========================================================= */
-
-#saveButton,
-#cancelButton,
-#deleteGoalButton,
-#exportButton {
-    width: 100%;
-}
-
-#cancelButton {
-    background: #64748b;
 }
 
 /* =========================================================
@@ -730,32 +688,29 @@ button:hover {
 ========================================================= */
 
 .chart-section {
-    min-height: 350px;
+    min-height: 340px;
 }
 
-.chart-section > div {
-    width: 100% !important;
-
-    height: 270px;
-
-    margin-top: 15px !important;
+#detailsButton {
+    width: 100%;
 }
 
 #spendingChart {
     width: 100% !important;
-    height: 270px !important;
+
+    max-height: 270px;
 }
 
 /* =========================================================
-   MONTHLY SUMMARY
+   MONTHLY
 ========================================================= */
 
 .monthly-summary p {
+    margin-bottom: 7px;
+
     font-size: 13px;
 
     color: #64748b;
-
-    margin-bottom: 7px;
 }
 
 .monthly-summary strong {
@@ -767,9 +722,9 @@ button:hover {
 ========================================================= */
 
 footer {
-    text-align: center;
+    padding: 25px 10px 10px;
 
-    padding: 20px 10px;
+    text-align: center;
 
     color: #94a3b8;
 
@@ -779,187 +734,31 @@ footer {
 footer p:first-child {
     color: #64748b;
 
-    font-weight: 700;
+    font-weight: 900;
 
     margin-bottom: 4px;
-}
-
-/* =========================================================
-   DARK MODE
-========================================================= */
-
-.dark-mode {
-    background: #020617;
-
-    color: #e2e8f0;
-}
-
-.dark-mode .dashboard-nav {
-    background: #020617;
-}
-
-.dark-mode header h1 {
-    color: #f8fafc;
-}
-
-.dark-mode header p {
-    color: #94a3b8;
-}
-
-.dark-mode .theme-button,
-.dark-mode .summary-card,
-.dark-mode .quick-actions,
-.dark-mode .form-section,
-.dark-mode .transactions,
-.dark-mode .monthly-summary,
-.dark-mode .chart-section {
-    background: #0f172a;
-
-    border-color: #1e293b;
-}
-
-.dark-mode .theme-button {
-    color: #93c5fd;
-}
-
-.dark-mode .dashboard-nav a {
-    background: #0f172a;
-
-    color: #cbd5e1;
-
-    border: 1px solid #1e293b;
-}
-
-.dark-mode .summary-card h3 {
-    color: #94a3b8;
-}
-
-.dark-mode .summary-card p {
-    color: #f8fafc;
-}
-
-.dark-mode .form-section h2,
-.dark-mode .transactions h2,
-.dark-mode .monthly-summary h2,
-.dark-mode .chart-section h2 {
-    color: #f8fafc;
-}
-
-.dark-mode .form-section > p strong,
-.dark-mode .monthly-summary strong {
-    color: #f8fafc;
-}
-
-.dark-mode label {
-    color: #cbd5e1;
-}
-
-.dark-mode input,
-.dark-mode select {
-    background: #020617;
-
-    color: #f8fafc;
-
-    border-color: #334155;
-}
-
-.dark-mode input:focus,
-.dark-mode select:focus {
-    border-color: #3b82f6;
-}
-
-.dark-mode .filter-section,
-.dark-mode .budget-card,
-.dark-mode #goalDisplay > div,
-.dark-mode #transactionList li {
-    background: #020617 !important;
-
-    border-color: #1e293b;
-}
-
-.dark-mode .filter-section h3 {
-    color: #e2e8f0;
-}
-
-.dark-mode #transactionList li {
-    color: #cbd5e1;
-}
-
-.dark-mode #recentTransactions li {
-    color: #cbd5e1;
-
-    border-color: #1e293b;
-}
-
-.dark-mode #transactionCount,
-.dark-mode .budget-card p,
-.dark-mode #goalDisplay p,
-.dark-mode .monthly-summary p {
-    color: #94a3b8;
-}
-
-.dark-mode #goalDisplay h3 {
-    color: #f8fafc;
-}
-
-.dark-mode .progress-container {
-    background: #334155;
-}
-
-.dark-mode footer {
-    color: #64748b;
-}
-
-.dark-mode footer p:first-child {
-    color: #94a3b8;
 }
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media (max-width: 520px) {
+@media (max-width: 380px) {
 
     .container {
-        width: 100%;
-        padding: 0 12px;
+        padding: 0 10px;
     }
 
-    /* 2 x 2 summary layout */
-    .summary {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    /* 2 x 2 quick action layout */
-    .quick-actions > div {
-        grid-template-columns: 1fr 1fr !important;
-    }
-
-    .summary-card {
-        min-height: 90px;
-    }
-
-    .summary-card p {
-        font-size: 15px;
+    header h1 {
+        font-size: 22px;
     }
 
     .balance-card h3 {
-        font-size: 28px;
-    }
-}
-
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
-
-@media (max-width: 360px) {
-
-    .container {
-        padding: 0 9px;
+        font-size: 26px;
     }
 
     .summary {
-        gap: 7px;
+        gap: 8px;
     }
 
     .summary-card {
@@ -971,21 +770,21 @@ footer p:first-child {
     }
 
     .quick-actions {
-        padding: 12px;
+        padding: 14px;
     }
 
     .quick-actions > div {
-        gap: 6px !important;
+        gap: 8px !important;
     }
 
     .quick-actions button {
-        font-size: 10px;
-        padding: 9px 5px;
+        font-size: 11px;
+        min-height: 50px;
     }
 }
 
 /* =========================================================
-   TABLET / DESKTOP
+   DESKTOP / TABLET
 ========================================================= */
 
 @media (min-width: 700px) {
@@ -1010,7 +809,130 @@ footer p:first-child {
 }
 
 /* =========================================================
-   TOUCH
+   DARK MODE
+========================================================= */
+
+.dark-mode {
+    background: #020617;
+    color: #e2e8f0;
+}
+
+.dark-mode header h1 {
+    color: #f8fafc;
+}
+
+.dark-mode header p {
+    color: #94a3b8;
+}
+
+.dark-mode .dashboard-nav {
+    background: #020617;
+}
+
+.dark-mode .dashboard-nav a {
+    background: #0f172a;
+
+    color: #cbd5e1;
+
+    border-color: #1e293b;
+}
+
+.dark-mode .theme-button {
+    background: #0f172a;
+
+    color: #93c5fd;
+
+    border-color: #1e293b;
+}
+
+.dark-mode .quick-actions,
+.dark-mode .summary-card,
+.dark-mode .form-section,
+.dark-mode .transactions,
+.dark-mode .monthly-summary,
+.dark-mode .chart-section {
+    background: #0f172a;
+
+    border-color: #1e293b;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,0.25);
+}
+
+.dark-mode .quick-actions h2,
+.dark-mode .form-section h2,
+.dark-mode .transactions h2,
+.dark-mode .monthly-summary h2,
+.dark-mode .chart-section h2 {
+    color: #f8fafc;
+}
+
+.dark-mode .summary-card h3 {
+    color: #94a3b8;
+}
+
+.dark-mode .summary-card p {
+    color: #f8fafc;
+}
+
+.dark-mode .form-section > p strong,
+.dark-mode .monthly-summary strong {
+    color: #f8fafc;
+}
+
+.dark-mode label {
+    color: #cbd5e1;
+}
+
+.dark-mode input,
+.dark-mode select {
+    background: #020617;
+
+    color: #f8fafc;
+
+    border-color: #334155;
+}
+
+.dark-mode input:focus,
+.dark-mode select:focus {
+    background: #020617;
+}
+
+.dark-mode .budget-card,
+.dark-mode #goalDisplay > div,
+.dark-mode .filter-section,
+.dark-mode #recentTransactions li,
+.dark-mode #transactionList li {
+    background: #020617 !important;
+
+    border-color: #1e293b;
+}
+
+.dark-mode .budget-title,
+.dark-mode #goalDisplay h3 {
+    color: #f8fafc;
+}
+
+.dark-mode .budget-card p,
+.dark-mode #goalDisplay p,
+.dark-mode .filter-section h3 {
+    color: #94a3b8;
+}
+
+.dark-mode .progress-container {
+    background: #334155;
+}
+
+.dark-mode footer {
+    color: #64748b;
+}
+
+.dark-mode footer p:first-child {
+    color: #94a3b8;
+}
+
+/* =========================================================
+   TOUCH / MOBILE APP FEEL
 ========================================================= */
 
 button,
@@ -1020,10 +942,37 @@ select {
     -webkit-tap-highlight-color: transparent;
 }
 
+button {
+    touch-action: manipulation;
+}
+
+.dashboard-nav {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 10px;
+}
+
+/* =========================================================
+   SECTION SCROLL POSITION
+========================================================= */
+
 section {
-    scroll-margin-top: 70px;
+    scroll-margin-top: 75px;
 }
 
 /* =========================================================
    END
+   THE FATE BUDGET TRACKER
 ========================================================= */

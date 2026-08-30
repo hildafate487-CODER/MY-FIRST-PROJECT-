@@ -1,107 +1,70 @@
-const CACHE_NAME = "fate-budget-tracker-v1";
+const CACHE_NAME = "fate-budget-v1";
 
-const FILES_TO_CACHE = [
+const APP_FILES = [
     "./",
     "./index.html",
     "./style.css",
     "./manifest.json"
 ];
 
+/* Install */
+self.addEventListener("install", event => {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(cache => cache.addAll(APP_FILES))
+            .then(() => self.skipWaiting())
+    );
+});
 
-/* INSTALL */
-
-self.addEventListener(
-    "install",
-    function(event) {
-
-        event.waitUntil(
-
-            caches.open(CACHE_NAME)
-                .then(function(cache) {
-
-                    return cache.addAll(
-                        FILES_TO_CACHE
-                    );
-
-                })
-
-        );
-
-        self.skipWaiting();
-
-    }
-);
-
-
-/* ACTIVATE */
-
-self.addEventListener(
-    "activate",
-    function(event) {
-
-        event.waitUntil(
-
-            caches.keys()
-                .then(function(cacheNames) {
-
-                    return Promise.all(
-
-                        cacheNames.map(
-                            function(cacheName) {
-
-                                if (
-                                    cacheName !==
-                                    CACHE_NAME
-                                ) {
-
-                                    return caches.delete(
-                                        cacheName
-                                    );
-
-                                }
-
-                            }
-                        )
-
-                    );
-
-                })
-
-        );
-
-        self.clients.claim();
-
-    }
-);
-
-
-/* FETCH */
-
-self.addEventListener(
-    "fetch",
-    function(event) {
-
-        event.respondWith(
-
-            caches.match(
-                event.request
+/* Activate */
+self.addEventListener("activate", event => {
+    event.waitUntil(
+        caches.keys().then(keys =>
+            Promise.all(
+                keys
+                    .filter(key => key !== CACHE_NAME)
+                    .map(key => caches.delete(key))
             )
-            .then(function(response) {
+        ).then(() => self.clients.claim())
+    );
+});
 
-                if (response) {
-
-                    return response;
-
+/* Fetch */
+self.addEventListener("fetch", event => {
+    event.respondWith(
+        caches.match(event.request)
+            .then(cachedResponse => {
+                if (cachedResponse) {
+                    return cachedResponse;
                 }
 
+                return fetch(event.request)
+                    .then(networkResponse => {
 
-                return fetch(
-                    event.request
-                );
+                        if (
+                            !networkResponse ||
+                            networkResponse.status !== 200 ||
+                            networkResponse.type !== "basic"
+                        ) {
+                            return networkResponse;
+                        }
 
+                        const responseClone =
+                            networkResponse.clone();
+
+                        caches.open(CACHE_NAME)
+                            .then(cache => {
+                                cache.put(
+                                    event.request,
+                                    responseClone
+                                );
+                            });
+
+                        return networkResponse;
+                    })
+                    .catch(() => {
+                        return caches.match("./index.html");
+                    });
             })
-
-        );
-
-    }
-);
+    );
+});

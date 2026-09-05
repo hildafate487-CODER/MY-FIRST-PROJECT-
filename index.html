@@ -15,51 +15,88 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        .savings-card {
+        .report-card {
             padding: 18px;
             border-radius: 16px;
             margin-top: 15px;
             background: rgba(30, 58, 138, 0.08);
         }
 
-        .savings-number {
-            font-size: 28px;
+        .report-number {
+            font-size: 25px;
             font-weight: bold;
-            margin: 8px 0;
+            margin: 6px 0 14px;
         }
 
-        .savings-small {
-            font-size: 13px;
-            opacity: 0.75;
-        }
-
-        .achievement-box {
+        .report-grid {
             display: grid;
-            gap: 10px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
             margin-top: 15px;
         }
 
-        .achievement {
-            padding: 14px;
-            border-radius: 14px;
-            background: rgba(255, 193, 7, 0.12);
-        }
-
-        .achievement.locked {
-            opacity: 0.5;
-            background: rgba(128, 128, 128, 0.12);
-        }
-
-        .recommendation {
+        .report-stat {
             padding: 15px;
             border-radius: 14px;
-            margin-top: 15px;
-            background: rgba(34, 197, 94, 0.10);
+            background: rgba(30, 58, 138, 0.08);
         }
 
-        .streak-number {
-            font-size: 32px;
+        .report-stat h3 {
+            margin: 0 0 7px;
+            font-size: 15px;
+        }
+
+        .report-stat p {
+            margin: 0;
             font-weight: bold;
+        }
+
+        .report-buttons {
+            display: grid;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .report-table th,
+        .report-table td {
+            padding: 9px 6px;
+            border-bottom: 1px solid rgba(128,128,128,0.25);
+            text-align: left;
+        }
+
+        .report-table th {
+            font-weight: bold;
+        }
+
+        .positive {
+            font-weight: bold;
+        }
+
+        .negative {
+            font-weight: bold;
+        }
+
+        .report-note {
+            font-size: 13px;
+            opacity: 0.75;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 500px) {
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .report-table {
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -79,12 +116,14 @@
     <a href="#insights">💡 Insights</a>
     <a href="#analytics">📊 Analytics</a>
     <a href="#monthly">📅 Monthly</a>
+    <a href="#reports">📄 Reports</a>
     <a href="#alerts">🔔 Alerts</a>
 </nav>
 
 <main>
 
-<!-- DASHBOARD -->
+<!-- ================= DASHBOARD ================= -->
+
 <section id="dashboard">
 
     <p class="section-label">FINANCIAL DASHBOARD</p>
@@ -142,6 +181,10 @@
             💰 Savings
         </button>
 
+        <button type="button" id="quickReports">
+            📄 Reports
+        </button>
+
         <button type="button" id="quickAlerts">
             🔔 Alerts
         </button>
@@ -151,7 +194,8 @@
 </section>
 
 
-<!-- FINANCIAL HEALTH -->
+<!-- ================= FINANCIAL HEALTH ================= -->
+
 <section class="form-section">
 
     <p class="section-label">FINANCIAL HEALTH</p>
@@ -173,7 +217,8 @@
 </section>
 
 
-<!-- MONEY SNAPSHOT -->
+<!-- ================= MONEY SNAPSHOT ================= -->
+
 <section class="form-section">
 
     <p class="section-label">MONEY SNAPSHOT</p>
@@ -207,7 +252,8 @@
 </section>
 
 
-<!-- MONTHLY BUDGET -->
+<!-- ================= MONTHLY BUDGET ================= -->
+
 <section class="form-section" id="budget">
 
     <p class="section-label">MONTHLY BUDGET</p>
@@ -259,7 +305,8 @@
 </section>
 
 
-<!-- SAVINGS GOAL -->
+<!-- ================= SAVINGS GOAL ================= -->
+
 <section class="form-section" id="goals">
 
     <p class="section-label">SAVINGS GOAL</p>
@@ -309,7 +356,8 @@
 </section>
 
 
-<!-- AUTOMATIC SAVINGS -->
+<!-- ================= AUTOMATIC SAVINGS ================= -->
+
 <section class="form-section" id="savings">
 
     <p class="section-label">AUTOMATIC SAVINGS SYSTEM</p>
@@ -353,7 +401,7 @@
         <h3>🤖 Smart Recommendation</h3>
 
         <p id="savingsRecommendation">
-            Add some income and expenses and I'll calculate a smart savings recommendation for you.
+            Add income and expenses to receive a smart savings recommendation.
         </p>
 
     </div>
@@ -384,7 +432,9 @@
 
     </div>
 
-    <h3 style="margin-top:20px;">🏆 Savings Achievements</h3>
+    <h3 style="margin-top:20px;">
+        🏆 Savings Achievements
+    </h3>
 
     <div class="achievement-box">
 
@@ -413,7 +463,8 @@
 </section>
 
 
-<!-- ADD TRANSACTION -->
+<!-- ================= TRANSACTIONS ================= -->
+
 <section class="form-section" id="transactions">
 
     <p class="section-label">TRANSACTIONS</p>
@@ -477,7 +528,8 @@
 </section>
 
 
-<!-- TRANSACTION LIST -->
+<!-- ================= TRANSACTION LIST ================= -->
+
 <section class="form-section">
 
     <h2>🧾 Recent Transactions</h2>
@@ -532,7 +584,8 @@
 </section>
 
 
-<!-- INSIGHTS -->
+<!-- ================= INSIGHTS ================= -->
+
 <section class="form-section" id="insights">
 
     <p class="section-label">FINANCIAL INSIGHTS</p>
@@ -572,7 +625,8 @@
 </section>
 
 
-<!-- ANALYTICS -->
+<!-- ================= ANALYTICS ================= -->
+
 <section class="form-section" id="analytics">
 
     <p class="section-label">ANALYTICS</p>
@@ -584,7 +638,8 @@
 </section>
 
 
-<!-- MONTHLY SUMMARY -->
+<!-- ================= MONTHLY SUMMARY ================= -->
+
 <section class="form-section" id="monthly">
 
     <p class="section-label">MONTHLY SUMMARY</p>
@@ -598,7 +653,118 @@
 </section>
 
 
-<!-- SMART ALERTS -->
+<!-- ================= REPORT CENTER ================= -->
+
+<section class="form-section" id="reports">
+
+    <p class="section-label">FINANCIAL REPORT CENTER</p>
+
+    <h2>📄 Financial Reports</h2>
+
+    <p class="report-note">
+        Generate a clear summary of your income, expenses,
+        savings, budget performance and spending habits.
+    </p>
+
+    <div class="report-grid">
+
+        <div class="report-stat">
+            <h3>💵 Total Income</h3>
+            <p id="reportIncome">UGX 0</p>
+        </div>
+
+        <div class="report-stat">
+            <h3>💸 Total Expenses</h3>
+            <p id="reportExpenses">UGX 0</p>
+        </div>
+
+        <div class="report-stat">
+            <h3>💰 Total Savings</h3>
+            <p id="reportSavings">UGX 0</p>
+        </div>
+
+        <div class="report-stat">
+            <h3>📈 Savings Rate</h3>
+            <p id="reportSavingsRate">0%</p>
+        </div>
+
+        <div class="report-stat">
+            <h3>💼 Budget</h3>
+            <p id="reportBudget">UGX 0</p>
+        </div>
+
+        <div class="report-stat">
+            <h3>📊 Budget Used</h3>
+            <p id="reportBudgetUsed">0%</p>
+        </div>
+
+        <div class="report-stat">
+            <h3>🏆 Top Category</h3>
+            <p id="reportTopCategory">None</p>
+        </div>
+
+        <div class="report-stat">
+            <h3>🧾 Transactions</h3>
+            <p id="reportTransactions">0</p>
+        </div>
+
+    </div>
+
+    <div class="report-card">
+
+        <h3>📅 Current Month</h3>
+
+        <div class="report-number" id="reportCurrentMonth">
+            No data
+        </div>
+
+        <p id="reportMonthDetails">
+            Add transactions to generate your monthly report.
+        </p>
+
+    </div>
+
+    <div class="report-card">
+
+        <h3>🏆 Financial Performance</h3>
+
+        <p id="reportPerformance">
+            No financial performance data available yet.
+        </p>
+
+    </div>
+
+    <div class="report-card">
+
+        <h3>⚠️ Report Warnings</h3>
+
+        <p id="reportWarnings">
+            No warnings available.
+        </p>
+
+    </div>
+
+    <div class="report-buttons">
+
+        <button type="button" id="generateReportButton">
+            📄 Generate Full Report
+        </button>
+
+        <button type="button" id="downloadReportButton">
+            📥 Download Report
+        </button>
+
+        <button type="button" id="printReportButton">
+            🖨️ Print Report
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SMART ALERTS ================= -->
+
 <section class="form-section" id="alerts">
 
     <p class="section-label">SMART NOTIFICATIONS</p>
@@ -635,7 +801,8 @@
 </section>
 
 
-<!-- DARK MODE -->
+<!-- ================= SETTINGS ================= -->
+
 <section class="form-section">
 
     <h2>⚙️ Settings</h2>
@@ -686,23 +853,27 @@ const categories = [
 
 
 const emojis = {
-    "Food": "🍔",
-    "Transport": "🚕",
-    "School": "🎓",
+    Food: "🍔",
+    Transport: "🚕",
+    School: "🎓",
     "Airtime/Data": "📱",
-    "Rent": "🏠",
-    "Utilities": "💡",
-    "Shopping": "🛍️",
-    "Other": "📦"
+    Rent: "🏠",
+    Utilities: "💡",
+    Shopping: "🛍️",
+    Other: "📦"
 };
 
 
 let transactions =
-    JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+    ) || [];
 
 
 let goal =
-    JSON.parse(localStorage.getItem(GOAL_KEY)) || {
+    JSON.parse(
+        localStorage.getItem(GOAL_KEY)
+    ) || {
         name: "My Savings Goal",
         target: 5000000,
         current: 0
@@ -710,11 +881,15 @@ let goal =
 
 
 let monthlyBudget =
-    Number(localStorage.getItem(BUDGET_KEY)) || 2200000;
+    Number(
+        localStorage.getItem(BUDGET_KEY)
+    ) || 2200000;
 
 
 let savingsSettings =
-    JSON.parse(localStorage.getItem(SAVINGS_KEY)) || {
+    JSON.parse(
+        localStorage.getItem(SAVINGS_KEY)
+    ) || {
         monthlyTarget: 0,
         streak: 0,
         lastMonth: ""
@@ -724,6 +899,10 @@ let savingsSettings =
 let chart;
 
 
+/* =========================
+   MONEY FORMAT
+========================= */
+
 function money(value) {
 
     return "UGX " +
@@ -731,6 +910,10 @@ function money(value) {
 
 }
 
+
+/* =========================
+   STORAGE
+========================= */
 
 function saveTransactions() {
 
@@ -762,6 +945,10 @@ function saveSavingsSettings() {
 }
 
 
+/* =========================
+   TOTALS
+========================= */
+
 function calculateTotals() {
 
     let income = 0;
@@ -790,12 +977,23 @@ function calculateTotals() {
 }
 
 
+/* =========================
+   DASHBOARD
+========================= */
+
 function updateDashboard() {
 
-    const totals = calculateTotals();
+    const totals =
+        calculateTotals();
+
 
     const savings =
-        Math.max(0, totals.income - totals.expenses);
+        Math.max(
+            0,
+            totals.income -
+            totals.expenses
+        );
+
 
     const rate =
         totals.income > 0
@@ -803,33 +1001,52 @@ function updateDashboard() {
             : 0;
 
 
-    document.getElementById("balance").textContent =
+    document.getElementById("balance")
+        .textContent =
         money(totals.balance);
 
-    document.getElementById("income").textContent =
+
+    document.getElementById("income")
+        .textContent =
         money(totals.income);
 
-    document.getElementById("expenses").textContent =
+
+    document.getElementById("expenses")
+        .textContent =
         money(totals.expenses);
 
-    document.getElementById("savings").textContent =
+
+    document.getElementById("savings")
+        .textContent =
         money(savings);
 
-    document.getElementById("savingsRate").textContent =
+
+    document.getElementById("savingsRate")
+        .textContent =
         rate.toFixed(1) + "%";
 
-    document.getElementById("remainingMoney").textContent =
+
+    document.getElementById("remainingMoney")
+        .textContent =
         money(totals.balance);
 
-    document.getElementById("transactionCount").textContent =
+
+    document.getElementById("transactionCount")
+        .textContent =
         transactions.length;
 
 }
 
 
+/* =========================
+   FINANCIAL HEALTH
+========================= */
+
 function calculateHealthScore() {
 
-    const totals = calculateTotals();
+    const totals =
+        calculateTotals();
+
 
     if (totals.income <= 0) {
 
@@ -844,15 +1061,25 @@ function calculateHealthScore() {
     const savingsRate =
         Math.max(
             0,
-            ((totals.income - totals.expenses) /
-                totals.income) * 100
+            (
+                (totals.income -
+                totals.expenses) /
+                totals.income
+            ) * 100
         );
 
 
-    score += Math.min(30, savingsRate * 1.5);
+    score +=
+        Math.min(
+            30,
+            savingsRate * 1.5
+        );
 
 
-    if (totals.expenses <= monthlyBudget) {
+    if (
+        totals.expenses <=
+        monthlyBudget
+    ) {
 
         score += 20;
 
@@ -865,7 +1092,10 @@ function calculateHealthScore() {
 
     return Math.max(
         0,
-        Math.min(100, Math.round(score))
+        Math.min(
+            100,
+            Math.round(score)
+        )
     );
 
 }
@@ -873,13 +1103,18 @@ function calculateHealthScore() {
 
 function updateFinancialHealth() {
 
-    const score = calculateHealthScore();
+    const score =
+        calculateHealthScore();
 
-    document.getElementById("healthScore").textContent =
+
+    document.getElementById(
+        "healthScore"
+    ).textContent =
         score + "/100";
 
 
-    let message = "";
+    let message;
+
 
     if (score >= 80) {
 
@@ -904,43 +1139,71 @@ function updateFinancialHealth() {
     }
 
 
-    document.getElementById("healthMessage").textContent =
+    document.getElementById(
+        "healthMessage"
+    ).textContent =
         message;
 
 }
 
 
+/* =========================
+   BUDGET
+========================= */
+
 function updateBudget() {
 
-    const totals = calculateTotals();
+    const totals =
+        calculateTotals();
 
-    const spent = totals.expenses;
+
+    const spent =
+        totals.expenses;
+
 
     const remaining =
-        monthlyBudget - spent;
+        monthlyBudget -
+        spent;
 
 
     const percentage =
         monthlyBudget > 0
-            ? (spent / monthlyBudget) * 100
+            ? (
+                spent /
+                monthlyBudget
+            ) * 100
             : 0;
 
 
-    document.getElementById("budgetAmount").textContent =
+    document.getElementById(
+        "budgetAmount"
+    ).textContent =
         money(monthlyBudget);
 
-    document.getElementById("budgetSpent").textContent =
+
+    document.getElementById(
+        "budgetSpent"
+    ).textContent =
         money(spent);
 
-    document.getElementById("budgetRemaining").textContent =
+
+    document.getElementById(
+        "budgetRemaining"
+    ).textContent =
         money(remaining);
 
 
-    document.getElementById("budgetProgress").style.width =
-        Math.min(100, percentage) + "%";
+    document.getElementById(
+        "budgetProgress"
+    ).style.width =
+        Math.min(
+            100,
+            percentage
+        ) + "%";
 
 
-    let message = "";
+    let message;
+
 
     if (percentage >= 100) {
 
@@ -965,49 +1228,82 @@ function updateBudget() {
     }
 
 
-    document.getElementById("budgetMessage").textContent =
+    document.getElementById(
+        "budgetMessage"
+    ).textContent =
         message;
 
 }
 
 
+/* =========================
+   GOAL
+========================= */
+
 function updateGoal() {
 
-    document.getElementById("goalName").textContent =
+    document.getElementById(
+        "goalName"
+    ).textContent =
         goal.name;
 
-    document.getElementById("goalTarget").textContent =
+
+    document.getElementById(
+        "goalTarget"
+    ).textContent =
         money(goal.target);
 
-    document.getElementById("goalCurrent").textContent =
+
+    document.getElementById(
+        "goalCurrent"
+    ).textContent =
         money(goal.current);
 
 
     let percentage =
         goal.target > 0
-            ? (goal.current / goal.target) * 100
+            ? (
+                goal.current /
+                goal.target
+            ) * 100
             : 0;
 
 
     percentage =
-        Math.min(100, percentage);
+        Math.min(
+            100,
+            percentage
+        );
 
 
-    document.getElementById("goalProgress").style.width =
+    document.getElementById(
+        "goalProgress"
+    ).style.width =
         percentage + "%";
 
 
-    document.getElementById("goalPercentage").textContent =
-        percentage.toFixed(1) + "% completed";
+    document.getElementById(
+        "goalPercentage"
+    ).textContent =
+        percentage.toFixed(1) +
+        "% completed";
 
 }
 
 
+/* =========================
+   AUTOMATIC SAVINGS
+========================= */
+
 function calculateRecommendedSavings() {
 
-    const totals = calculateTotals();
+    const totals =
+        calculateTotals();
 
-    if (totals.income <= 0) {
+
+    if (
+        totals.income <= 0
+    ) {
 
         return 0;
 
@@ -1015,44 +1311,40 @@ function calculateRecommendedSavings() {
 
 
     const available =
-        totals.income - totals.expenses;
+        totals.income -
+        totals.expenses;
 
 
-    if (available <= 0) {
+    if (
+        available <= 0
+    ) {
 
         return 0;
 
     }
 
 
-    /*
-       Smart rule:
-
-       If the user has money remaining,
-       recommend up to 20% of income,
-       but never more than the available balance.
-    */
-
-    const recommendation =
+    return Math.round(
         Math.min(
             available,
             totals.income * 0.20
-        );
-
-
-    return Math.round(recommendation);
+        )
+    );
 
 }
 
 
 function updateAutomaticSavings() {
 
-    const totals = calculateTotals();
+    const totals =
+        calculateTotals();
+
 
     const available =
         Math.max(
             0,
-            totals.income - totals.expenses
+            totals.income -
+            totals.expenses
         );
 
 
@@ -1062,29 +1354,39 @@ function updateAutomaticSavings() {
 
     document.getElementById(
         "recommendedSavings"
-    ).textContent = money(recommendation);
+    ).textContent =
+        money(recommendation);
 
 
     const target =
-        Number(savingsSettings.monthlyTarget) || 0;
+        Number(
+            savingsSettings.monthlyTarget
+        ) || 0;
 
 
     document.getElementById(
         "monthlySavingsTarget"
-    ).textContent = money(target);
-
-
-    let savedThisMonth = available;
+    ).textContent =
+        money(target);
 
 
     if (target > 0) {
 
         let percentage =
-            (savedThisMonth / target) * 100;
+            (
+                available /
+                target
+            ) * 100;
 
 
         percentage =
-            Math.min(100, Math.max(0, percentage));
+            Math.min(
+                100,
+                Math.max(
+                    0,
+                    percentage
+                )
+            );
 
 
         document.getElementById(
@@ -1093,7 +1395,9 @@ function updateAutomaticSavings() {
             percentage + "%";
 
 
-        if (savedThisMonth >= target) {
+        if (
+            available >= target
+        ) {
 
             document.getElementById(
                 "monthlySavingsStatus"
@@ -1103,7 +1407,8 @@ function updateAutomaticSavings() {
         } else {
 
             const remaining =
-                target - savedThisMonth;
+                target -
+                available;
 
 
             document.getElementById(
@@ -1118,7 +1423,8 @@ function updateAutomaticSavings() {
 
         document.getElementById(
             "savingsProgress"
-        ).style.width = "0%";
+        ).style.width =
+            "0%";
 
 
         document.getElementById(
@@ -1129,55 +1435,52 @@ function updateAutomaticSavings() {
     }
 
 
-    let advice = "";
+    let advice;
 
 
-    if (totals.income <= 0) {
-
-        advice =
-            "💡 Add your income first so I can calculate how much you should save.";
-
-    } else if (available <= 0) {
+    if (
+        totals.income <= 0
+    ) {
 
         advice =
-            "⚠️ Your expenses currently use all your income. Try reducing unnecessary spending before increasing your savings target.";
+            "💡 Add your income first so THE FATE can calculate how much you should save.";
 
-    } else if (recommendation > 0) {
+    } else if (
+        available <= 0
+    ) {
+
+        advice =
+            "⚠️ Your expenses currently use all your income. Try reducing unnecessary spending.";
+
+    } else {
 
         advice =
             "🤖 Based on your current numbers, try saving " +
             money(recommendation) +
-            " this month. A consistent 20% savings rate is a strong target.";
+            " this month.";
 
     }
 
 
     document.getElementById(
         "savingsRecommendation"
-    ).textContent = advice;
+    ).textContent =
+        advice;
 
 
     document.getElementById(
         "savingsStreak"
     ).textContent =
-        savingsSettings.streak + " months";
+        savingsSettings.streak +
+        " months";
 
 
-    if (savingsSettings.streak > 0) {
-
-        document.getElementById(
-            "streakMessage"
-        ).textContent =
-            "🔥 Great work! Keep the savings streak going.";
-
-    } else {
-
-        document.getElementById(
-            "streakMessage"
-        ).textContent =
-            "Start saving consistently to build your streak.";
-
-    }
+    document.getElementById(
+        "streakMessage"
+    ).textContent =
+        savingsSettings.streak > 0
+            ? "🔥 Great work! Keep the savings streak going."
+            : "Start saving consistently to build your streak.";
 
 
     updateAchievements();
@@ -1187,39 +1490,41 @@ function updateAutomaticSavings() {
 
 function updateAchievements() {
 
-    const totals = calculateTotals();
+    const totals =
+        calculateTotals();
+
 
     const saved =
         Math.max(
             0,
-            totals.income - totals.expenses
+            totals.income -
+            totals.expenses
         );
 
 
     const rate =
         totals.income > 0
-            ? (saved / totals.income) * 100
+            ? (
+                saved /
+                totals.income
+            ) * 100
             : 0;
-
-
-    const starter =
-        document.getElementById("achievementStarter");
-
-    const ten =
-        document.getElementById("achievement10");
-
-    const twentyFive =
-        document.getElementById("achievement25");
-
-    const goalAchievement =
-        document.getElementById("achievementGoal");
 
 
     if (saved > 0) {
 
-        starter.classList.remove("locked");
+        const item =
+            document.getElementById(
+                "achievementStarter"
+            );
 
-        starter.innerHTML =
+
+        item.classList.remove(
+            "locked"
+        );
+
+
+        item.innerHTML =
             "🪙 <strong>Savings Starter ✓</strong><br>" +
             "You have started building savings.";
 
@@ -1228,9 +1533,18 @@ function updateAchievements() {
 
     if (rate >= 10) {
 
-        ten.classList.remove("locked");
+        const item =
+            document.getElementById(
+                "achievement10"
+            );
 
-        ten.innerHTML =
+
+        item.classList.remove(
+            "locked"
+        );
+
+
+        item.innerHTML =
             "💎 <strong>10% Saver ✓</strong><br>" +
             "You are saving at least 10% of your income.";
 
@@ -1239,9 +1553,18 @@ function updateAchievements() {
 
     if (rate >= 25) {
 
-        twentyFive.classList.remove("locked");
+        const item =
+            document.getElementById(
+                "achievement25"
+            );
 
-        twentyFive.innerHTML =
+
+        item.classList.remove(
+            "locked"
+        );
+
+
+        item.innerHTML =
             "🏆 <strong>25% Saver ✓</strong><br>" +
             "Amazing! You are saving at least 25% of your income.";
 
@@ -1253,9 +1576,18 @@ function updateAchievements() {
         goal.current >= goal.target
     ) {
 
-        goalAchievement.classList.remove("locked");
+        const item =
+            document.getElementById(
+                "achievementGoal"
+            );
 
-        goalAchievement.innerHTML =
+
+        item.classList.remove(
+            "locked"
+        );
+
+
+        item.innerHTML =
             "🎯 <strong>Goal Crusher ✓</strong><br>" +
             "You completed your savings goal!";
 
@@ -1264,24 +1596,36 @@ function updateAchievements() {
 }
 
 
+/* =========================
+   TRANSACTIONS
+========================= */
+
 function updateTransactions() {
 
     const list =
-        document.getElementById("transactionList");
+        document.getElementById(
+            "transactionList"
+        );
 
 
     const search =
-        document.getElementById("searchInput")
-            .value
-            .toLowerCase();
+        document.getElementById(
+            "searchInput"
+        )
+        .value
+        .toLowerCase();
 
 
     const category =
-        document.getElementById("filterCategory").value;
+        document.getElementById(
+            "filterCategory"
+        ).value;
 
 
     const type =
-        document.getElementById("filterType").value;
+        document.getElementById(
+            "filterType"
+        ).value;
 
 
     const filtered =
@@ -1312,7 +1656,9 @@ function updateTransactions() {
         });
 
 
-    if (filtered.length === 0) {
+    if (
+        filtered.length === 0
+    ) {
 
         list.innerHTML =
             "<p>No matching transactions.</p>";
@@ -1335,7 +1681,9 @@ function updateTransactions() {
 
 
             const item =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             item.className =
@@ -1403,30 +1751,48 @@ function editTransaction(index) {
         transactions[index];
 
 
-    document.getElementById("description").value =
+    document.getElementById(
+        "description"
+    ).value =
         t.description;
 
-    document.getElementById("amount").value =
+
+    document.getElementById(
+        "amount"
+    ).value =
         t.amount;
 
-    document.getElementById("type").value =
+
+    document.getElementById(
+        "type"
+    ).value =
         t.type;
 
-    document.getElementById("category").value =
+
+    document.getElementById(
+        "category"
+    ).value =
         t.category;
 
-    document.getElementById("date").value =
+
+    document.getElementById(
+        "date"
+    ).value =
         t.date;
 
 
-    transactions.splice(index, 1);
+    transactions.splice(
+        index,
+        1
+    );
+
 
     saveTransactions();
 
     updateApp();
 
 
-    window.location.hash =
+    location.hash =
         "transactions";
 
 }
@@ -1434,14 +1800,22 @@ function editTransaction(index) {
 
 function deleteTransaction(index) {
 
-    if (!confirm("Delete this transaction?")) {
+    if (
+        !confirm(
+            "Delete this transaction?"
+        )
+    ) {
 
         return;
 
     }
 
 
-    transactions.splice(index, 1);
+    transactions.splice(
+        index,
+        1
+    );
+
 
     saveTransactions();
 
@@ -1462,7 +1836,9 @@ document.getElementById(
         const description =
             document.getElementById(
                 "description"
-            ).value.trim();
+            )
+            .value
+            .trim();
 
 
         const amount =
@@ -1474,7 +1850,9 @@ document.getElementById(
 
 
         const type =
-            document.getElementById("type").value;
+            document.getElementById(
+                "type"
+            ).value;
 
 
         const category =
@@ -1521,7 +1899,9 @@ document.getElementById(
         this.reset();
 
 
-        document.getElementById("date").value =
+        document.getElementById(
+            "date"
+        ).value =
             new Date()
                 .toISOString()
                 .split("T")[0];
@@ -1538,58 +1918,75 @@ document.getElementById(
 );
 
 
+/* =========================
+   INSIGHTS
+========================= */
+
 function updateInsights() {
 
-    const expenseTransactions =
+    const expenses =
         transactions.filter(
             t => t.type === "expense"
         );
 
 
-    const totals = calculateTotals();
+    const totals =
+        calculateTotals();
 
 
     const categoryTotals = {};
 
 
-    expenseTransactions.forEach(t => {
+    expenses.forEach(t => {
 
         categoryTotals[t.category] =
-            (categoryTotals[t.category] || 0) +
+            (
+                categoryTotals[t.category] ||
+                0
+            ) +
             Number(t.amount);
 
     });
 
 
-    let topCategory = "None";
-    let topAmount = 0;
+    let topCategory =
+        "None";
 
 
-    Object.keys(categoryTotals)
-        .forEach(category => {
-
-            if (
-                categoryTotals[category] >
-                topAmount
-            ) {
-
-                topAmount =
-                    categoryTotals[category];
-
-                topCategory =
-                    category;
-
-            }
-
-        });
+    let topAmount =
+        0;
 
 
-    let largest = 0;
+    Object.keys(
+        categoryTotals
+    ).forEach(category => {
+
+        if (
+            categoryTotals[category] >
+            topAmount
+        ) {
+
+            topAmount =
+                categoryTotals[category];
+
+            topCategory =
+                category;
+
+        }
+
+    });
 
 
-    expenseTransactions.forEach(t => {
+    let largest =
+        0;
 
-        if (Number(t.amount) > largest) {
+
+    expenses.forEach(t => {
+
+        if (
+            Number(t.amount) >
+            largest
+        ) {
 
             largest =
                 Number(t.amount);
@@ -1626,17 +2023,20 @@ function updateInsights() {
     let advice;
 
 
-    if (totals.income <= 0) {
+    if (
+        totals.income <= 0
+    ) {
 
         advice =
             "💡 Start by recording your income.";
 
     } else if (
-        totals.expenses > totals.income
+        totals.expenses >
+        totals.income
     ) {
 
         advice =
-            "🚨 You are spending more than you earn. Reduce unnecessary expenses.";
+            "🚨 You are spending more than you earn.";
 
     } else if (
         totals.expenses >
@@ -1662,28 +2062,41 @@ function updateInsights() {
 }
 
 
+/* =========================
+   CHART
+========================= */
+
 function updateChart() {
 
     const categoryTotals = {};
 
 
     transactions
-        .filter(t => t.type === "expense")
+        .filter(
+            t => t.type === "expense"
+        )
         .forEach(t => {
 
             categoryTotals[t.category] =
-                (categoryTotals[t.category] || 0) +
+                (
+                    categoryTotals[t.category] ||
+                    0
+                ) +
                 Number(t.amount);
 
         });
 
 
     const labels =
-        Object.keys(categoryTotals);
+        Object.keys(
+            categoryTotals
+        );
 
 
     const values =
-        Object.values(categoryTotals);
+        Object.values(
+            categoryTotals
+        );
 
 
     const canvas =
@@ -1726,7 +2139,8 @@ function updateChart() {
 
                         legend: {
 
-                            position: "bottom"
+                            position:
+                                "bottom"
 
                         }
 
@@ -1740,23 +2154,11 @@ function updateChart() {
 }
 
 
-function updateMonthlySummary() {
+/* =========================
+   MONTHLY SUMMARY
+========================= */
 
-    const container =
-        document.getElementById(
-            "monthlySummary"
-        );
-
-
-    if (transactions.length === 0) {
-
-        container.innerHTML =
-            "<p>No monthly data available.</p>";
-
-        return;
-
-    }
-
+function getMonthlyData() {
 
     const months = {};
 
@@ -1779,7 +2181,9 @@ function updateMonthlySummary() {
         }
 
 
-        if (t.type === "income") {
+        if (
+            t.type === "income"
+        ) {
 
             months[month].income +=
                 Number(t.amount);
@@ -1794,7 +2198,37 @@ function updateMonthlySummary() {
     });
 
 
-    container.innerHTML = "";
+    return months;
+
+}
+
+
+function updateMonthlySummary() {
+
+    const container =
+        document.getElementById(
+            "monthlySummary"
+        );
+
+
+    const months =
+        getMonthlyData();
+
+
+    if (
+        Object.keys(months).length === 0
+    ) {
+
+        container.innerHTML =
+            "<p>No monthly data available.</p>";
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        "";
 
 
     Object.keys(months)
@@ -1812,7 +2246,9 @@ function updateMonthlySummary() {
 
 
             const box =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             box.className =
@@ -1825,23 +2261,31 @@ function updateMonthlySummary() {
 
                 <p>
                     Income:
-                    <strong>${money(data.income)}</strong>
+                    <strong>
+                        ${money(data.income)}
+                    </strong>
                 </p>
 
                 <p>
                     Expenses:
-                    <strong>${money(data.expenses)}</strong>
+                    <strong>
+                        ${money(data.expenses)}
+                    </strong>
                 </p>
 
                 <p>
                     Savings:
-                    <strong>${money(saving)}</strong>
+                    <strong>
+                        ${money(saving)}
+                    </strong>
                 </p>
 
             `;
 
 
-            container.appendChild(box);
+            container.appendChild(
+                box
+            );
 
         });
 
@@ -1849,74 +2293,133 @@ function updateMonthlySummary() {
 
 
 /* =========================
-   SMART ALERTS
+   FINANCIAL REPORT
 ========================= */
 
+function getTopSpendingCategory() {
 
-function getSavedAlerts() {
-
-    return JSON.parse(
-        localStorage.getItem(ALERT_KEY)
-    ) || [];
-
-}
+    const totals = {};
 
 
-function saveAlerts(alerts) {
-
-    localStorage.setItem(
-        ALERT_KEY,
-        JSON.stringify(alerts)
-    );
-
-}
-
-
-function createSmartAlert(
-    key,
-    title,
-    message
-) {
-
-    const alerts =
-        getSavedAlerts();
-
-
-    if (
-        alerts.some(
-            alert => alert.key === key
+    transactions
+        .filter(
+            t => t.type === "expense"
         )
-    ) {
+        .forEach(t => {
 
-        return;
+            totals[t.category] =
+                (
+                    totals[t.category] ||
+                    0
+                ) +
+                Number(t.amount);
 
-    }
+        });
 
 
-    alerts.unshift({
+    let top =
+        "None";
 
-        key,
-        title,
-        message,
-        date: new Date().toLocaleString()
+
+    let highest =
+        0;
+
+
+    Object.keys(totals)
+        .forEach(category => {
+
+            if (
+                totals[category] >
+                highest
+            ) {
+
+                highest =
+                    totals[category];
+
+                top =
+                    category;
+
+            }
+
+        });
+
+
+    return {
+        category: top,
+        amount: highest
+    };
+
+}
+
+
+function getCurrentMonthData() {
+
+    const now =
+        new Date();
+
+
+    const month =
+        now.toISOString()
+            .slice(0, 7);
+
+
+    let income =
+        0;
+
+
+    let expenses =
+        0;
+
+
+    transactions.forEach(t => {
+
+        if (
+            t.date.slice(0, 7) !==
+            month
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            t.type === "income"
+        ) {
+
+            income +=
+                Number(t.amount);
+
+        } else {
+
+            expenses +=
+                Number(t.amount);
+
+        }
 
     });
 
 
-    saveAlerts(
-        alerts.slice(0, 20)
-    );
+    return {
+
+        month,
+        income,
+        expenses,
+        savings:
+            income - expenses
+
+    };
 
 }
 
 
-function generateSmartAlerts() {
+function updateFinancialReport() {
 
     const totals =
         calculateTotals();
 
 
-    const saved =
+    const savings =
         Math.max(
             0,
             totals.income -
@@ -1926,270 +2429,645 @@ function generateSmartAlerts() {
 
     const savingsRate =
         totals.income > 0
-            ? (saved / totals.income) * 100
+            ? (
+                savings /
+                totals.income
+            ) * 100
             : 0;
 
 
-    const budgetPercentage =
+    const budgetUsed =
         monthlyBudget > 0
-            ? (totals.expenses /
-                monthlyBudget) * 100
+            ? (
+                totals.expenses /
+                monthlyBudget
+            ) * 100
             : 0;
+
+
+    const top =
+        getTopSpendingCategory();
+
+
+    const month =
+        getCurrentMonthData();
+
+
+    document.getElementById(
+        "reportIncome"
+    ).textContent =
+        money(totals.income);
+
+
+    document.getElementById(
+        "reportExpenses"
+    ).textContent =
+        money(totals.expenses);
+
+
+    document.getElementById(
+        "reportSavings"
+    ).textContent =
+        money(savings);
+
+
+    document.getElementById(
+        "reportSavingsRate"
+    ).textContent =
+        savingsRate.toFixed(1) +
+        "%";
+
+
+    document.getElementById(
+        "reportBudget"
+    ).textContent =
+        money(monthlyBudget);
+
+
+    document.getElementById(
+        "reportBudgetUsed"
+    ).textContent =
+        budgetUsed.toFixed(1) +
+        "%";
+
+
+    document.getElementById(
+        "reportTopCategory"
+    ).textContent =
+        top.category;
+
+
+    document.getElementById(
+        "reportTransactions"
+    ).textContent =
+        transactions.length;
+
+
+    document.getElementById(
+        "reportCurrentMonth"
+    ).textContent =
+        month.month;
+
+
+    document.getElementById(
+        "reportMonthDetails"
+    ).innerHTML = `
+
+        Income:
+        <strong>${money(month.income)}</strong>
+        <br><br>
+
+        Expenses:
+        <strong>${money(month.expenses)}</strong>
+        <br><br>
+
+        Savings:
+        <strong>${money(
+            Math.max(
+                0,
+                month.savings
+            )
+        )}</strong>
+
+    `;
+
+
+    let performance;
 
 
     if (
-        transactions.length > 0
+        totals.income <= 0
     ) {
 
-        createSmartAlert(
-            "welcome",
-            "👋 Smart Tracker Active",
-            "THE FATE is monitoring your financial progress."
-        );
-
-    }
-
-
-    if (totals.balance < 0) {
-
-        createSmartAlert(
-            "negative-balance",
-            "🚨 Negative Balance",
-            "Your expenses are greater than your income."
-        );
-
-    }
-
-
-    if (budgetPercentage >= 100) {
-
-        createSmartAlert(
-            "budget-100",
-            "🚨 Budget Exceeded",
-            "You have exceeded your monthly budget."
-        );
-
-    } else if (budgetPercentage >= 75) {
-
-        createSmartAlert(
-            "budget-75",
-            "⚠️ 75% Budget Warning",
-            "You have used at least 75% of your monthly budget."
-        );
-
-    }
-
-
-    if (savingsRate >= 20) {
-
-        createSmartAlert(
-            "saving-20",
-            "🏆 Excellent Saver",
-            "You are currently saving at least 20% of your income."
-        );
-
-    } else if (savingsRate >= 10) {
-
-        createSmartAlert(
-            "saving-10",
-            "💎 Good Saving",
-            "You are saving at least 10% of your income."
-        );
+        performance =
+            "💡 Add income and expenses to measure your financial performance.";
 
     } else if (
-        totals.income > 0 &&
-        saved > 0
+        totals.expenses >
+        totals.income
     ) {
 
-        createSmartAlert(
-            "saving-low",
-            "💡 Increase Savings",
-            "You are saving something. Try increasing it gradually."
-        );
-
-    }
-
-
-    const score =
-        calculateHealthScore();
-
-
-    if (score >= 80) {
-
-        createSmartAlert(
-            "health-good",
-            "❤️ Excellent Financial Health",
-            "Your financial health score is excellent."
-        );
+        performance =
+            "🚨 Your expenses are currently higher than your income. Your priority should be reducing expenses.";
 
     } else if (
-        totals.income > 0 &&
-        score < 40
+        savingsRate >= 20
     ) {
 
-        createSmartAlert(
-            "health-low",
-            "⚠️ Financial Health Warning",
-            "Your financial health score needs attention."
+        performance =
+            "🏆 Excellent performance! You are saving at least 20% of your income.";
+
+    } else if (
+        savingsRate >= 10
+    ) {
+
+        performance =
+            "👍 Good performance. You are saving, but you can gradually increase your savings rate.";
+
+    } else {
+
+        performance =
+            "💡 You are saving less than 10% of your income. Try setting a small automatic savings target.";
+
+    }
+
+
+    document.getElementById(
+        "reportPerformance"
+    ).textContent =
+        performance;
+
+
+    let warnings = [];
+
+
+    if (
+        totals.expenses >
+        monthlyBudget
+    ) {
+
+        warnings.push(
+            "🚨 Your expenses exceed your monthly budget."
         );
 
     }
 
 
-    const goalPercentage =
-        goal.target > 0
-            ? (goal.current /
-                goal.target) * 100
-            : 0;
+    if (
+        totals.expenses >
+        totals.income &&
+        totals.income > 0
+    ) {
 
-
-    if (goalPercentage >= 25) {
-
-        createSmartAlert(
-            "goal-25",
-            "🎯 25% Goal Progress",
-            "You have reached 25% of your savings goal."
+        warnings.push(
+            "⚠️ Your expenses are higher than your income."
         );
 
     }
 
 
-    if (goalPercentage >= 50) {
+    if (
+        savingsRate < 10 &&
+        totals.income > 0
+    ) {
 
-        createSmartAlert(
-            "goal-50",
-            "🎯 Halfway There!",
-            "You have reached 50% of your savings goal."
+        warnings.push(
+            "💡 Your savings rate is below 10%."
         );
 
     }
 
 
-    if (goalPercentage >= 75) {
+    if (
+        warnings.length === 0
+    ) {
 
-        createSmartAlert(
-            "goal-75",
-            "🔥 Almost There!",
-            "You have reached 75% of your savings goal."
-        );
-
-    }
-
-
-    if (goalPercentage >= 100) {
-
-        createSmartAlert(
-            "goal-100",
-            "🏆 Goal Completed!",
-            "Congratulations! You completed your savings goal."
-        );
-
-    }
-
-}
-
-
-function updateAlerts() {
-
-    generateSmartAlerts();
-
-
-    const alerts =
-        getSavedAlerts();
-
-
-    const container =
         document.getElementById(
-            "alertsContainer"
-        );
+            "reportWarnings"
+        ).textContent =
+            "🎉 No major financial warnings. Keep going!";
 
+    } else {
 
-    document.getElementById(
-        "alertCount"
-    ).textContent =
-        alerts.length;
-
-
-    document.getElementById(
-        "alertSummary"
-    ).textContent =
-        alerts.length > 0
-            ? "You have " +
-              alerts.length +
-              " smart financial notification(s)."
-            : "You're all caught up!";
-
-
-    if (alerts.length === 0) {
-
-        container.innerHTML =
-            "<p>🎉 No alerts right now.</p>";
-
-        return;
+        document.getElementById(
+            "reportWarnings"
+        ).innerHTML =
+            warnings.join("<br><br>");
 
     }
-
-
-    container.innerHTML = "";
-
-
-    alerts.forEach(alert => {
-
-        const box =
-            document.createElement("div");
-
-
-        box.className =
-            "savings-card";
-
-
-        box.innerHTML = `
-
-            <h3>${alert.title}</h3>
-
-            <p>
-                ${alert.message}
-            </p>
-
-            <small>
-                ${alert.date}
-            </small>
-
-        `;
-
-
-        container.appendChild(box);
-
-    });
-
-}
-
-
-function getMilestones() {
-
-    return JSON.parse(
-        localStorage.getItem(
-            MILESTONE_KEY
-        )
-    ) || {};
-
-}
-
-
-function saveMilestones(data) {
-
-    localStorage.setItem(
-        MILESTONE_KEY,
-        JSON.stringify(data)
-    );
 
 }
 
 
 /* =========================
-   BUTTONS
+   GENERATE FULL REPORT
 ========================= */
 
+function generateFullReport() {
+
+    const totals =
+        calculateTotals();
+
+
+    const savings =
+        Math.max(
+            0,
+            totals.income -
+            totals.expenses
+        );
+
+
+    const rate =
+        totals.income > 0
+            ? (
+                savings /
+                totals.income
+            ) * 100
+            : 0;
+
+
+    const top =
+        getTopSpendingCategory();
+
+
+    const health =
+        calculateHealthScore();
+
+
+    const date =
+        new Date()
+            .toLocaleDateString(
+                "en-UG"
+            );
+
+
+    let report = "";
+
+
+    report +=
+        "THE FATE BUDGET TRACKER\n";
+
+
+    report +=
+        "================================\n\n";
+
+
+    report +=
+        "FINANCIAL REPORT\n";
+
+
+    report +=
+        "Generated: " +
+        date +
+        "\n\n";
+
+
+    report +=
+        "SUMMARY\n";
+
+
+    report +=
+        "--------------------------------\n";
+
+
+    report +=
+        "Total Income: " +
+        money(totals.income) +
+        "\n";
+
+
+    report +=
+        "Total Expenses: " +
+        money(totals.expenses) +
+        "\n";
+
+
+    report +=
+        "Total Savings: " +
+        money(savings) +
+        "\n";
+
+
+    report +=
+        "Savings Rate: " +
+        rate.toFixed(1) +
+        "%\n";
+
+
+    report +=
+        "Current Balance: " +
+        money(totals.balance) +
+        "\n";
+
+
+    report +=
+        "Financial Health: " +
+        health +
+        "/100\n\n";
+
+
+    report +=
+        "BUDGET\n";
+
+
+    report +=
+        "--------------------------------\n";
+
+
+    report +=
+        "Monthly Budget: " +
+        money(monthlyBudget) +
+        "\n";
+
+
+    report +=
+        "Budget Used: " +
+        (
+            monthlyBudget > 0
+                ? (
+                    totals.expenses /
+                    monthlyBudget
+                ) * 100
+                : 0
+        ).toFixed(1) +
+        "%\n";
+
+
+    report +=
+        "Budget Remaining: " +
+        money(
+            monthlyBudget -
+            totals.expenses
+        ) +
+        "\n\n";
+
+
+    report +=
+        "SPENDING INSIGHT\n";
+
+
+    report +=
+        "--------------------------------\n";
+
+
+    report +=
+        "Top Spending Category: " +
+        top.category +
+        "\n";
+
+
+    report +=
+        "Top Category Amount: " +
+        money(top.amount) +
+        "\n";
+
+
+    report +=
+        "Number of Transactions: " +
+        transactions.length +
+        "\n\n";
+
+
+    report +=
+        "TRANSACTIONS\n";
+
+
+    report +=
+        "--------------------------------\n";
+
+
+    if (
+        transactions.length === 0
+    ) {
+
+        report +=
+            "No transactions recorded.\n";
+
+    } else {
+
+        transactions.forEach(
+            (t, index) => {
+
+                report +=
+                    (
+                        index + 1
+                    ) +
+                    ". " +
+                    t.description +
+                    " | " +
+                    money(t.amount) +
+                    " | " +
+                    t.type +
+                    " | " +
+                    t.category +
+                    " | " +
+                    t.date +
+                    "\n";
+
+            }
+        );
+
+    }
+
+
+    report +=
+        "\n================================\n";
+
+
+    report +=
+        "THE FATE BUDGET TRACKER\n";
+
+
+    report +=
+        "Smart Money Management 💙\n";
+
+
+    return report;
+
+}
+
+
+/* =========================
+   REPORT BUTTONS
+========================= */
+
+document.getElementById(
+    "generateReportButton"
+).addEventListener(
+    "click",
+    function() {
+
+        updateFinancialReport();
+
+
+        const report =
+            generateFullReport();
+
+
+        alert(
+            "📄 Full financial report generated!\n\n" +
+            "Your report is ready to download or print."
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "downloadReportButton"
+).addEventListener(
+    "click",
+    function() {
+
+        const report =
+            generateFullReport();
+
+
+        const blob =
+            new Blob(
+                [report],
+                {
+                    type:
+                        "text/plain;charset=utf-8"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            url;
+
+
+        link.download =
+            "THE-FATE-Financial-Report.txt";
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        document.body.removeChild(
+            link
+        );
+
+
+        URL.revokeObjectURL(
+            url
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "printReportButton"
+).addEventListener(
+    "click",
+    function() {
+
+        const report =
+            generateFullReport();
+
+
+        const printWindow =
+            window.open(
+                "",
+                "_blank"
+            );
+
+
+        if (!printWindow) {
+
+            alert(
+                "Please allow pop-ups to print the report."
+            );
+
+            return;
+
+        }
+
+
+        printWindow.document.write(`
+
+            <!DOCTYPE html>
+
+            <html>
+
+            <head>
+
+                <title>
+                    THE FATE Financial Report
+                </title>
+
+                <style>
+
+                    body {
+                        font-family: Arial, sans-serif;
+                        padding: 30px;
+                        line-height: 1.6;
+                    }
+
+                    h1 {
+                        margin-bottom: 5px;
+                    }
+
+                    pre {
+                        white-space: pre-wrap;
+                        font-family: Arial, sans-serif;
+                    }
+
+                </style>
+
+            </head>
+
+            <body>
+
+                <h1>
+                    💙 THE FATE BUDGET TRACKER
+                </h1>
+
+                <h2>
+                    Financial Report
+                </h2>
+
+                <pre>${report
+                    .replace(
+                        /&/g,
+                        "&amp;"
+                    )
+                    .replace(
+                        /</g,
+                        "&lt;"
+                    )
+                    .replace(
+                        />/g,
+                        "&gt;"
+                    )}</pre>
+
+            </body>
+
+            </html>
+
+        `);
+
+
+        printWindow.document.close();
+
+
+        printWindow.focus();
+
+
+        setTimeout(
+            function() {
+
+                printWindow.print();
+
+            },
+            500
+        );
+
+    }
+);
+
+
+/* =========================
+   BUDGET BUTTONS
+========================= */
 
 document.getElementById(
     "editBudgetButton"
@@ -2269,6 +3147,10 @@ document.getElementById(
 );
 
 
+/* =========================
+   GOAL BUTTONS
+========================= */
+
 document.getElementById(
     "editGoalButton"
 ).addEventListener(
@@ -2282,7 +3164,9 @@ document.getElementById(
             );
 
 
-        if (name === null) {
+        if (
+            name === null
+        ) {
 
             return;
 
@@ -2371,9 +3255,14 @@ document.getElementById(
 
         goal = {
 
-            name: "My Savings Goal",
-            target: 5000000,
-            current: 0
+            name:
+                "My Savings Goal",
+
+            target:
+                5000000,
+
+            current:
+                0
 
         };
 
@@ -2386,7 +3275,9 @@ document.getElementById(
 );
 
 
-/* AUTOMATIC SAVINGS TARGET */
+/* =========================
+   SAVINGS TARGET
+========================= */
 
 document.getElementById(
     "setSavingsTargetButton"
@@ -2405,7 +3296,9 @@ document.getElementById(
             );
 
 
-        if (value === null) {
+        if (
+            value === null
+        ) {
 
             return;
 
@@ -2447,8 +3340,6 @@ document.getElementById(
 );
 
 
-/* USE RECOMMENDATION */
-
 document.getElementById(
     "useRecommendationButton"
 ).addEventListener(
@@ -2459,7 +3350,9 @@ document.getElementById(
             calculateRecommendedSavings();
 
 
-        if (recommendation <= 0) {
+        if (
+            recommendation <= 0
+        ) {
 
             alert(
                 "Add income and expenses first so THE FATE can calculate your recommendation."
@@ -2487,7 +3380,362 @@ document.getElementById(
 );
 
 
-/* CLEAR ALERTS */
+/* =========================
+   SMART ALERTS
+========================= */
+
+function getSavedAlerts() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            ALERT_KEY
+        )
+    ) || [];
+
+}
+
+
+function saveAlerts(alerts) {
+
+    localStorage.setItem(
+        ALERT_KEY,
+        JSON.stringify(alerts)
+    );
+
+}
+
+
+function createSmartAlert(
+    key,
+    title,
+    message
+) {
+
+    const alerts =
+        getSavedAlerts();
+
+
+    if (
+        alerts.some(
+            alert =>
+                alert.key === key
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    alerts.unshift({
+
+        key,
+        title,
+        message,
+        date:
+            new Date()
+                .toLocaleString()
+
+    });
+
+
+    saveAlerts(
+        alerts.slice(0, 20)
+    );
+
+}
+
+
+function generateSmartAlerts() {
+
+    const totals =
+        calculateTotals();
+
+
+    const saved =
+        Math.max(
+            0,
+            totals.income -
+            totals.expenses
+        );
+
+
+    const savingsRate =
+        totals.income > 0
+            ? (
+                saved /
+                totals.income
+            ) * 100
+            : 0;
+
+
+    const budgetPercentage =
+        monthlyBudget > 0
+            ? (
+                totals.expenses /
+                monthlyBudget
+            ) * 100
+            : 0;
+
+
+    if (
+        transactions.length > 0
+    ) {
+
+        createSmartAlert(
+            "welcome",
+            "👋 Smart Tracker Active",
+            "THE FATE is monitoring your financial progress."
+        );
+
+    }
+
+
+    if (
+        totals.balance < 0
+    ) {
+
+        createSmartAlert(
+            "negative-balance",
+            "🚨 Negative Balance",
+            "Your expenses are greater than your income."
+        );
+
+    }
+
+
+    if (
+        budgetPercentage >= 100
+    ) {
+
+        createSmartAlert(
+            "budget-100",
+            "🚨 Budget Exceeded",
+            "You have exceeded your monthly budget."
+        );
+
+    } else if (
+        budgetPercentage >= 75
+    ) {
+
+        createSmartAlert(
+            "budget-75",
+            "⚠️ 75% Budget Warning",
+            "You have used at least 75% of your monthly budget."
+        );
+
+    }
+
+
+    if (
+        savingsRate >= 20
+    ) {
+
+        createSmartAlert(
+            "saving-20",
+            "🏆 Excellent Saver",
+            "You are currently saving at least 20% of your income."
+        );
+
+    } else if (
+        savingsRate >= 10
+    ) {
+
+        createSmartAlert(
+            "saving-10",
+            "💎 Good Saving",
+            "You are saving at least 10% of your income."
+        );
+
+    } else if (
+        totals.income > 0 &&
+        saved > 0
+    ) {
+
+        createSmartAlert(
+            "saving-low",
+            "💡 Increase Savings",
+            "You are saving something. Try increasing it gradually."
+        );
+
+    }
+
+
+    const score =
+        calculateHealthScore();
+
+
+    if (
+        score >= 80
+    ) {
+
+        createSmartAlert(
+            "health-good",
+            "❤️ Excellent Financial Health",
+            "Your financial health score is excellent."
+        );
+
+    } else if (
+        totals.income > 0 &&
+        score < 40
+    ) {
+
+        createSmartAlert(
+            "health-low",
+            "⚠️ Financial Health Warning",
+            "Your financial health score needs attention."
+        );
+
+    }
+
+
+    const goalPercentage =
+        goal.target > 0
+            ? (
+                goal.current /
+                goal.target
+            ) * 100
+            : 0;
+
+
+    if (
+        goalPercentage >= 25
+    ) {
+
+        createSmartAlert(
+            "goal-25",
+            "🎯 25% Goal Progress",
+            "You have reached 25% of your savings goal."
+        );
+
+    }
+
+
+    if (
+        goalPercentage >= 50
+    ) {
+
+        createSmartAlert(
+            "goal-50",
+            "🎯 Halfway There!",
+            "You have reached 50% of your savings goal."
+        );
+
+    }
+
+
+    if (
+        goalPercentage >= 75
+    ) {
+
+        createSmartAlert(
+            "goal-75",
+            "🔥 Almost There!",
+            "You have reached 75% of your savings goal."
+        );
+
+    }
+
+
+    if (
+        goalPercentage >= 100
+    ) {
+
+        createSmartAlert(
+            "goal-100",
+            "🏆 Goal Completed!",
+            "Congratulations! You completed your savings goal."
+        );
+
+    }
+
+}
+
+
+function updateAlerts() {
+
+    generateSmartAlerts();
+
+
+    const alerts =
+        getSavedAlerts();
+
+
+    const container =
+        document.getElementById(
+            "alertsContainer"
+        );
+
+
+    document.getElementById(
+        "alertCount"
+    ).textContent =
+        alerts.length;
+
+
+    document.getElementById(
+        "alertSummary"
+    ).textContent =
+        alerts.length > 0
+            ? "You have " +
+              alerts.length +
+              " smart financial notification(s)."
+            : "You're all caught up!";
+
+
+    if (
+        alerts.length === 0
+    ) {
+
+        container.innerHTML =
+            "<p>🎉 No alerts right now.</p>";
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    alerts.forEach(alert => {
+
+        const box =
+            document.createElement(
+                "div"
+            );
+
+
+        box.className =
+            "savings-card";
+
+
+        box.innerHTML = `
+
+            <h3>
+                ${alert.title}
+            </h3>
+
+            <p>
+                ${alert.message}
+            </p>
+
+            <small>
+                ${alert.date}
+            </small>
+
+        `;
+
+
+        container.appendChild(
+            box
+        );
+
+    });
+
+}
+
 
 document.getElementById(
     "clearAlertsButton"
@@ -2506,7 +3754,9 @@ document.getElementById(
 );
 
 
-/* BROWSER NOTIFICATIONS */
+/* =========================
+   NOTIFICATIONS
+========================= */
 
 function updateNotificationButton() {
 
@@ -2517,7 +3767,10 @@ function updateNotificationButton() {
 
 
     if (
-        !("Notification" in window)
+        !(
+            "Notification" in
+            window
+        )
     ) {
 
         button.textContent =
@@ -2556,7 +3809,10 @@ document.getElementById(
     async function() {
 
         if (
-            !("Notification" in window)
+            !(
+                "Notification" in
+                window
+            )
         ) {
 
             alert(
@@ -2573,7 +3829,8 @@ document.getElementById(
 
 
         if (
-            permission === "granted"
+            permission ===
+            "granted"
         ) {
 
             new Notification(
@@ -2595,7 +3852,9 @@ document.getElementById(
 );
 
 
-/* DARK MODE */
+/* =========================
+   DARK MODE
+========================= */
 
 document.getElementById(
     "darkModeButton"
@@ -2633,7 +3892,9 @@ function loadTheme() {
         );
 
 
-    if (theme === "dark") {
+    if (
+        theme === "dark"
+    ) {
 
         document.body.classList.add(
             "dark-mode"
@@ -2644,7 +3905,9 @@ function loadTheme() {
 }
 
 
-/* SEARCH */
+/* =========================
+   SEARCH & FILTERS
+========================= */
 
 document.getElementById(
     "searchInput"
@@ -2670,7 +3933,9 @@ document.getElementById(
 );
 
 
-/* QUICK ACTIONS */
+/* =========================
+   QUICK ACTIONS
+========================= */
 
 document.getElementById(
     "quickAddIncome"
@@ -2680,7 +3945,9 @@ document.getElementById(
 
         document.getElementById(
             "type"
-        ).value = "income";
+        ).value =
+            "income";
+
 
         location.hash =
             "transactions";
@@ -2697,7 +3964,9 @@ document.getElementById(
 
         document.getElementById(
             "type"
-        ).value = "expense";
+        ).value =
+            "expense";
+
 
         location.hash =
             "transactions";
@@ -2746,6 +4015,19 @@ document.getElementById(
 
 
 document.getElementById(
+    "quickReports"
+).addEventListener(
+    "click",
+    function() {
+
+        location.hash =
+            "reports";
+
+    }
+);
+
+
+document.getElementById(
     "quickAlerts"
 ).addEventListener(
     "click",
@@ -2758,7 +4040,9 @@ document.getElementById(
 );
 
 
-/* EXPORT */
+/* =========================
+   EXPORT CSV
+========================= */
 
 document.getElementById(
     "exportButton"
@@ -2802,23 +4086,41 @@ document.getElementById(
 
 
         const url =
-            URL.createObjectURL(blob);
+            URL.createObjectURL(
+                blob
+            );
 
 
         const a =
-            document.createElement("a");
+            document.createElement(
+                "a"
+            );
 
 
-        a.href = url;
+        a.href =
+            url;
+
 
         a.download =
             "fate-budget-transactions.csv";
 
 
+        document.body.appendChild(
+            a
+        );
+
+
         a.click();
 
 
-        URL.revokeObjectURL(url);
+        document.body.removeChild(
+            a
+        );
+
+
+        URL.revokeObjectURL(
+            url
+        );
 
     }
 );
@@ -2873,13 +4175,9 @@ function updateSavingsStreak() {
     }
 
 
-    /*
-       Count the current month as a
-       savings month when there is
-       money left after expenses.
-    */
+    savingsSettings.streak +=
+        1;
 
-    savingsSettings.streak += 1;
 
     savingsSettings.lastMonth =
         currentMonth;
@@ -2916,6 +4214,8 @@ function updateApp() {
 
     updateMonthlySummary();
 
+    updateFinancialReport();
+
     updateAlerts();
 
     updateNotificationButton();
@@ -2923,7 +4223,9 @@ function updateApp() {
 }
 
 
-/* DEFAULT DATE */
+/* =========================
+   DEFAULT DATE
+========================= */
 
 document.getElementById(
     "date"
@@ -2933,17 +4235,22 @@ document.getElementById(
         .split("T")[0];
 
 
-/* LOAD APP */
+/* =========================
+   LOAD APP
+========================= */
 
 loadTheme();
 
 updateApp();
 
 
-/* SERVICE WORKER */
+/* =========================
+   SERVICE WORKER
+========================= */
 
 if (
-    "serviceWorker" in navigator
+    "serviceWorker" in
+    navigator
 ) {
 
     window.addEventListener(

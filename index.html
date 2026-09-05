@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
-    <meta name="theme-color"
-          content="#1e3a8a">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-          content="THE FATE BUDGET TRACKER - Personal finance and budget tracking app">
+<meta name="theme-color"
+      content="#1e3a8a">
 
-    <title>THE FATE BUDGET TRACKER</title>
+<meta name="description"
+      content="THE FATE BUDGET TRACKER - Personal finance and budget tracking app">
 
-    <link rel="manifest" href="./manifest.json">
+<title>THE FATE BUDGET TRACKER</title>
 
-    <link rel="stylesheet" href="./style.css">
+<link rel="manifest" href="./manifest.json">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="./style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
+
 
 <body>
 
+
 <!-- =====================================================
-     PIN LOCK
+     PIN LOCK SCREEN
 ===================================================== -->
 
 <div id="pinLock">
 
     <div class="pin-card">
 
-        <div class="pin-logo">F</div>
+        <div class="pin-logo">
+            F
+        </div>
 
-        <h2>THE FATE</h2>
+        <h2>
+            THE FATE
+        </h2>
 
         <p class="pin-subtitle">
-            🔐 Enter your 4-digit PIN
+            🔐 Your finances are protected
         </p>
 
         <input
@@ -47,6 +56,12 @@
             placeholder="••••"
             autocomplete="off"
         >
+
+        <button
+            type="button"
+            id="showPinButton">
+            👁️ Show PIN
+        </button>
 
         <button
             type="button"
@@ -61,26 +76,41 @@
 </div>
 
 
+
 <!-- =====================================================
      MAIN APP
 ===================================================== -->
 
 <div id="appContent">
 
+
+<!-- HEADER -->
+
 <header class="app-header">
 
     <div>
-        <h1>THE FATE</h1>
-        <p>BUDGET TRACKER</p>
+
+        <h1>
+            THE FATE
+        </h1>
+
+        <p>
+            BUDGET TRACKER
+        </p>
+
     </div>
+
 
     <button
         id="themeToggle"
         type="button">
+
         🌙
+
     </button>
 
 </header>
+
 
 
 <main class="container">
@@ -92,75 +122,100 @@
 
 <section id="dashboard">
 
-    <div class="welcome-card">
 
-        <h2>Welcome back 👋</h2>
+<div class="welcome-card">
 
-        <p>
-            Take control of your money with
-            THE FATE BUDGET TRACKER.
-        </p>
+    <h2>
+        Welcome back 👋
+    </h2>
 
-    </div>
+    <p>
+        Take control of your money with
+        THE FATE BUDGET TRACKER.
+    </p>
 
-
-    <div class="balance-card">
-
-        <span>Current Balance</span>
-
-        <h2 id="balance">
-            UGX 0
-        </h2>
-
-    </div>
+</div>
 
 
-    <div class="summary-grid">
 
-        <div class="summary-card income">
+<!-- BALANCE -->
 
-            <span>Income</span>
+<div class="balance-card">
 
-            <strong id="totalIncome">
-                UGX 0
-            </strong>
+    <span>
+        Current Balance
+    </span>
 
-        </div>
+    <h2 id="balance">
+        UGX 0
+    </h2>
 
-
-        <div class="summary-card expense">
-
-            <span>Expenses</span>
-
-            <strong id="totalExpenses">
-                UGX 0
-            </strong>
-
-        </div>
+</div>
 
 
-        <div class="summary-card">
 
-            <span>Total Spending</span>
+<!-- SUMMARY -->
 
-            <strong id="totalSpending">
-                UGX 0
-            </strong>
-
-        </div>
+<div class="summary-grid">
 
 
-        <div class="summary-card">
+<div class="summary-card income">
 
-            <span>Savings Rate</span>
+    <span>
+        Income
+    </span>
 
-            <strong id="savingsRate">
-                0%
-            </strong>
+    <strong id="totalIncome">
+        UGX 0
+    </strong>
 
-        </div>
+</div>
 
-    </div>
+
+
+<div class="summary-card expense">
+
+    <span>
+        Expenses
+    </span>
+
+    <strong id="totalExpenses">
+        UGX 0
+    </strong>
+
+</div>
+
+
+
+<div class="summary-card">
+
+    <span>
+        Total Spending
+    </span>
+
+    <strong id="totalSpending">
+        UGX 0
+    </strong>
+
+</div>
+
+
+
+<div class="summary-card">
+
+    <span>
+        Savings Rate
+    </span>
+
+    <strong id="savingsRate">
+        0%
+    </strong>
+
+</div>
+
+
+</div>
+
 
 
 <!-- =====================================================
@@ -169,37 +224,57 @@
 
 <section class="section-card">
 
-    <h2>Quick Actions</h2>
+<h2>
+    Quick Actions
+</h2>
 
-    <div class="quick-actions">
 
-        <button
-            type="button"
-            onclick="showTransactionForm()">
-            ➕ Add Transaction
-        </button>
+<div class="quick-actions">
 
-        <button
-            type="button"
-            onclick="showSavingsGoal()">
-            🎯 Savings Goal
-        </button>
 
-        <button
-            type="button"
-            onclick="showBudget()">
-            💰 Budget
-        </button>
+<button
+    type="button"
+    onclick="showTransactionForm()">
 
-        <button
-            type="button"
-            onclick="showTransactions()">
-            📋 Transactions
-        </button>
+    ➕ Add Transaction
 
-    </div>
+</button>
+
+
+
+<button
+    type="button"
+    onclick="showSavingsGoal()">
+
+    🎯 Savings Goal
+
+</button>
+
+
+
+<button
+    type="button"
+    onclick="showBudget()">
+
+    💰 Budget
+
+</button>
+
+
+
+<button
+    type="button"
+    onclick="showTransactions()">
+
+    📋 Transactions
+
+</button>
+
+
+</div>
 
 </section>
+
 
 
 <!-- =====================================================
@@ -208,34 +283,59 @@
 
 <section class="section-card">
 
-    <h2>Money Snapshot</h2>
+<h2>
+    Money Snapshot
+</h2>
 
-    <div class="snapshot">
 
-        <div>
-            <span>Top Spending Category</span>
-            <strong id="topCategory">
-                None
-            </strong>
-        </div>
+<div class="snapshot">
 
-        <div>
-            <span>Largest Expense</span>
-            <strong id="largestExpense">
-                UGX 0
-            </strong>
-        </div>
 
-        <div>
-            <span>Transactions</span>
-            <strong id="transactionCount">
-                0
-            </strong>
-        </div>
+<div>
 
-    </div>
+<span>
+    Top Spending Category
+</span>
+
+<strong id="topCategory">
+    None
+</strong>
+
+</div>
+
+
+
+<div>
+
+<span>
+    Largest Expense
+</span>
+
+<strong id="largestExpense">
+    UGX 0
+</strong>
+
+</div>
+
+
+
+<div>
+
+<span>
+    Transactions
+</span>
+
+<strong id="transactionCount">
+    0
+</strong>
+
+</div>
+
+
+</div>
 
 </section>
+
 
 
 <!-- =====================================================
@@ -244,36 +344,48 @@
 
 <section class="section-card">
 
-    <div class="section-heading">
 
-        <h2>Monthly Budget</h2>
+<div class="section-heading">
 
-        <button
-            type="button"
-            onclick="editBudget()">
-            ✏️ Edit
-        </button>
+<h2>
+    Monthly Budget
+</h2>
 
-    </div>
 
-    <p id="budgetAmount">
-        Budget: UGX 2,200,000
-    </p>
+<button
+    type="button"
+    onclick="editBudget()">
 
-    <div class="progress-bar">
+    ✏️ Edit
 
-        <div
-            id="budgetProgress"
-            class="progress-fill">
-        </div>
+</button>
 
-    </div>
+</div>
 
-    <p id="budgetStatus">
-        UGX 0 spent
-    </p>
+
+<p id="budgetAmount">
+    Budget: UGX 2,200,000
+</p>
+
+
+<div class="progress-bar">
+
+<div
+    id="budgetProgress"
+    class="progress-fill">
+
+</div>
+
+</div>
+
+
+<p id="budgetStatus">
+    UGX 0 spent
+</p>
+
 
 </section>
+
 
 
 <!-- =====================================================
@@ -284,42 +396,60 @@
     id="savingsSection"
     class="section-card">
 
-    <div class="section-heading">
 
-        <h2>🎯 Savings Goal</h2>
+<div class="section-heading">
 
-        <button
-            type="button"
-            onclick="editSavingsGoal()">
-            ✏️ Edit
-        </button>
+<h2>
+    🎯 Savings Goal
+</h2>
 
-    </div>
 
-    <p>
-        Target:
-        <strong id="savingsTarget">
-            UGX 5,000,000
-        </strong>
-    </p>
+<button
+    type="button"
+    onclick="editSavingsGoal()">
 
-    <p>
-        Saved:
-        <strong id="savingsCurrent">
-            UGX 30,000
-        </strong>
-    </p>
+    ✏️ Edit
 
-    <div class="progress-bar">
+</button>
 
-        <div
-            id="savingsProgress"
-            class="progress-fill">
-        </div>
+</div>
 
-    </div>
+
+<p>
+
+Target:
+
+<strong id="savingsTarget">
+    UGX 5,000,000
+</strong>
+
+</p>
+
+
+<p>
+
+Saved:
+
+<strong id="savingsCurrent">
+    UGX 30,000
+</strong>
+
+</p>
+
+
+<div class="progress-bar">
+
+<div
+    id="savingsProgress"
+    class="progress-fill">
+
+</div>
+
+</div>
+
 
 </section>
+
 
 
 <!-- =====================================================
@@ -330,110 +460,129 @@
     id="transactionFormSection"
     class="section-card">
 
-    <h2 id="formTitle">
-        ➕ Add Transaction
-    </h2>
 
-    <form id="transactionForm">
-
-        <label>
-            Type
-        </label>
-
-        <select id="transactionType">
-
-            <option value="expense">
-                Expense
-            </option>
-
-            <option value="income">
-                Income
-            </option>
-
-        </select>
+<h2 id="formTitle">
+    ➕ Add Transaction
+</h2>
 
 
-        <label>
-            Amount
-        </label>
-
-        <input
-            type="number"
-            id="transactionAmount"
-            placeholder="Enter amount"
-            min="0"
-            required
-        >
+<form id="transactionForm">
 
 
-        <label>
-            Category
-        </label>
-
-        <select id="transactionCategory">
-
-            <option value="Food">🍔 Food</option>
-
-            <option value="Transport">
-                🚗 Transport
-            </option>
-
-            <option value="School">
-                🎓 School
-            </option>
-
-            <option value="Airtime/Data">
-                📱 Airtime/Data
-            </option>
-
-            <option value="Rent">
-                🏠 Rent
-            </option>
-
-            <option value="Utilities">
-                💡 Utilities
-            </option>
-
-            <option value="Shopping">
-                🛍️ Shopping
-            </option>
-
-            <option value="Other">
-                📦 Other
-            </option>
-
-        </select>
+<label>
+    Type
+</label>
 
 
-        <label>
-            Description
-        </label>
+<select id="transactionType">
 
-        <input
-            type="text"
-            id="transactionDescription"
-            placeholder="What was this for?"
-        >
+<option value="expense">
+    Expense
+</option>
 
+<option value="income">
+    Income
+</option>
 
-        <label>
-            Date
-        </label>
-
-        <input
-            type="date"
-            id="transactionDate"
-            required
-        >
+</select>
 
 
-        <button type="submit">
-            💾 Save Transaction
-        </button>
 
-    </form>
+<label>
+    Amount
+</label>
+
+
+<input
+    type="number"
+    id="transactionAmount"
+    placeholder="Enter amount"
+    min="0"
+    required
+>
+
+
+
+<label>
+    Category
+</label>
+
+
+<select id="transactionCategory">
+
+<option value="Food">
+    🍔 Food
+</option>
+
+<option value="Transport">
+    🚗 Transport
+</option>
+
+<option value="School">
+    🎓 School
+</option>
+
+<option value="Airtime/Data">
+    📱 Airtime/Data
+</option>
+
+<option value="Rent">
+    🏠 Rent
+</option>
+
+<option value="Utilities">
+    💡 Utilities
+</option>
+
+<option value="Shopping">
+    🛍️ Shopping
+</option>
+
+<option value="Other">
+    📦 Other
+</option>
+
+</select>
+
+
+
+<label>
+    Description
+</label>
+
+
+<input
+    type="text"
+    id="transactionDescription"
+    placeholder="What was this for?"
+>
+
+
+
+<label>
+    Date
+</label>
+
+
+<input
+    type="date"
+    id="transactionDate"
+    required
+>
+
+
+
+<button type="submit">
+
+    💾 Save Transaction
+
+</button>
+
+
+</form>
 
 </section>
+
 
 
 <!-- =====================================================
@@ -442,53 +591,87 @@
 
 <section class="section-card">
 
-    <div class="section-heading">
 
-        <h2>📋 Transactions</h2>
+<div class="section-heading">
 
-        <button
-            type="button"
-            onclick="exportTransactions()">
-            📤 Export
-        </button>
-
-    </div>
+<h2>
+    📋 Transactions
+</h2>
 
 
-    <input
-        type="search"
-        id="searchInput"
-        placeholder="🔎 Search transactions..."
-    >
+<button
+    type="button"
+    onclick="exportTransactions()">
+
+    📤 Export
+
+</button>
+
+</div>
 
 
-    <select id="filterCategory">
 
-        <option value="all">
-            All Categories
-        </option>
-
-        <option value="Food">Food</option>
-        <option value="Transport">Transport</option>
-        <option value="School">School</option>
-        <option value="Airtime/Data">Airtime/Data</option>
-        <option value="Rent">Rent</option>
-        <option value="Utilities">Utilities</option>
-        <option value="Shopping">Shopping</option>
-        <option value="Other">Other</option>
-
-    </select>
+<input
+    type="search"
+    id="searchInput"
+    placeholder="🔎 Search transactions..."
+>
 
 
-    <div id="transactionList">
 
-        <p class="empty-message">
-            No transactions yet.
-        </p>
+<select id="filterCategory">
 
-    </div>
+<option value="all">
+    All Categories
+</option>
+
+<option value="Food">
+    Food
+</option>
+
+<option value="Transport">
+    Transport
+</option>
+
+<option value="School">
+    School
+</option>
+
+<option value="Airtime/Data">
+    Airtime/Data
+</option>
+
+<option value="Rent">
+    Rent
+</option>
+
+<option value="Utilities">
+    Utilities
+</option>
+
+<option value="Shopping">
+    Shopping
+</option>
+
+<option value="Other">
+    Other
+</option>
+
+</select>
+
+
+
+<div id="transactionList">
+
+<p class="empty-message">
+    No transactions yet.
+</p>
+
+</div>
+
 
 </section>
+
 
 
 <!-- =====================================================
@@ -497,16 +680,21 @@
 
 <section class="section-card">
 
-    <h2>💡 Financial Insights</h2>
+<h2>
+    💡 Financial Insights
+</h2>
 
-    <div id="spendingAdvice">
 
-        Start adding transactions to receive
-        personalized spending advice.
+<div id="spendingAdvice">
 
-    </div>
+Start adding transactions to receive
+personalized spending advice.
+
+</div>
+
 
 </section>
+
 
 
 <!-- =====================================================
@@ -515,11 +703,16 @@
 
 <section class="section-card">
 
-    <h2>📊 Spending Analytics</h2>
+<h2>
+    📊 Spending Analytics
+</h2>
 
-    <canvas id="spendingChart"></canvas>
+
+<canvas id="spendingChart"></canvas>
+
 
 </section>
+
 
 
 <!-- =====================================================
@@ -528,30 +721,66 @@
 
 <section class="section-card">
 
-    <h2>📅 Monthly Summary</h2>
+<h2>
+    📅 Monthly Summary
+</h2>
 
-    <div id="monthlySummary">
 
-        No monthly data yet.
+<div id="monthlySummary">
 
-    </div>
+No monthly data yet.
+
+</div>
+
 
 </section>
 
 
+
 <!-- =====================================================
-     PIN SETTINGS
+     SECURITY SETTINGS
 ===================================================== -->
 
 <section class="section-card">
 
-    <h2>🔐 Security</h2>
 
-    <button
-        type="button"
-        onclick="changePIN()">
-        🔑 Change PIN
-    </button>
+<div class="section-heading">
+
+<h2>
+    🔐 Security
+</h2>
+
+<span>
+    Protected
+</span>
+
+</div>
+
+
+<p>
+    Your budget information is protected by a
+    4-digit PIN.
+</p>
+
+
+<button
+    type="button"
+    onclick="changePIN()">
+
+    🔑 Change PIN
+
+</button>
+
+
+
+<button
+    type="button"
+    onclick="lockApp()">
+
+    🔒 Lock App Now
+
+</button>
+
 
 </section>
 
@@ -561,19 +790,24 @@
 </main>
 
 
+
+<!-- FOOTER -->
+
 <footer>
 
-    <p>
-        © 2026 THE FATE BUDGET TRACKER
-    </p>
+<p>
+    © 2026 THE FATE BUDGET TRACKER
+</p>
 
-    <p>
-        Manage your money. Build your future. 🚀
-    </p>
+<p>
+    Manage your money. Build your future. 🚀
+</p>
 
 </footer>
 
+
 </div>
+
 
 
 <!-- =====================================================
@@ -606,7 +840,7 @@ const PIN_KEY =
 
 
 /* =====================================================
-   DEFAULT DATA
+   VARIABLES
 ===================================================== */
 
 let transactions = [];
@@ -624,6 +858,19 @@ let monthlyBudget = 2200000;
 let editingIndex = -1;
 
 let spendingChart = null;
+
+
+/* =====================================================
+   AUTO LOCK
+===================================================== */
+
+let appUnlocked = false;
+
+let lastActivity =
+    Date.now();
+
+const AUTO_LOCK_TIME =
+    5 * 60 * 1000;
 
 
 /* =====================================================
@@ -648,7 +895,7 @@ function loadData() {
 
         }
 
-    } catch (error) {
+    } catch {
 
         transactions = [];
 
@@ -671,11 +918,14 @@ function loadData() {
 
         }
 
-    } catch (error) {
+    } catch {
 
         savingsGoal = {
+
             target: 5000000,
+
             current: 30000
+
         };
 
     }
@@ -685,6 +935,7 @@ function loadData() {
         localStorage.getItem(
             BUDGET_KEY
         );
+
 
     if (savedBudget) {
 
@@ -704,13 +955,19 @@ function saveData() {
 
     localStorage.setItem(
         TRANSACTIONS_KEY,
-        JSON.stringify(transactions)
+        JSON.stringify(
+            transactions
+        )
     );
+
 
     localStorage.setItem(
         SAVINGS_KEY,
-        JSON.stringify(savingsGoal)
+        JSON.stringify(
+            savingsGoal
+        )
     );
+
 
     localStorage.setItem(
         BUDGET_KEY,
@@ -734,26 +991,24 @@ function formatMoney(amount) {
 
 
 /* =====================================================
-   TODAY
+   SET TODAY
 ===================================================== */
 
 function setToday() {
 
-    const dateInput =
+    const input =
         document.getElementById(
             "transactionDate"
         );
 
-    if (dateInput) {
 
-        const today =
-            new Date()
-            .toISOString()
-            .split("T")[0];
+    if (!input) return;
 
-        dateInput.value = today;
 
-    }
+    input.value =
+        new Date()
+        .toISOString()
+        .split("T")[0];
 
 }
 
@@ -768,42 +1023,58 @@ function updateApp() {
 
     let expenses = 0;
 
-    const categories = {};
-
     let largestExpense = 0;
 
-    transactions.forEach(transaction => {
-
-        const amount =
-            Number(transaction.amount) || 0;
-
-        if (transaction.type === "income") {
-
-            income += amount;
-
-        } else {
-
-            expenses += amount;
-
-            const category =
-                transaction.category ||
-                "Other";
-
-            categories[category] =
-                (categories[category] || 0) +
-                amount;
+    const categories = {};
 
 
-            if (amount > largestExpense) {
+    transactions.forEach(
+        transaction => {
 
-                largestExpense =
-                    amount;
+            const amount =
+                Number(
+                    transaction.amount
+                ) || 0;
+
+
+            if (
+                transaction.type ===
+                "income"
+            ) {
+
+                income += amount;
+
+            } else {
+
+                expenses += amount;
+
+
+                const category =
+                    transaction.category ||
+                    "Other";
+
+
+                categories[category] =
+                    (
+                        categories[category] ||
+                        0
+                    ) + amount;
+
+
+                if (
+                    amount >
+                    largestExpense
+                ) {
+
+                    largestExpense =
+                        amount;
+
+                }
 
             }
 
         }
-
-    });
+    );
 
 
     const balance =
@@ -836,7 +1107,10 @@ function updateApp() {
 
     const savingsRate =
         income > 0
-            ? ((income - expenses) / income) * 100
+            ? (
+                (income - expenses) /
+                income
+              ) * 100
             : 0;
 
 
@@ -855,7 +1129,9 @@ function updateApp() {
     document.getElementById(
         "largestExpense"
     ).textContent =
-        formatMoney(largestExpense);
+        formatMoney(
+            largestExpense
+        );
 
 
     let topCategory =
@@ -863,9 +1139,15 @@ function updateApp() {
 
     let topAmount = 0;
 
-    Object.keys(categories).forEach(category => {
 
-        if (categories[category] > topAmount) {
+    Object.keys(
+        categories
+    ).forEach(category => {
+
+        if (
+            categories[category] >
+            topAmount
+        ) {
 
             topAmount =
                 categories[category];
@@ -890,13 +1172,18 @@ function updateApp() {
         "budgetAmount"
     ).textContent =
         "Budget: " +
-        formatMoney(monthlyBudget);
+        formatMoney(
+            monthlyBudget
+        );
 
 
     const budgetPercent =
         monthlyBudget > 0
             ? Math.min(
-                (expenses / monthlyBudget) * 100,
+                (
+                    expenses /
+                    monthlyBudget
+                ) * 100,
                 100
               )
             : 0;
@@ -936,8 +1223,10 @@ function updateApp() {
     const savingsPercent =
         savingsGoal.target > 0
             ? Math.min(
-                (savingsGoal.current /
-                 savingsGoal.target) * 100,
+                (
+                    savingsGoal.current /
+                    savingsGoal.target
+                ) * 100,
                 100
               )
             : 0;
@@ -961,7 +1250,7 @@ function updateApp() {
 
 
 /* =====================================================
-   ADD TRANSACTION
+   TRANSACTION FORM
 ===================================================== */
 
 document.getElementById(
@@ -1005,7 +1294,10 @@ document.getElementById(
             ).value;
 
 
-        if (!amount || amount <= 0) {
+        if (
+            !amount ||
+            amount <= 0
+        ) {
 
             alert(
                 "Please enter a valid amount."
@@ -1019,21 +1311,29 @@ document.getElementById(
         const transaction = {
 
             type,
+
             amount,
+
             category,
+
             description,
+
             date
 
         };
 
 
-        if (editingIndex >= 0) {
+        if (
+            editingIndex >= 0
+        ) {
 
             transactions[
                 editingIndex
-            ] = transaction;
+            ] =
+                transaction;
 
-            editingIndex = -1;
+            editingIndex =
+                -1;
 
         } else {
 
@@ -1050,7 +1350,14 @@ document.getElementById(
 
         setToday();
 
+        document.getElementById(
+            "formTitle"
+        ).textContent =
+            "➕ Add Transaction";
+
+
         updateApp();
+
 
         alert(
             "Transaction saved successfully! ✅"
@@ -1061,7 +1368,7 @@ document.getElementById(
 
 
 /* =====================================================
-   TRANSACTIONS LIST
+   TRANSACTION LIST
 ===================================================== */
 
 function updateTransactions() {
@@ -1075,7 +1382,8 @@ function updateTransactions() {
     const search =
         document.getElementById(
             "searchInput"
-        ).value.toLowerCase();
+        ).value
+        .toLowerCase();
 
 
     const filter =
@@ -1086,7 +1394,7 @@ function updateTransactions() {
 
     const filtered =
         transactions.filter(
-            (transaction) => {
+            transaction => {
 
                 const text =
                     (
@@ -1096,12 +1404,15 @@ function updateTransactions() {
 
 
                 const matchesSearch =
-                    text.includes(search);
+                    text.includes(
+                        search
+                    );
 
 
                 const matchesCategory =
                     filter === "all" ||
-                    transaction.category === filter;
+                    transaction.category ===
+                    filter;
 
 
                 return (
@@ -1118,7 +1429,7 @@ function updateTransactions() {
         list.innerHTML =
             `<p class="empty-message">
                 No transactions found.
-             </p>`;
+            </p>`;
 
         return;
 
@@ -1131,82 +1442,89 @@ function updateTransactions() {
     filtered
         .slice()
         .reverse()
-        .forEach(transaction => {
+        .forEach(
+            transaction => {
 
-            const originalIndex =
-                transactions.indexOf(
-                    transaction
+                const index =
+                    transactions.indexOf(
+                        transaction
+                    );
+
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "transaction-item";
+
+
+                const sign =
+                    transaction.type ===
+                    "income"
+                        ? "+"
+                        : "-";
+
+
+                item.innerHTML = `
+
+<div>
+
+<strong>
+    ${transaction.category}
+</strong>
+
+<small>
+    ${transaction.description || "No description"}
+</small>
+
+<small>
+    ${transaction.date || ""}
+</small>
+
+</div>
+
+
+<div>
+
+<strong>
+    ${sign}${formatMoney(transaction.amount)}
+</strong>
+
+<br>
+
+<button
+    type="button"
+    onclick="editTransaction(${index})">
+    ✏️
+</button>
+
+
+<button
+    type="button"
+    onclick="deleteTransaction(${index})">
+    🗑️
+</button>
+
+</div>
+
+`;
+
+
+                list.appendChild(
+                    item
                 );
 
-
-            const item =
-                document.createElement(
-                    "div"
-                );
-
-
-            item.className =
-                "transaction-item";
-
-
-            const sign =
-                transaction.type === "income"
-                    ? "+"
-                    : "-";
-
-
-            item.innerHTML = `
-
-                <div>
-
-                    <strong>
-                        ${transaction.category}
-                    </strong>
-
-                    <small>
-                        ${transaction.description || "No description"}
-                    </small>
-
-                    <small>
-                        ${transaction.date || ""}
-                    </small>
-
-                </div>
-
-                <div>
-
-                    <strong>
-                        ${sign}${formatMoney(transaction.amount)}
-                    </strong>
-
-                    <br>
-
-                    <button
-                        type="button"
-                        onclick="editTransaction(${originalIndex})">
-                        ✏️
-                    </button>
-
-                    <button
-                        type="button"
-                        onclick="deleteTransaction(${originalIndex})">
-                        🗑️
-                    </button>
-
-                </div>
-
-            `;
-
-
-            list.appendChild(item);
-
-        });
+            }
+        );
 
 }
 
 
 /* =====================================================
-   SEARCH / FILTER
+   SEARCH
 ===================================================== */
 
 document.getElementById(
@@ -1241,6 +1559,7 @@ function deleteTransaction(index) {
             index,
             1
         );
+
 
         saveData();
 
@@ -1282,7 +1601,8 @@ function editTransaction(index) {
     document.getElementById(
         "transactionDescription"
     ).value =
-        transaction.description || "";
+        transaction.description ||
+        "";
 
 
     document.getElementById(
@@ -1323,9 +1643,9 @@ function editBudget() {
         );
 
 
-    if (value === null) {
-        return;
-    }
+    if (
+        value === null
+    ) return;
 
 
     const amount =
@@ -1358,7 +1678,7 @@ function editBudget() {
 
 
 /* =====================================================
-   SAVINGS GOAL
+   SAVINGS
 ===================================================== */
 
 function editSavingsGoal() {
@@ -1370,9 +1690,9 @@ function editSavingsGoal() {
         );
 
 
-    if (target === null) {
-        return;
-    }
+    if (
+        target === null
+    ) return;
 
 
     const current =
@@ -1382,9 +1702,9 @@ function editSavingsGoal() {
         );
 
 
-    if (current === null) {
-        return;
-    }
+    if (
+        current === null
+    ) return;
 
 
     const targetNumber =
@@ -1411,9 +1731,11 @@ function editSavingsGoal() {
 
     savingsGoal = {
 
-        target: targetNumber,
+        target:
+            targetNumber,
 
-        current: currentNumber
+        current:
+            currentNumber
 
     };
 
@@ -1437,9 +1759,7 @@ function updateChart() {
         );
 
 
-    if (!canvas) {
-        return;
-    }
+    if (!canvas) return;
 
 
     const totals = {};
@@ -1473,7 +1793,9 @@ function updateChart() {
     );
 
 
-    if (spendingChart) {
+    if (
+        spendingChart
+    ) {
 
         spendingChart.destroy();
 
@@ -1485,12 +1807,15 @@ function updateChart() {
             canvas,
             {
 
-                type: "doughnut",
+                type:
+                    "doughnut",
 
                 data: {
 
                     labels:
-                        Object.keys(totals),
+                        Object.keys(
+                            totals
+                        ),
 
                     datasets: [{
 
@@ -1505,7 +1830,8 @@ function updateChart() {
 
                 options: {
 
-                    responsive: true,
+                    responsive:
+                        true,
 
                     plugins: {
 
@@ -1538,7 +1864,9 @@ function updateAdvice() {
         );
 
 
-    if (!transactions.length) {
+    if (
+        !transactions.length
+    ) {
 
         advice.textContent =
             "Start adding transactions to receive personalized spending advice.";
@@ -1551,18 +1879,18 @@ function updateAdvice() {
     const expenses =
         transactions
             .filter(
-                t =>
-                    t.type ===
+                transaction =>
+                    transaction.type ===
                     "expense"
             )
             .reduce(
                 (
                     total,
-                    t
+                    transaction
                 ) =>
                     total +
                     Number(
-                        t.amount
+                        transaction.amount
                     ),
                 0
             );
@@ -1602,14 +1930,6 @@ function updateMonthlySummary() {
         new Date();
 
 
-    const month =
-        now.getMonth();
-
-
-    const year =
-        now.getFullYear();
-
-
     let income = 0;
 
     let expenses = 0;
@@ -1618,9 +1938,9 @@ function updateMonthlySummary() {
     transactions.forEach(
         transaction => {
 
-            if (!transaction.date) {
-                return;
-            }
+            if (
+                !transaction.date
+            ) return;
 
 
             const date =
@@ -1630,8 +1950,10 @@ function updateMonthlySummary() {
 
 
             if (
-                date.getMonth() === month &&
-                date.getFullYear() === year
+                date.getMonth() ===
+                now.getMonth() &&
+                date.getFullYear() ===
+                now.getFullYear()
             ) {
 
                 if (
@@ -1661,30 +1983,30 @@ function updateMonthlySummary() {
 
     summary.innerHTML = `
 
-        <p>
-            💰 Income:
-            <strong>
-                ${formatMoney(income)}
-            </strong>
-        </p>
+<p>
+    💰 Income:
+    <strong>
+        ${formatMoney(income)}
+    </strong>
+</p>
 
-        <p>
-            💸 Expenses:
-            <strong>
-                ${formatMoney(expenses)}
-            </strong>
-        </p>
+<p>
+    💸 Expenses:
+    <strong>
+        ${formatMoney(expenses)}
+    </strong>
+</p>
 
-        <p>
-            📈 Balance:
-            <strong>
-                ${formatMoney(
-                    income - expenses
-                )}
-            </strong>
-        </p>
+<p>
+    📈 Balance:
+    <strong>
+        ${formatMoney(
+            income - expenses
+        )}
+    </strong>
+</p>
 
-    `;
+`;
 
 }
 
@@ -1695,7 +2017,9 @@ function updateMonthlySummary() {
 
 function exportTransactions() {
 
-    if (!transactions.length) {
+    if (
+        !transactions.length
+    ) {
 
         alert(
             "There are no transactions to export."
@@ -1746,7 +2070,9 @@ function exportTransactions() {
         );
 
 
-    link.href = url;
+    link.href =
+        url;
+
 
     link.download =
         "THE_FATE_BUDGET_TRACKER.csv";
@@ -1763,7 +2089,7 @@ function exportTransactions() {
 
 
 /* =====================================================
-   NAVIGATION HELPERS
+   QUICK ACTIONS
 ===================================================== */
 
 function showTransactionForm() {
@@ -1773,7 +2099,8 @@ function showTransactionForm() {
             "transactionFormSection"
         )
         .scrollIntoView({
-            behavior: "smooth"
+            behavior:
+                "smooth"
         });
 
 }
@@ -1786,7 +2113,8 @@ function showSavingsGoal() {
             "savingsSection"
         )
         .scrollIntoView({
-            behavior: "smooth"
+            behavior:
+                "smooth"
         });
 
 }
@@ -1795,11 +2123,12 @@ function showSavingsGoal() {
 function showBudget() {
 
     document
-        .querySelector(
-            ".section-card"
+        .getElementById(
+            "budgetAmount"
         )
         .scrollIntoView({
-            behavior: "smooth"
+            behavior:
+                "smooth"
         });
 
 }
@@ -1812,14 +2141,15 @@ function showTransactions() {
             "transactionList"
         )
         .scrollIntoView({
-            behavior: "smooth"
+            behavior:
+                "smooth"
         });
 
 }
 
 
 /* =====================================================
-   THEME
+   DARK MODE
 ===================================================== */
 
 function applyTheme() {
@@ -1830,15 +2160,19 @@ function applyTheme() {
         );
 
 
-    if (theme === "dark") {
+    if (
+        theme === "dark"
+    ) {
 
         document.body.classList.add(
             "dark-mode"
         );
 
+
         document.getElementById(
             "themeToggle"
-        ).textContent = "☀️";
+        ).textContent =
+            "☀️";
 
     } else {
 
@@ -1846,9 +2180,11 @@ function applyTheme() {
             "dark-mode"
         );
 
+
         document.getElementById(
             "themeToggle"
-        ).textContent = "🌙";
+        ).textContent =
+            "🌙";
 
     }
 
@@ -1890,16 +2226,16 @@ document.getElementById(
 
 function changePIN() {
 
-    const oldPIN =
+    const currentPIN =
         localStorage.getItem(
             PIN_KEY
         );
 
 
-    if (!oldPIN) {
+    if (!currentPIN) {
 
         alert(
-            "No PIN has been created yet."
+            "No PIN has been created."
         );
 
         return;
@@ -1907,13 +2243,16 @@ function changePIN() {
     }
 
 
-    const entered =
+    const oldPIN =
         prompt(
-            "Enter your current 4-digit PIN:"
+            "Enter your current PIN:"
         );
 
 
-    if (entered !== oldPIN) {
+    if (
+        oldPIN !==
+        currentPIN
+    ) {
 
         alert(
             "❌ Incorrect current PIN."
@@ -1931,12 +2270,13 @@ function changePIN() {
 
 
     if (
-        !newPIN ||
-        !/^\d{4}$/.test(newPIN)
+        !/^\d{4}$/.test(
+            newPIN || ""
+        )
     ) {
 
         alert(
-            "PIN must contain exactly 4 numbers."
+            "❌ PIN must contain exactly 4 numbers."
         );
 
         return;
@@ -1951,7 +2291,8 @@ function changePIN() {
 
 
     if (
-        confirmPIN !== newPIN
+        confirmPIN !==
+        newPIN
     ) {
 
         alert(
@@ -1970,14 +2311,55 @@ function changePIN() {
 
 
     alert(
-        "✅ Your PIN has been changed successfully."
+        "✅ PIN changed successfully!"
     );
 
 }
 
 
 /* =====================================================
-   PIN LOCK
+   LOCK APP
+===================================================== */
+
+function lockApp() {
+
+    appUnlocked =
+        false;
+
+
+    document.getElementById(
+        "appContent"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "pinLock"
+    ).style.display =
+        "flex";
+
+
+    document.getElementById(
+        "pinInput"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "pinMessage"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "pinInput"
+    ).focus();
+
+}
+
+
+/* =====================================================
+   PIN SETUP
 ===================================================== */
 
 function setupPINLock() {
@@ -2006,6 +2388,12 @@ function setupPINLock() {
         );
 
 
+    const showPinButton =
+        document.getElementById(
+            "showPinButton"
+        );
+
+
     const pinMessage =
         document.getElementById(
             "pinMessage"
@@ -2018,17 +2406,51 @@ function setupPINLock() {
         );
 
 
-    /*
-       FIRST TIME USER
-    */
+    /* SHOW / HIDE PIN */
+
+    showPinButton.addEventListener(
+        "click",
+        function() {
+
+            if (
+                pinInput.type ===
+                "password"
+            ) {
+
+                pinInput.type =
+                    "text";
+
+                showPinButton.textContent =
+                    "🙈 Hide PIN";
+
+            } else {
+
+                pinInput.type =
+                    "password";
+
+                showPinButton.textContent =
+                    "👁️ Show PIN";
+
+            }
+
+        }
+    );
+
+
+    /* FIRST TIME */
 
     if (!savedPIN) {
 
         pinLock.style.display =
             "flex";
 
+
         appContent.style.display =
             "none";
+
+
+        unlockButton.textContent =
+            "🔐 Create PIN";
 
 
         function createPIN() {
@@ -2044,9 +2466,10 @@ function setupPINLock() {
             ) {
 
                 pinMessage.textContent =
-                    "❌ PIN must contain exactly 4 numbers.";
+                    "❌ Enter exactly 4 numbers.";
 
-                pinInput.value = "";
+                pinInput.value =
+                    "";
 
                 pinInput.focus();
 
@@ -2069,14 +2492,30 @@ function setupPINLock() {
                 "✅ PIN created successfully!";
 
 
+            appUnlocked =
+                true;
+
+
+            lastActivity =
+                Date.now();
+
+
             setTimeout(
-                function() {
+                () => {
 
                     pinLock.style.display =
                         "none";
 
+
                     appContent.style.display =
                         "block";
+
+
+                    pinInput.value =
+                        "";
+
+                    pinMessage.textContent =
+                        "";
 
                 },
                 500
@@ -2085,27 +2524,44 @@ function setupPINLock() {
         }
 
 
-        unlockButton.textContent =
-            "🔐 Create PIN";
-
-
         unlockButton.onclick =
             createPIN;
 
 
-        pinInput.focus();
+        pinInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key ===
+                    "Enter"
+                ) {
+
+                    createPIN();
+
+                }
+
+            }
+        );
+
+
+        setTimeout(
+            () =>
+                pinInput.focus(),
+            100
+        );
+
 
         return;
 
     }
 
 
-    /*
-       RETURNING USER
-    */
+    /* RETURNING USER */
 
     pinLock.style.display =
         "flex";
+
 
     appContent.style.display =
         "none";
@@ -2124,8 +2580,17 @@ function setupPINLock() {
 
 
         if (
-            enteredPIN === correctPIN
+            enteredPIN ===
+            correctPIN
         ) {
+
+            appUnlocked =
+                true;
+
+
+            lastActivity =
+                Date.now();
+
 
             pinMessage.style.color =
                 "#16a34a";
@@ -2136,17 +2601,21 @@ function setupPINLock() {
 
 
             setTimeout(
-                function() {
+                () => {
 
                     pinLock.style.display =
                         "none";
 
+
                     appContent.style.display =
                         "block";
 
-                    pinInput.value = "";
 
-                    pinMessage.textContent = "";
+                    pinInput.value =
+                        "";
+
+                    pinMessage.textContent =
+                        "";
 
                 },
                 250
@@ -2162,7 +2631,9 @@ function setupPINLock() {
                 "❌ Incorrect PIN. Try again.";
 
 
-            pinInput.value = "";
+            pinInput.value =
+                "";
+
 
             pinInput.focus();
 
@@ -2177,10 +2648,11 @@ function setupPINLock() {
 
     pinInput.addEventListener(
         "keydown",
-        function(event) {
+        event => {
 
             if (
-                event.key === "Enter"
+                event.key ===
+                "Enter"
             ) {
 
                 unlockApp();
@@ -2190,15 +2662,113 @@ function setupPINLock() {
         }
     );
 
+
+    setTimeout(
+        () =>
+            pinInput.focus(),
+        100
+    );
+
 }
 
 
 /* =====================================================
-   PIN STYLES
+   ACTIVITY TRACKING
+===================================================== */
+
+function recordActivity() {
+
+    if (
+        appUnlocked
+    ) {
+
+        lastActivity =
+            Date.now();
+
+    }
+
+}
+
+
+[
+    "click",
+    "touchstart",
+    "keydown",
+    "scroll"
+].forEach(
+    eventName => {
+
+        document.addEventListener(
+            eventName,
+            recordActivity,
+            {
+                passive: true
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   AUTO LOCK CHECK
+===================================================== */
+
+setInterval(
+    function() {
+
+        if (
+            appUnlocked &&
+            Date.now() -
+            lastActivity >
+            AUTO_LOCK_TIME
+        ) {
+
+            lockApp();
+
+        }
+
+    },
+    10000
+);
+
+
+/* =====================================================
+   LOCK WHEN APP GOES INTO BACKGROUND
+===================================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        if (
+            document.visibilityState ===
+            "hidden"
+        ) {
+
+            if (
+                appUnlocked
+            ) {
+
+                lastActivity =
+                    Date.now();
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PIN SCREEN STYLES
 ===================================================== */
 
 const pinStyles =
-document.createElement("style");
+document.createElement(
+    "style"
+);
 
 
 pinStyles.textContent = `
@@ -2286,7 +2856,7 @@ pinStyles.textContent = `
 
     color: #64748b;
 
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 
 }
 
@@ -2310,7 +2880,28 @@ pinStyles.textContent = `
 
     border-radius: 14px;
 
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+
+}
+
+
+#showPinButton {
+
+    width: 100%;
+
+    padding: 11px;
+
+    margin-bottom: 10px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+
+    color: #334155;
+
+    font-weight: 600;
 
 }
 
@@ -2386,17 +2977,17 @@ if (
                     "./service-worker.js"
                 )
                 .then(
-                    function(registration) {
+                    registration => {
 
                         console.log(
-                            "THE FATE Budget Tracker offline mode enabled.",
+                            "THE FATE Budget Tracker service worker active.",
                             registration.scope
                         );
 
                     }
                 )
                 .catch(
-                    function(error) {
+                    error => {
 
                         console.error(
                             "Service Worker registration failed:",
@@ -2414,4 +3005,5 @@ if (
 </script>
 
 </body>
+
 </html>

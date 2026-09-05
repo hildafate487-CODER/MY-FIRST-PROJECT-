@@ -1,12 +1,24 @@
-/* =========================================================
-   THE FATE BUDGET TRACKER
-   PROFESSIONAL MOBILE FINANCE APP
-========================================================= */
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+:root {
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --success: #16a34a;
+    --warning: #f59e0b;
+    --danger: #dc2626;
+
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+
+    --shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+    --radius: 18px;
 }
 
 html {
@@ -22,162 +34,244 @@ body {
         Arial,
         sans-serif;
 
-    background: #f1f5f9;
-    color: #0f172a;
+    background: var(--bg);
+    color: var(--text);
 
     min-height: 100vh;
-    line-height: 1.5;
 
-    padding-bottom: 40px;
+    padding-bottom: 90px;
 
     transition:
-        background 0.3s ease,
-        color 0.3s ease;
+        background 0.25s ease,
+        color 0.25s ease;
 }
 
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
+button,
+input,
+select {
+    font: inherit;
+}
 
-.container {
+button {
+    border: none;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =====================================================
+   PIN SCREEN
+   ===================================================== */
+
+.pin-screen {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1e3a8a,
+            #2563eb,
+            #0f172a
+        );
+
+    z-index: 9999;
+}
+
+.pin-box {
     width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-    padding: 0 14px;
+    max-width: 380px;
+
+    background: rgba(255, 255, 255, 0.98);
+
+    border-radius: 28px;
+
+    padding: 35px 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.25);
 }
 
-/* =========================================================
-   HEADER
-========================================================= */
-
-header {
-    padding: 24px 4px 16px;
+.pin-box h1 {
+    color: var(--primary);
+    margin-bottom: 8px;
 }
 
-header p:first-child {
-    font-size: 12px;
-    color: #64748b;
-    margin-bottom: 3px;
+.pin-box p {
+    color: var(--muted);
+    margin-bottom: 20px;
 }
 
-header h1 {
-    font-size: 25px;
-    font-weight: 900;
-    letter-spacing: -0.7px;
+.pin-box input {
+    width: 100%;
+
+    padding: 16px;
+
+    border: 2px solid var(--border);
+    border-radius: 14px;
+
+    text-align: center;
+
+    font-size: 24px;
+    letter-spacing: 8px;
+
+    outline: none;
+
+    margin-bottom: 14px;
+}
+
+.pin-box input:focus {
+    border-color: var(--primary-light);
+}
+
+.pin-box button {
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 13px;
+
+    background: var(--primary);
+    color: white;
+
+    font-weight: 700;
+
+    margin-top: 8px;
+}
+
+.pin-box .secondary-btn {
+    background: #e2e8f0;
     color: #0f172a;
 }
 
-header p:last-child {
-    font-size: 13px;
-    color: #64748b;
-    margin-top: 3px;
-}
 
-/* =========================================================
-   DARK MODE BUTTON
-========================================================= */
+/* =====================================================
+   APP HEADER
+   ===================================================== */
 
-.theme-button {
+.app {
     width: 100%;
-    margin: 0 0 14px;
-    padding: 13px;
+    max-width: 700px;
 
-    border: 1px solid #e2e8f0;
-    border-radius: 15px;
-
-    background: #ffffff;
-    color: #1e3a8a;
-
-    font-size: 13px;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 4px 12px rgba(15, 23, 42, 0.06);
+    margin: auto;
 }
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-.dashboard-nav {
-    display: flex;
-    gap: 8px;
-
-    overflow-x: auto;
-    white-space: nowrap;
-
-    padding: 3px 1px 14px;
-
-    scrollbar-width: none;
-
+.app-header {
     position: sticky;
     top: 0;
 
     z-index: 100;
 
-    background: #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 17px 18px;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid var(--border);
 }
 
-.dashboard-nav::-webkit-scrollbar {
-    display: none;
-}
-
-.dashboard-nav a {
-    flex: 0 0 auto;
-
-    text-decoration: none;
-
-    padding: 9px 13px;
-
-    border-radius: 12px;
-
-    background: #ffffff;
-    color: #475569;
-
-    font-size: 12px;
-    font-weight: 800;
-
-    border: 1px solid #e2e8f0;
-
-    box-shadow:
-        0 3px 8px rgba(15, 23, 42, 0.05);
-}
-
-.dashboard-nav a:active {
-    background: #1e3a8a;
-    color: #ffffff;
-}
-
-/* =========================================================
-   DASHBOARD TITLE
-========================================================= */
-
-#dashboard > p {
-    margin-top: 5px;
-}
-
-#dashboard > h2 {
-    color: #0f172a;
+.app-header h1 {
+    font-size: 21px;
     font-weight: 900;
+    color: var(--primary);
+    letter-spacing: 1px;
 }
 
-/* =========================================================
-   BALANCE CARD
-========================================================= */
+.app-header small {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.theme-btn {
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    background: #e8eefc;
+
+    font-size: 20px;
+}
+
+
+/* =====================================================
+   PAGE
+   ===================================================== */
+
+main {
+    padding: 16px;
+}
+
+.page {
+    display: none;
+
+    animation: pageIn 0.25s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =====================================================
+   WELCOME
+   ===================================================== */
+
+.welcome-card {
+    margin-bottom: 15px;
+}
+
+.welcome-card p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.welcome-card h2 {
+    font-size: 24px;
+    margin: 5px 0;
+}
+
+.welcome-card span {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   BALANCE
+   ===================================================== */
 
 .balance-card {
-    position: relative;
-
-    overflow: hidden;
-
-    margin: 0 0 14px;
-
-    padding: 22px;
-
-    border-radius: 23px;
-
     background:
         linear-gradient(
             135deg,
@@ -185,794 +279,1408 @@ header p:last-child {
             #2563eb
         );
 
-    color: #ffffff;
+    color: white;
+
+    border-radius: 24px;
+
+    padding: 24px;
 
     box-shadow:
-        0 12px 28px rgba(30, 58, 138, 0.25);
-}
+        0 14px 30px rgba(30, 58, 138, 0.25);
 
-.balance-card h2 {
-    position: relative;
-    z-index: 2;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    opacity: 0.85;
-}
-
-.balance-card h3 {
-    position: relative;
-    z-index: 2;
-
-    margin-top: 7px;
-
-    font-size: 30px;
-    font-weight: 900;
-
-    letter-spacing: -1px;
+    margin-bottom: 16px;
 }
 
 .balance-card p {
-    position: relative;
-    z-index: 2;
+    opacity: 0.8;
+    font-size: 14px;
 }
 
-.balance-card::before,
-.balance-card::after {
-    content: "";
+.balance-card h1 {
+    font-size: 31px;
+    margin: 8px 0 22px;
 
-    position: absolute;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,0.08);
+    word-break: break-word;
 }
 
-.balance-card::before {
-    width: 150px;
-    height: 150px;
+.balance-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
-    right: -65px;
-    top: -65px;
+    gap: 12px;
 }
 
-.balance-card::after {
-    width: 100px;
-    height: 100px;
+.balance-details div {
+    background: rgba(255,255,255,0.13);
 
-    right: 45px;
-    bottom: -65px;
+    padding: 12px;
+
+    border-radius: 13px;
 }
 
-/* =========================================================
-   SUMMARY BOXES
-========================================================= */
+.balance-details span {
+    display: block;
 
-.summary {
+    font-size: 12px;
+
+    opacity: 0.75;
+
+    margin-bottom: 5px;
+}
+
+.balance-details strong {
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   SUMMARY GRID
+   ===================================================== */
+
+.summary-grid {
     display: grid;
 
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(2, 1fr);
 
-    gap: 10px;
+    gap: 12px;
 
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .summary-card {
-    min-width: 0;
+    background: var(--card);
 
-    padding: 15px;
+    border: 1px solid var(--border);
 
-    background: #ffffff;
+    border-radius: var(--radius);
 
-    border: 1px solid #e2e8f0;
+    padding: 17px;
 
-    border-radius: 17px;
-
-    box-shadow:
-        0 4px 13px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--shadow);
 }
 
-.summary-card h3 {
-    font-size: 11px;
-    font-weight: 800;
-
-    color: #64748b;
-
-    margin-bottom: 6px;
+.summary-card span {
+    font-size: 22px;
 }
 
 .summary-card p {
-    font-size: 16px;
-    font-weight: 900;
+    color: var(--muted);
 
-    color: #0f172a;
+    font-size: 12px;
 
-    overflow-wrap: anywhere;
+    margin-top: 8px;
 }
 
-/* =========================================================
+.summary-card h3 {
+    font-size: 15px;
+
+    margin-top: 5px;
+
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   SECTION TITLES
+   ===================================================== */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 22px 2px 10px;
+}
+
+.section-title h2 {
+    font-size: 18px;
+}
+
+.small-btn {
+    background: transparent;
+
+    color: var(--primary);
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
    QUICK ACTIONS
-========================================================= */
+   ===================================================== */
 
 .quick-actions {
-    padding: 17px;
-
-    background: #ffffff;
-
-    border: 1px solid #e2e8f0;
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 5px 16px rgba(15, 23, 42, 0.05);
-}
-
-.quick-actions > p {
-    color: #64748b !important;
-    font-weight: 800;
-}
-
-.quick-actions h2 {
-    color: #0f172a;
-    font-weight: 900;
-}
-
-/* IMPORTANT:
-   The buttons are arranged in a clean 2 × 2 grid.
-*/
-
-.quick-actions > div {
-    display: grid !important;
+    display: grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr)) !important;
+        repeat(2, 1fr);
 
-    gap: 10px !important;
-
-    width: 100%;
+    gap: 10px;
 }
 
 .quick-actions button {
-    width: 100%;
-
-    min-height: 52px;
-
-    margin: 0 !important;
-
-    padding: 11px 8px;
+    padding: 15px 10px;
 
     border-radius: 14px;
 
-    background: #1e3a8a;
+    background: var(--card);
 
-    color: #ffffff;
+    color: var(--text);
 
-    font-size: 12px;
-    font-weight: 800;
+    border: 1px solid var(--border);
 
-    border: none;
+    box-shadow: var(--shadow);
 
-    box-shadow:
-        0 4px 10px rgba(30, 58, 138, 0.16);
+    font-weight: 700;
+
+    transition: 0.2s;
 }
 
 .quick-actions button:active {
-    transform: scale(0.96);
+    transform: scale(0.97);
 }
 
-/* =========================================================
-   GENERAL SECTIONS
-========================================================= */
 
-.form-section,
-.transactions,
-.monthly-summary,
-.chart-section {
-    margin-bottom: 15px;
+/* =====================================================
+   HEALTH
+   ===================================================== */
 
-    padding: 18px;
+.health-card {
+    background: var(--card);
 
-    background: #ffffff;
+    border: 1px solid var(--border);
 
-    border: 1px solid #e2e8f0;
+    border-radius: var(--radius);
 
-    border-radius: 20px;
+    padding: 20px;
 
-    box-shadow:
-        0 5px 16px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--shadow);
 }
 
-.form-section h2,
-.transactions h2,
-.monthly-summary h2,
-.chart-section h2 {
-    color: #0f172a;
-
-    font-size: 17px;
-    font-weight: 900;
-
-    margin-bottom: 14px;
-}
-
-/* =========================================================
-   MONEY SNAPSHOT
-========================================================= */
-
-.form-section > p {
-    color: #64748b;
-}
-
-.form-section > p strong {
-    color: #0f172a;
-}
-
-/* =========================================================
-   LABELS
-========================================================= */
-
-label {
-    display: block;
-
-    margin-top: 12px;
-    margin-bottom: 6px;
-
-    color: #475569;
-
-    font-size: 12px;
-    font-weight: 800;
-}
-
-/* =========================================================
-   INPUTS
-========================================================= */
-
-input,
-select {
-    width: 100%;
-
-    min-height: 45px;
-
-    padding: 11px 13px;
-
-    border: 1px solid #cbd5e1;
-
-    border-radius: 13px;
-
-    background: #f8fafc;
-
-    color: #0f172a;
-
-    font-size: 14px;
-
-    outline: none;
-
-    -webkit-appearance: none;
-}
-
-input:focus,
-select:focus {
-    border-color: #2563eb;
-
-    background: #ffffff;
-
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.10);
-}
-
-/* =========================================================
-   GENERAL BUTTONS
-========================================================= */
-
-button {
-    border: none;
-
-    border-radius: 13px;
-
-    padding: 11px 14px;
-
-    margin-top: 10px;
-
-    background: #1e3a8a;
-
-    color: #ffffff;
-
-    font-size: 12px;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        opacity 0.15s ease;
-}
-
-button:active {
-    transform: scale(0.96);
-}
-
-/* =========================================================
-   SAVE / CANCEL
-========================================================= */
-
-#saveButton,
-#cancelButton {
-    width: 100%;
-}
-
-#cancelButton {
-    background: #64748b;
-}
-
-/* =========================================================
-   BUDGET
-========================================================= */
-
-.budget-card {
-    padding: 16px;
-
-    background: #f8fafc;
-
-    border: 1px solid #e2e8f0;
-
-    border-radius: 17px;
-}
-
-.budget-title {
+.health-score {
     display: flex;
-
-    justify-content: space-between;
     align-items: center;
 
-    font-size: 13px;
+    gap: 18px;
+
+    margin-bottom: 20px;
 }
 
-.progress-container {
+.health-circle {
+    width: 78px;
+    height: 78px;
+
+    flex: 0 0 78px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        conic-gradient(
+            var(--primary-light),
+            var(--primary)
+        );
+
+    color: white;
+
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.health-score h3 {
+    font-size: 19px;
+}
+
+.health-score p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 4px;
+}
+
+.health-bars {
+    display: grid;
+    gap: 14px;
+}
+
+.health-bars span {
+    display: block;
+
+    font-size: 12px;
+
+    color: var(--muted);
+
+    margin-bottom: 6px;
+}
+
+
+/* =====================================================
+   PROGRESS
+   ===================================================== */
+
+.progress {
     width: 100%;
-    height: 12px;
 
-    margin: 12px 0;
-
-    overflow: hidden;
-
-    border-radius: 20px;
+    height: 9px;
 
     background: #e2e8f0;
+
+    border-radius: 999px;
+
+    overflow: hidden;
 }
 
-.progress-bar {
+.progress > div {
     height: 100%;
 
     width: 0%;
 
-    border-radius: 20px;
+    border-radius: inherit;
 
-    transition: width 0.5s ease;
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #1e3a8a
+        );
+
+    transition: width 0.4s ease;
 }
 
-.safe {
-    background: #22c55e;
+
+/* =====================================================
+   BUDGET / SAVINGS CARDS
+   ===================================================== */
+
+.budget-card,
+.savings-card,
+.goal-large-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 20px;
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 15px;
 }
 
-.warning {
-    background: #f59e0b;
+.budget-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 17px;
 }
 
-.danger {
-    background: #ef4444;
-}
+.budget-top p {
+    color: var(--muted);
 
-.budget-buttons {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 8px;
-}
-
-.budget-buttons button {
-    width: 100%;
-}
-
-/* =========================================================
-   SAVINGS GOAL
-========================================================= */
-
-#goalDisplay > div {
-    background: #f8fafc !important;
-
-    border: 1px solid #e2e8f0;
-
-    border-radius: 17px;
-}
-
-#goalDisplay h3 {
-    color: #0f172a;
-    font-size: 16px;
-    font-weight: 900;
-}
-
-#goalDisplay p {
-    color: #475569;
     font-size: 12px;
+
+    margin-bottom: 5px;
 }
 
-#editGoalButton,
-#deleteGoalButton {
-    width: 100%;
+.budget-top h2 {
+    font-size: 19px;
+
+    word-break: break-word;
 }
 
-/* =========================================================
-   TRANSACTIONS
-========================================================= */
+.budget-top button {
+    background: #e8eefc;
 
-#recentTransactions,
-#transactionList {
-    list-style: none;
+    color: var(--primary);
+
+    padding: 9px 12px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+}
+
+.budget-info {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
 
     margin-top: 10px;
+
+    font-size: 12px;
+
+    color: var(--muted);
 }
 
-#recentTransactions li,
-#transactionList li {
-    padding: 13px;
 
-    margin-bottom: 9px;
+/* =====================================================
+   ALERT
+   ===================================================== */
 
-    background: #f8fafc;
-
-    border: 1px solid #e2e8f0;
+.alert-card {
+    padding: 15px;
 
     border-radius: 15px;
 
-    color: #334155;
+    background: #fff7ed;
 
-    font-size: 12px;
+    border: 1px solid #fed7aa;
+
+    color: #9a3412;
+
+    margin: 10px 0;
 }
 
-#recentTransactions li strong,
-#transactionList li strong {
-    font-weight: 900;
+
+/* =====================================================
+   INSIGHTS
+   ===================================================== */
+
+.insight-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 20px;
+
+    box-shadow: var(--shadow);
 }
 
-/* =========================================================
-   FILTERS
-========================================================= */
+.insight-card p {
+    color: var(--muted);
 
-.filter-section {
-    padding: 14px;
+    font-size: 13px;
 
-    background: #f8fafc;
+    line-height: 1.5;
+}
 
-    border: 1px solid #e2e8f0;
+.insight-card h3 {
+    margin: 6px 0 15px;
+
+    font-size: 17px;
+}
+
+.insight-card hr {
+    border: none;
+
+    border-top:
+        1px solid var(--border);
+
+    margin: 15px 0;
+}
+
+
+/* =====================================================
+   PAGE TITLE
+   ===================================================== */
+
+.page-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.page-title h2 {
+    font-size: 25px;
+}
+
+.page-title p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 3px;
+}
+
+.page-title button {
+    background: var(--primary);
+
+    color: white;
+
+    padding: 11px 15px;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+.search-box {
+    display: grid;
+
+    grid-template-columns:
+        1fr 120px;
+
+    gap: 9px;
+
+    margin-bottom: 10px;
+}
+
+.search-box input,
+.search-box select {
+    width: 100%;
+
+    padding: 13px;
+
+    border-radius: 13px;
+
+    border:
+        1px solid var(--border);
+
+    background: var(--card);
+
+    color: var(--text);
+
+    outline: none;
+}
+
+.search-box input:focus,
+.search-box select:focus {
+    border-color: var(--primary-light);
+}
+
+
+/* =====================================================
+   EXPORT
+   ===================================================== */
+
+.export-btn {
+    width: 100%;
+
+    padding: 13px;
+
+    border-radius: 13px;
+
+    background: #e8eefc;
+
+    color: var(--primary);
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+
+/* =====================================================
+   LISTS
+   ===================================================== */
+
+.list-container {
+    display: grid;
+
+    gap: 10px;
+}
+
+.transaction-item,
+.recurring-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
 
     border-radius: 16px;
+
+    padding: 14px;
+
+    box-shadow:
+        0 5px 16px
+        rgba(15, 23, 42, 0.05);
 }
 
-.filter-section h3 {
-    margin-bottom: 9px;
+.transaction-icon,
+.recurring-icon {
+    width: 43px;
+    height: 43px;
 
-    color: #334155;
+    flex: 0 0 43px;
 
-    font-size: 13px;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eef2ff;
+
+    border-radius: 13px;
+
+    font-size: 20px;
 }
 
-/* =========================================================
-   TRANSACTION BUTTONS
-========================================================= */
+.transaction-details {
+    min-width: 0;
 
-#transactionList li button {
-    display: inline-block;
+    flex: 1;
+}
 
-    width: auto;
+.transaction-details strong {
+    display: block;
 
-    padding: 8px 10px;
+    font-size: 14px;
 
-    margin-right: 5px;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.transaction-details small {
+    display: block;
+
+    color: var(--muted);
 
     font-size: 11px;
+
+    margin-top: 4px;
 }
 
-/* =========================================================
-   EXPORT
-========================================================= */
+.transaction-right {
+    text-align: right;
 
-.export-section button {
-    width: 100%;
+    flex-shrink: 0;
 }
 
-/* =========================================================
-   CHART
-========================================================= */
+.transaction-right > strong {
+    display: block;
 
-.chart-section {
-    min-height: 340px;
+    font-size: 12px;
+
+    margin-bottom: 5px;
+
+    white-space: nowrap;
 }
 
-#detailsButton {
-    width: 100%;
+.income-text {
+    color: var(--success) !important;
 }
 
-#spendingChart {
-    width: 100% !important;
-
-    max-height: 270px;
+.expense-text {
+    color: var(--danger) !important;
 }
 
-/* =========================================================
-   MONTHLY
-========================================================= */
+.icon-btn {
+    background: transparent;
 
-.monthly-summary p {
-    margin-bottom: 7px;
+    padding: 3px;
 
-    font-size: 13px;
-
-    color: #64748b;
+    font-size: 14px;
 }
 
-.monthly-summary strong {
-    color: #0f172a;
-}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer {
-    padding: 25px 10px 10px;
-
+.empty-state {
     text-align: center;
 
-    color: #94a3b8;
+    padding: 35px 15px;
 
-    font-size: 11px;
+    background: var(--card);
+
+    border-radius: 18px;
+
+    border: 1px dashed var(--border);
+
+    color: var(--muted);
 }
 
-footer p:first-child {
-    color: #64748b;
+.empty-state div {
+    font-size: 38px;
 
-    font-weight: 900;
+    margin-bottom: 10px;
+}
 
+.empty-state h3 {
+    color: var(--text);
+
+    margin-bottom: 5px;
+}
+
+
+/* =====================================================
+   RECURRING
+   ===================================================== */
+
+.recurring-info {
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #dbeafe
+        );
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    margin-bottom: 18px;
+}
+
+.recurring-info h3 {
+    color: var(--primary);
+
+    margin-bottom: 8px;
+}
+
+.recurring-info p {
+    color: #475569;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.recurring-item {
+    align-items: flex-start;
+}
+
+.recurring-item .transaction-right {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 5px;
+}
+
+.paid-btn {
+    background: #dcfce7;
+
+    color: #166534;
+
+    padding: 6px 9px;
+
+    border-radius: 9px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   GOALS
+   ===================================================== */
+
+.goal-large-card {
+    text-align: center;
+
+    padding: 28px 20px;
+}
+
+.goal-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eef2ff;
+
+    border-radius: 50%;
+
+    font-size: 34px;
+}
+
+.goal-large-card h2 {
+    margin: 15px 0 8px;
+
+    font-size: 21px;
+}
+
+.goal-large-card h1 {
+    color: var(--primary);
+
+    font-size: 28px;
+
+    margin-bottom: 8px;
+}
+
+.goal-large-card p {
+    color: var(--muted);
+
+    margin-bottom: 18px;
+}
+
+.goal-large-card h3 {
+    margin: 10px 0 18px;
+
+    color: var(--primary);
+}
+
+.goal-large-card button {
+    background: var(--primary);
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   ANALYTICS
+   ===================================================== */
+
+.chart-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 20px;
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 20px;
+}
+
+.chart-card h3 {
+    margin-bottom: 18px;
+}
+
+.chart-card canvas {
+    max-height: 300px;
+}
+
+
+.summary-list {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow);
+}
+
+.summary-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 15px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   CATEGORY BUDGETS
+   ===================================================== */
+
+.category-budget-list {
+    display: grid;
+
+    gap: 10px;
+}
+
+.category-budget {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 15px;
+
+    box-shadow: var(--shadow);
+}
+
+.category-budget-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 9px;
+}
+
+.category-budget-values {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-bottom: 8px;
+}
+
+.category-budget .progress {
+    height: 8px;
+}
+
+.safe {
+    color: var(--success) !important;
+}
+
+.warning {
+    color: var(--warning) !important;
+}
+
+.danger {
+    color: var(--danger) !important;
+}
+
+
+/* =====================================================
+   SETTINGS
+   ===================================================== */
+
+.settings-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 8px;
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 18px;
+}
+
+.settings-card button {
+    width: 100%;
+
+    text-align: left;
+
+    padding: 15px;
+
+    background: transparent;
+
+    color: var(--text);
+
+    border-bottom:
+        1px solid var(--border);
+
+    font-weight: 600;
+}
+
+.settings-card button:last-child {
+    border-bottom: none;
+}
+
+.settings-card button:active {
+    background: #f1f5f9;
+}
+
+.danger-zone h3 {
+    padding: 14px;
+
+    color: var(--danger);
+}
+
+.danger-zone button {
+    color: var(--danger);
+}
+
+.app-info {
+    text-align: center;
+
+    color: var(--muted);
+
+    padding: 20px;
+}
+
+.app-info h3 {
+    color: var(--primary);
+
+    font-size: 15px;
+
+    margin-bottom: 5px;
+}
+
+.app-info p {
+    font-size: 12px;
+
+    margin-bottom: 5px;
+}
+
+
+/* =====================================================
+   MODALS
+   ===================================================== */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    padding: 12px;
+
+    background:
+        rgba(15, 23, 42, 0.55);
+
+    backdrop-filter: blur(4px);
+}
+
+.modal-box {
+    width: 100%;
+
+    max-width: 520px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: var(--card);
+
+    color: var(--text);
+
+    border-radius:
+        24px 24px 10px 10px;
+
+    padding: 23px;
+
+    position: relative;
+
+    box-shadow:
+        0 -10px 40px
+        rgba(0, 0, 0, 0.2);
+
+    animation: modalIn 0.25s ease;
+}
+
+@keyframes modalIn {
+
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+}
+
+.modal-box h2 {
+    margin-bottom: 20px;
+}
+
+.modal-box label {
+    display: block;
+
+    font-size: 12px;
+
+    color: var(--muted);
+
+    font-weight: 700;
+
+    margin: 13px 0 6px;
+}
+
+.modal-box input,
+.modal-box select {
+    width: 100%;
+
+    padding: 13px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid var(--border);
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    outline: none;
+}
+
+.modal-box input:focus,
+.modal-box select:focus {
+    border-color:
+        var(--primary-light);
+}
+
+.modal-box > button:not(.close-btn) {
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-weight: 800;
+
+    margin-top: 18px;
+}
+
+.close-btn {
+    position: absolute;
+
+    top: 13px;
+    right: 15px;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+
+    background: #e2e8f0;
+
+    color: #0f172a;
+
+    font-size: 23px;
+
+    line-height: 1;
+}
+
+
+/* =====================================================
+   CATEGORY BUDGET INPUTS
+   ===================================================== */
+
+#categoryBudgetInputs {
+    display: grid;
+
+    gap: 5px;
+}
+
+#categoryBudgetInputs label {
+    margin-top: 10px;
+}
+
+#categoryBudgetInputs input {
     margin-bottom: 4px;
 }
 
-/* =========================================================
-   MOBILE
-========================================================= */
+
+/* =====================================================
+   BOTTOM NAVIGATION
+   ===================================================== */
+
+.bottom-nav {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 0;
+
+    transform: translateX(-50%);
+
+    width: 100%;
+
+    max-width: 700px;
+
+    z-index: 1000;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    backdrop-filter: blur(18px);
+
+    border-top:
+        1px solid var(--border);
+
+    padding:
+        7px 4px
+        calc(7px + env(safe-area-inset-bottom));
+}
+
+.nav-item {
+    background: transparent;
+
+    color: var(--muted);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 3px;
+
+    min-width: 0;
+
+    padding: 5px 2px;
+}
+
+.nav-item span {
+    font-size: 18px;
+}
+
+.nav-item small {
+    font-size: 9px;
+
+    white-space: nowrap;
+}
+
+.nav-item.active {
+    color: var(--primary);
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   DARK MODE
+   ===================================================== */
+
+body.dark-mode {
+    --bg: #0f172a;
+
+    --card: #111c30;
+
+    --text: #f8fafc;
+
+    --muted: #94a3b8;
+
+    --border: #26344d;
+
+    --shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .app-header {
+    background:
+        rgba(15, 23, 42, 0.94);
+}
+
+body.dark-mode .theme-btn {
+    background: #1e293b;
+
+    color: white;
+}
+
+body.dark-mode .quick-actions button,
+body.dark-mode .budget-top button,
+body.dark-mode .export-btn {
+    background: #1e293b;
+
+    color: #bfdbfe;
+}
+
+body.dark-mode .progress {
+    background: #26344d;
+}
+
+body.dark-mode .alert-card {
+    background: #431407;
+
+    border-color: #7c2d12;
+
+    color: #fed7aa;
+}
+
+body.dark-mode .recurring-info {
+    background:
+        linear-gradient(
+            135deg,
+            #172554,
+            #1e293b
+        );
+}
+
+body.dark-mode .recurring-info p {
+    color: #cbd5e1;
+}
+
+body.dark-mode .transaction-icon,
+body.dark-mode .recurring-icon,
+body.dark-mode .goal-icon {
+    background: #1e293b;
+}
+
+body.dark-mode .settings-card button:active {
+    background: #1e293b;
+}
+
+body.dark-mode .modal-box input,
+body.dark-mode .modal-box select {
+    background: #0f172a;
+}
+
+body.dark-mode .close-btn {
+    background: #26344d;
+
+    color: white;
+}
+
+body.dark-mode .bottom-nav {
+    background:
+        rgba(15, 23, 42, 0.96);
+}
+
+body.dark-mode .paid-btn {
+    background: #14532d;
+
+    color: #bbf7d0;
+}
+
+
+/* =====================================================
+   TABLET / DESKTOP
+   ===================================================== */
+
+@media (min-width: 701px) {
+
+    body {
+        padding-bottom: 30px;
+    }
+
+    main {
+        padding: 25px 0;
+    }
+
+    .bottom-nav {
+        display: none;
+    }
+
+    .app-header {
+        border-radius:
+            0 0 18px 18px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL PHONES
+   ===================================================== */
 
 @media (max-width: 380px) {
 
-    .container {
-        padding: 0 10px;
+    main {
+        padding: 12px;
     }
 
-    header h1 {
-        font-size: 22px;
-    }
-
-    .balance-card h3 {
-        font-size: 26px;
-    }
-
-    .summary {
+    .summary-grid {
         gap: 8px;
     }
 
     .summary-card {
-        padding: 12px;
+        padding: 13px;
     }
 
-    .summary-card p {
-        font-size: 14px;
+    .summary-card h3 {
+        font-size: 13px;
     }
 
-    .quick-actions {
-        padding: 14px;
+    .balance-card h1 {
+        font-size: 26px;
     }
 
-    .quick-actions > div {
-        gap: 8px !important;
+    .nav-item small {
+        font-size: 8px;
     }
 
-    .quick-actions button {
-        font-size: 11px;
-        min-height: 50px;
-    }
-}
-
-/* =========================================================
-   DESKTOP / TABLET
-========================================================= */
-
-@media (min-width: 700px) {
-
-    .container {
-        max-width: 900px;
+    .nav-item span {
+        font-size: 16px;
     }
 
-    .summary {
-        grid-template-columns:
-            repeat(4, 1fr);
+    .search-box {
+        grid-template-columns: 1fr;
     }
 
-    .quick-actions > div {
-        grid-template-columns:
-            repeat(4, 1fr) !important;
+    .recurring-item {
+        padding: 11px;
     }
 
-    .dashboard-nav {
-        justify-content: center;
-    }
 }
 
-/* =========================================================
-   DARK MODE
-========================================================= */
 
-.dark-mode {
-    background: #020617;
-    color: #e2e8f0;
+/* =====================================================
+   ACCESSIBILITY
+   ===================================================== */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline:
+        3px solid
+        rgba(59, 130, 246, 0.35);
+
+    outline-offset: 2px;
 }
 
-.dark-mode header h1 {
-    color: #f8fafc;
-}
 
-.dark-mode header p {
-    color: #94a3b8;
-}
-
-.dark-mode .dashboard-nav {
-    background: #020617;
-}
-
-.dark-mode .dashboard-nav a {
-    background: #0f172a;
-
-    color: #cbd5e1;
-
-    border-color: #1e293b;
-}
-
-.dark-mode .theme-button {
-    background: #0f172a;
-
-    color: #93c5fd;
-
-    border-color: #1e293b;
-}
-
-.dark-mode .quick-actions,
-.dark-mode .summary-card,
-.dark-mode .form-section,
-.dark-mode .transactions,
-.dark-mode .monthly-summary,
-.dark-mode .chart-section {
-    background: #0f172a;
-
-    border-color: #1e293b;
-
-    box-shadow:
-        0 5px 18px rgba(0,0,0,0.25);
-}
-
-.dark-mode .quick-actions h2,
-.dark-mode .form-section h2,
-.dark-mode .transactions h2,
-.dark-mode .monthly-summary h2,
-.dark-mode .chart-section h2 {
-    color: #f8fafc;
-}
-
-.dark-mode .summary-card h3 {
-    color: #94a3b8;
-}
-
-.dark-mode .summary-card p {
-    color: #f8fafc;
-}
-
-.dark-mode .form-section > p strong,
-.dark-mode .monthly-summary strong {
-    color: #f8fafc;
-}
-
-.dark-mode label {
-    color: #cbd5e1;
-}
-
-.dark-mode input,
-.dark-mode select {
-    background: #020617;
-
-    color: #f8fafc;
-
-    border-color: #334155;
-}
-
-.dark-mode input:focus,
-.dark-mode select:focus {
-    background: #020617;
-}
-
-.dark-mode .budget-card,
-.dark-mode #goalDisplay > div,
-.dark-mode .filter-section,
-.dark-mode #recentTransactions li,
-.dark-mode #transactionList li {
-    background: #020617 !important;
-
-    border-color: #1e293b;
-}
-
-.dark-mode .budget-title,
-.dark-mode #goalDisplay h3 {
-    color: #f8fafc;
-}
-
-.dark-mode .budget-card p,
-.dark-mode #goalDisplay p,
-.dark-mode .filter-section h3 {
-    color: #94a3b8;
-}
-
-.dark-mode .progress-container {
-    background: #334155;
-}
-
-.dark-mode footer {
-    color: #64748b;
-}
-
-.dark-mode footer p:first-child {
-    color: #94a3b8;
-}
-
-/* =========================================================
-   TOUCH / MOBILE APP FEEL
-========================================================= */
+/* =====================================================
+   SMOOTH TOUCH
+   ===================================================== */
 
 button,
-a,
-input,
-select {
-    -webkit-tap-highlight-color: transparent;
+.nav-item,
+.transaction-item,
+.recurring-item {
+    -webkit-tap-highlight-color:
+        transparent;
 }
 
-button {
-    touch-action: manipulation;
+button:active {
+    transform: scale(0.98);
 }
-
-.dashboard-nav {
-    -webkit-overflow-scrolling: touch;
-}
-
-/* =========================================================
-   SCROLLBAR
-========================================================= */
-
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #94a3b8;
-    border-radius: 10px;
-}
-
-/* =========================================================
-   SECTION SCROLL POSITION
-========================================================= */
-
-section {
-    scroll-margin-top: 75px;
-}
-
-/* =========================================================
-   END
-   THE FATE BUDGET TRACKER
-========================================================= */

@@ -1,4 +1,4 @@
-const CACHE_NAME = "fate-budget-v3";
+const CACHE_NAME = "fate-budget-v4";
 
 const APP_FILES = [
     "./",
@@ -7,7 +7,6 @@ const APP_FILES = [
     "./manifest.json"
 ];
 
-// INSTALL
 self.addEventListener("install", event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
@@ -16,22 +15,22 @@ self.addEventListener("install", event => {
     );
 });
 
-// ACTIVATE
 self.addEventListener("activate", event => {
     event.waitUntil(
         caches.keys()
-            .then(keys => {
-                return Promise.all(
-                    keys
-                        .filter(key => key !== CACHE_NAME)
-                        .map(key => caches.delete(key))
-                );
-            })
+            .then(keys =>
+                Promise.all(
+                    keys.map(key => {
+                        if (key !== CACHE_NAME) {
+                            return caches.delete(key);
+                        }
+                    })
+                )
+            )
             .then(() => self.clients.claim())
     );
 });
 
-// FETCH
 self.addEventListener("fetch", event => {
 
     if (event.request.method !== "GET") {
@@ -39,40 +38,36 @@ self.addEventListener("fetch", event => {
     }
 
     event.respondWith(
-        caches.match(event.request)
-            .then(cachedResponse => {
+        fetch(event.request)
+            .then(response => {
 
-                // Use cached file if available
-                if (cachedResponse) {
-                    return cachedResponse;
+                if (
+                    response &&
+                    response.status === 200
+                ) {
+
+                    const copy =
+                        response.clone();
+
+                    caches.open(CACHE_NAME)
+                        .then(cache => {
+                            cache.put(
+                                event.request,
+                                copy
+                            );
+                        });
                 }
 
-                // Otherwise try the internet
-                return fetch(event.request)
-                    .then(response => {
+                return response;
 
-                        if (
-                            response &&
-                            response.status === 200
-                        ) {
-                            const copy = response.clone();
+            })
+            .catch(() => {
 
-                            caches.open(CACHE_NAME)
-                                .then(cache => {
-                                    cache.put(
-                                        event.request,
-                                        copy
-                                    );
-                                });
-                        }
+                return caches.match(
+                    event.request
+                );
 
-                        return response;
-                    })
-                    .catch(() => {
-
-                        // If offline, load the app
-                        return caches.match("./index.html");
-                    });
             })
     );
+
 });

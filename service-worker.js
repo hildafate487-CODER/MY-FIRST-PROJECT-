@@ -1,4 +1,4 @@
-const CACHE_NAME = "fate-budget-v2";
+const CACHE_NAME = "fate-budget-v3";
 
 const APP_FILES = [
     "./",
@@ -7,7 +7,7 @@ const APP_FILES = [
     "./manifest.json"
 ];
 
-// Install the app files
+// INSTALL
 self.addEventListener("install", event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
@@ -16,20 +16,22 @@ self.addEventListener("install", event => {
     );
 });
 
-// Activate the new version
+// ACTIVATE
 self.addEventListener("activate", event => {
     event.waitUntil(
-        caches.keys().then(keys => {
-            return Promise.all(
-                keys
-                    .filter(key => key !== CACHE_NAME)
-                    .map(key => caches.delete(key))
-            );
-        }).then(() => self.clients.claim())
+        caches.keys()
+            .then(keys => {
+                return Promise.all(
+                    keys
+                        .filter(key => key !== CACHE_NAME)
+                        .map(key => caches.delete(key))
+                );
+            })
+            .then(() => self.clients.claim())
     );
 });
 
-// Serve cached files when offline
+// FETCH
 self.addEventListener("fetch", event => {
 
     if (event.request.method !== "GET") {
@@ -40,28 +42,26 @@ self.addEventListener("fetch", event => {
         caches.match(event.request)
             .then(cachedResponse => {
 
+                // Use cached file if available
                 if (cachedResponse) {
                     return cachedResponse;
                 }
 
+                // Otherwise try the internet
                 return fetch(event.request)
                     .then(response => {
 
-                        // Save successful requests
-                        // for future offline use
                         if (
                             response &&
-                            response.status === 200 &&
-                            response.type === "basic"
+                            response.status === 200
                         ) {
-                            const responseClone =
-                                response.clone();
+                            const copy = response.clone();
 
                             caches.open(CACHE_NAME)
                                 .then(cache => {
                                     cache.put(
                                         event.request,
-                                        responseClone
+                                        copy
                                     );
                                 });
                         }
@@ -69,8 +69,10 @@ self.addEventListener("fetch", event => {
                         return response;
                     })
                     .catch(() => {
+
+                        // If offline, load the app
                         return caches.match("./index.html");
                     });
             })
     );
-});p
+});

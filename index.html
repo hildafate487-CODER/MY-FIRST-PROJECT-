@@ -13,7 +13,6 @@
     <meta name="description"
           content="THE FATE BUDGET TRACKER - Manage your money. Build your future.">
 
-    <!-- PWA MANIFEST -->
     <link rel="manifest"
           href="./manifest.json">
 
@@ -22,12 +21,122 @@
     <link rel="stylesheet"
           href="style.css">
 
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
+
+<!-- =====================================================
+     PIN LOCK
+====================================================== -->
+
+<div id="pinLock"
+     style="
+        position:fixed;
+        inset:0;
+        z-index:99999;
+        background:#1e3a8a;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+     ">
+
+    <div style="
+        width:100%;
+        max-width:360px;
+        background:white;
+        border-radius:24px;
+        padding:30px 22px;
+        text-align:center;
+        box-shadow:0 20px 50px rgba(0,0,0,0.25);
+     ">
+
+        <div style="
+            width:75px;
+            height:75px;
+            margin:0 auto 15px;
+            border-radius:22px;
+            background:#1e3a8a;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:42px;
+            font-weight:800;
+         ">
+            F
+        </div>
+
+        <h2 style="
+            margin:0;
+            color:#1e3a8a;
+         ">
+            THE FATE
+        </h2>
+
+        <p style="
+            color:#64748b;
+            margin-bottom:22px;
+         ">
+            🔐 Enter your 4-digit PIN
+        </p>
+
+        <input
+            type="password"
+            id="pinInput"
+            inputmode="numeric"
+            maxlength="4"
+            placeholder="••••"
+            autocomplete="off"
+            style="
+                width:100%;
+                box-sizing:border-box;
+                text-align:center;
+                font-size:28px;
+                letter-spacing:10px;
+                padding:14px;
+                border:2px solid #cbd5e1;
+                border-radius:14px;
+                margin-bottom:15px;
+             "
+        >
+
+        <button
+            type="button"
+            id="unlockButton"
+            style="
+                width:100%;
+                padding:14px;
+                border:0;
+                border-radius:14px;
+                background:#1e3a8a;
+                color:white;
+                font-size:16px;
+                font-weight:700;
+             ">
+            🔓 Unlock
+        </button>
+
+        <p
+            id="pinMessage"
+            style="
+                font-size:13px;
+                color:#dc2626;
+                min-height:18px;
+                margin-top:12px;
+             ">
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN APP
+====================================================== -->
 
 <div class="container">
 
@@ -861,22 +970,183 @@
 "use strict";
 
 
-/* STORAGE */
+/* =====================================================
+   STORAGE
+====================================================== */
 
 const TRANSACTION_KEY = "budgetTransactions";
 const GOAL_KEY = "fateSavingsGoal";
 const BUDGET_KEY = "fateMonthlyBudget";
 const THEME_KEY = "fateTheme";
+const PIN_KEY = "fateAppPIN";
 
 
-/* DATA */
+/* =====================================================
+   DATA
+====================================================== */
 
 let transactions = [];
 let chart = null;
 let editingIndex = -1;
 
 
-/* LOAD */
+/* =====================================================
+   PIN LOCK
+====================================================== */
+
+function setupPINLock() {
+
+    const pinLock =
+        document.getElementById("pinLock");
+
+    const pinInput =
+        document.getElementById("pinInput");
+
+    const unlockButton =
+        document.getElementById("unlockButton");
+
+    const pinMessage =
+        document.getElementById("pinMessage");
+
+
+    const savedPIN =
+        localStorage.getItem(PIN_KEY);
+
+
+    /*
+       FIRST TIME:
+       Ask the user to create a PIN.
+    */
+
+    if (!savedPIN) {
+
+        let newPIN = null;
+
+        while (
+            !newPIN ||
+            !/^\d{4}$/.test(newPIN)
+        ) {
+
+            newPIN =
+                prompt(
+                    "Create a 4-digit PIN for THE FATE BUDGET TRACKER:"
+                );
+
+            if (newPIN === null) {
+
+                alert(
+                    "A 4-digit PIN is required to protect your budget tracker."
+                );
+
+                return;
+
+            }
+
+            if (
+                !/^\d{4}$/.test(newPIN)
+            ) {
+
+                alert(
+                    "PIN must contain exactly 4 numbers."
+                );
+
+            }
+
+        }
+
+
+        localStorage.setItem(
+            PIN_KEY,
+            newPIN
+        );
+
+
+        pinLock.style.display =
+            "none";
+
+
+        return;
+
+    }
+
+
+    /*
+       EXISTING USER:
+       Show PIN screen.
+    */
+
+    pinLock.style.display =
+        "flex";
+
+
+    pinInput.focus();
+
+
+    function unlockApp() {
+
+        const enteredPIN =
+            pinInput.value.trim();
+
+
+        const correctPIN =
+            localStorage.getItem(
+                PIN_KEY
+            );
+
+
+        if (
+            enteredPIN === correctPIN
+        ) {
+
+            pinLock.style.display =
+                "none";
+
+            pinInput.value = "";
+
+            pinMessage.textContent =
+                "";
+
+        } else {
+
+            pinMessage.textContent =
+                "❌ Incorrect PIN. Try again.";
+
+            pinInput.value = "";
+
+            pinInput.focus();
+
+        }
+
+    }
+
+
+    unlockButton.addEventListener(
+        "click",
+        unlockApp
+    );
+
+
+    pinInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                unlockApp();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   LOAD TRANSACTIONS
+====================================================== */
 
 function loadTransactions() {
 
@@ -892,13 +1162,20 @@ function loadTransactions() {
                 ? JSON.parse(saved)
                 : [];
 
-        if (!Array.isArray(transactions)) {
+        if (
+            !Array.isArray(
+                transactions
+            )
+        ) {
+
             transactions = [];
+
         }
 
     } catch (error) {
 
         console.error(error);
+
         transactions = [];
 
     }
@@ -916,40 +1193,58 @@ function saveTransactions() {
 }
 
 
-/* MONEY */
+/* =====================================================
+   MONEY
+====================================================== */
 
 function money(amount) {
 
     return "UGX " +
         Number(amount || 0)
-        .toLocaleString("en-UG");
+            .toLocaleString("en-UG");
 
 }
 
 
-/* TODAY */
+/* =====================================================
+   TODAY
+====================================================== */
 
 function setToday() {
 
     const dateInput =
-        document.getElementById("date");
+        document.getElementById(
+            "date"
+        );
+
 
     if (!dateInput.value) {
 
-        const today = new Date();
+        const today =
+            new Date();
+
 
         const year =
             today.getFullYear();
 
+
         const month =
             String(
                 today.getMonth() + 1
-            ).padStart(2, "0");
+            ).padStart(
+                2,
+                "0"
+            );
+
 
         const day =
             String(
                 today.getDate()
-            ).padStart(2, "0");
+            ).padStart(
+                2,
+                "0"
+            );
+
 
         dateInput.value =
             `${year}-${month}-${day}`;
@@ -959,10 +1254,14 @@ function setToday() {
 }
 
 
-/* ADD / EDIT */
+/* =====================================================
+   ADD / EDIT TRANSACTION
+====================================================== */
 
 document
-    .getElementById("transactionForm")
+    .getElementById(
+        "transactionForm"
+    )
     .addEventListener(
         "submit",
         function(event) {
@@ -972,7 +1271,9 @@ document
 
             const description =
                 document
-                    .getElementById("description")
+                    .getElementById(
+                        "description"
+                    )
                     .value
                     .trim();
 
@@ -980,26 +1281,34 @@ document
             const amount =
                 Number(
                     document
-                        .getElementById("amount")
+                        .getElementById(
+                            "amount"
+                        )
                         .value
                 );
 
 
             const date =
                 document
-                    .getElementById("date")
+                    .getElementById(
+                        "date"
+                    )
                     .value;
 
 
             const type =
                 document
-                    .getElementById("type")
+                    .getElementById(
+                        "type"
+                    )
                     .value;
 
 
             const category =
                 document
-                    .getElementById("category")
+                    .getElementById(
+                        "category"
+                    )
                     .value;
 
 
@@ -1014,7 +1323,10 @@ document
             }
 
 
-            if (!amount || amount <= 0) {
+            if (
+                !amount ||
+                amount <= 0
+            ) {
 
                 alert(
                     "Please enter a valid amount."
@@ -1058,10 +1370,13 @@ document
             };
 
 
-            if (editingIndex >= 0) {
+            if (
+                editingIndex >= 0
+            ) {
 
-                transactions[editingIndex] =
-                    transaction;
+                transactions[
+                    editingIndex
+                ] = transaction;
 
                 editingIndex = -1;
 
@@ -1076,19 +1391,25 @@ document
 
             saveTransactions();
 
+
             this.reset();
+
 
             setToday();
 
 
             document
-                .getElementById("saveButton")
+                .getElementById(
+                    "saveButton"
+                )
                 .textContent =
                 "Save Transaction";
 
 
             document
-                .getElementById("cancelButton")
+                .getElementById(
+                    "cancelButton"
+                )
                 .style.display =
                 "none";
 
@@ -1109,57 +1430,75 @@ document
     );
 
 
-/* EDIT */
+/* =====================================================
+   EDIT TRANSACTION
+====================================================== */
 
 function editTransaction(index) {
 
     const transaction =
         transactions[index];
 
+
     if (!transaction) return;
 
 
     document
-        .getElementById("description")
+        .getElementById(
+            "description"
+        )
         .value =
         transaction.description;
 
 
     document
-        .getElementById("amount")
+        .getElementById(
+            "amount"
+        )
         .value =
         transaction.amount;
 
 
     document
-        .getElementById("date")
+        .getElementById(
+            "date"
+        )
         .value =
         transaction.date;
 
 
     document
-        .getElementById("type")
+        .getElementById(
+            "type"
+        )
         .value =
         transaction.type;
 
 
     document
-        .getElementById("category")
+        .getElementById(
+            "category"
+        )
         .value =
         transaction.category;
 
 
-    editingIndex = index;
+    editingIndex =
+        index;
 
 
     document
-        .getElementById("saveButton")
+        .getElementById(
+            "saveButton"
+        )
         .textContent =
         "Update Transaction";
 
 
     document
-        .getElementById("cancelButton")
+        .getElementById(
+            "cancelButton"
+        )
         .style.display =
         "block";
 
@@ -1171,11 +1510,14 @@ function editTransaction(index) {
 }
 
 
-/* DELETE */
+/* =====================================================
+   DELETE TRANSACTION
+====================================================== */
 
 function deleteTransaction(index) {
 
-    if (!transactions[index]) return;
+    if (!transactions[index])
+        return;
 
 
     if (
@@ -1183,7 +1525,9 @@ function deleteTransaction(index) {
             "Delete this transaction?"
         )
     ) {
+
         return;
+
     }
 
 
@@ -1195,26 +1539,33 @@ function deleteTransaction(index) {
 
     saveTransactions();
 
+
     updateApp();
 
 }
 
 
-/* CANCEL EDIT */
+/* =====================================================
+   CANCEL EDIT
+====================================================== */
 
 document
-    .getElementById("cancelButton")
+    .getElementById(
+        "cancelButton"
+    )
     .addEventListener(
         "click",
         function() {
 
             editingIndex = -1;
 
+
             document
                 .getElementById(
                     "transactionForm"
                 )
                 .reset();
+
 
             setToday();
 
@@ -1234,7 +1585,9 @@ document
     );
 
 
-/* DASHBOARD */
+/* =====================================================
+   DASHBOARD
+====================================================== */
 
 function updateDashboard() {
 
@@ -1273,25 +1626,33 @@ function updateDashboard() {
 
 
     document
-        .getElementById("balance")
+        .getElementById(
+            "balance"
+        )
         .textContent =
         money(balance);
 
 
     document
-        .getElementById("income")
+        .getElementById(
+            "income"
+        )
         .textContent =
         money(income);
 
 
     document
-        .getElementById("expenses")
+        .getElementById(
+            "expenses"
+        )
         .textContent =
         money(expenses);
 
 
     document
-        .getElementById("totalSpending")
+        .getElementById(
+            "totalSpending"
+        )
         .textContent =
         money(expenses);
 
@@ -1302,8 +1663,10 @@ function updateDashboard() {
     if (income > 0) {
 
         savingsRate =
-            ((income - expenses) /
-                income) * 100;
+            (
+                (income - expenses) /
+                income
+            ) * 100;
 
     }
 
@@ -1316,25 +1679,34 @@ function updateDashboard() {
 
 
     document
-        .getElementById("savingsRate")
+        .getElementById(
+            "savingsRate"
+        )
         .textContent =
-        savingsRate.toFixed(1) + "%";
+        savingsRate.toFixed(1) +
+        "%";
 
 
     document
-        .getElementById("snapshotIncome")
+        .getElementById(
+            "snapshotIncome"
+        )
         .textContent =
         money(income);
 
 
     document
-        .getElementById("snapshotSpent")
+        .getElementById(
+            "snapshotSpent"
+        )
         .textContent =
         money(expenses);
 
 
     document
-        .getElementById("snapshotRemaining")
+        .getElementById(
+            "snapshotRemaining"
+        )
         .textContent =
         money(balance);
 
@@ -1351,7 +1723,9 @@ function updateDashboard() {
         balanceMessage.textContent =
             "⚠️ You're spending more than you're earning.";
 
-    } else if (balance === 0) {
+    } else if (
+        balance === 0
+    ) {
 
         balanceMessage.textContent =
             "⚠️ Your income and spending are equal.";
@@ -1366,7 +1740,9 @@ function updateDashboard() {
 }
 
 
-/* TRANSACTIONS */
+/* =====================================================
+   TRANSACTIONS
+====================================================== */
 
 function displayTransactions() {
 
@@ -1414,7 +1790,9 @@ function displayTransactions() {
                         transaction.description
                     )
                     .toLowerCase()
-                    .includes(search);
+                    .includes(
+                        search
+                    );
 
 
                 const matchesCategory =
@@ -1452,7 +1830,9 @@ function displayTransactions() {
         );
 
 
-    if (filtered.length === 0) {
+    if (
+        filtered.length === 0
+    ) {
 
         list.innerHTML =
             "<li>No transactions found.</li>";
@@ -1542,7 +1922,9 @@ function displayTransactions() {
 }
 
 
-/* RECENT */
+/* =====================================================
+   RECENT TRANSACTIONS
+====================================================== */
 
 function displayRecentTransactions() {
 
@@ -1567,15 +1949,22 @@ function displayRecentTransactions() {
             .sort(
                 function(a, b) {
 
-                    return new Date(b.date) -
-                        new Date(a.date);
+                    return (
+                        new Date(b.date) -
+                        new Date(a.date)
+                    );
 
                 }
             )
-            .slice(0, 4);
+            .slice(
+                0,
+                4
+            );
 
 
-    if (recent.length === 0) {
+    if (
+        recent.length === 0
+    ) {
 
         message.textContent =
             "No transactions yet.";
@@ -1644,25 +2033,45 @@ function displayRecentTransactions() {
 }
 
 
-/* HTML SAFETY */
+/* =====================================================
+   HTML SAFETY
+====================================================== */
 
 function escapeHTML(text) {
 
     return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-/* DATE */
+/* =====================================================
+   DATE
+====================================================== */
 
 function formatDate(dateString) {
 
-    if (!dateString) return "";
+    if (!dateString)
+        return "";
 
 
     const date =
@@ -1684,10 +2093,14 @@ function formatDate(dateString) {
 }
 
 
-/* FILTERS */
+/* =====================================================
+   FILTERS
+====================================================== */
 
 document
-    .getElementById("searchInput")
+    .getElementById(
+        "searchInput"
+    )
     .addEventListener(
         "input",
         displayTransactions
@@ -1695,7 +2108,9 @@ document
 
 
 document
-    .getElementById("categoryFilter")
+    .getElementById(
+        "categoryFilter"
+    )
     .addEventListener(
         "change",
         displayTransactions
@@ -1703,14 +2118,18 @@ document
 
 
 document
-    .getElementById("typeFilter")
+    .getElementById(
+        "typeFilter"
+    )
     .addEventListener(
         "change",
         displayTransactions
     );
 
 
-/* BUDGET */
+/* =====================================================
+   BUDGET
+====================================================== */
 
 function getBudget() {
 
@@ -1762,7 +2181,10 @@ function updateBudget() {
 
     const percentage =
         budget > 0
-            ? (spending / budget) * 100
+            ? (
+                spending /
+                budget
+            ) * 100
             : 0;
 
 
@@ -1815,13 +2237,17 @@ function updateBudget() {
     );
 
 
-    if (percentage >= 100) {
+    if (
+        percentage >= 100
+    ) {
 
         progress.classList.add(
             "danger"
         );
 
-    } else if (percentage >= 75) {
+    } else if (
+        percentage >= 75
+    ) {
 
         progress.classList.add(
             "warning"
@@ -1849,7 +2275,9 @@ function updateBudget() {
             ? money(remaining) +
               " remaining"
             : money(
-                Math.abs(remaining)
+                Math.abs(
+                    remaining
+                )
               ) +
               " over budget";
 
@@ -1860,12 +2288,16 @@ function updateBudget() {
         );
 
 
-    if (percentage >= 100) {
+    if (
+        percentage >= 100
+    ) {
 
         message.textContent =
             "🚨 You have exceeded your budget.";
 
-    } else if (percentage >= 75) {
+    } else if (
+        percentage >= 75
+    ) {
 
         message.textContent =
             "⚠️ You're getting close to your budget.";
@@ -1901,17 +2333,26 @@ document
                 );
 
 
-            if (value === null) return;
+            if (
+                value === null
+            )
+                return;
 
 
             const budget =
                 Number(
                     String(value)
-                        .replace(/,/g, "")
+                        .replace(
+                            /,/g,
+                            ""
+                        )
                 );
 
 
-            if (!budget || budget <= 0) {
+            if (
+                !budget ||
+                budget <= 0
+            ) {
 
                 alert(
                     "Please enter a valid budget."
@@ -1954,7 +2395,9 @@ document
     );
 
 
-/* SAVINGS GOAL */
+/* =====================================================
+   SAVINGS GOAL
+====================================================== */
 
 function getGoal() {
 
@@ -1968,7 +2411,9 @@ function getGoal() {
 
         if (saved) {
 
-            return JSON.parse(saved);
+            return JSON.parse(
+                saved
+            );
 
         }
 
@@ -1981,11 +2426,14 @@ function getGoal() {
 
     return {
 
-        name: "My Savings Goal",
+        name:
+            "My Savings Goal",
 
-        target: 5000000,
+        target:
+            5000000,
 
-        current: 30000
+        current:
+            30000
 
     };
 
@@ -2009,17 +2457,24 @@ function updateGoalDisplay() {
 
 
     const target =
-        Number(goal.target) || 0;
+        Number(
+            goal.target
+        ) || 0;
 
 
     const current =
-        Number(goal.current) || 0;
+        Number(
+            goal.current
+        ) || 0;
 
 
     const percentage =
         target > 0
             ? Math.min(
-                (current / target) * 100,
+                (
+                    current /
+                    target
+                ) * 100,
                 100
             )
             : 0;
@@ -2027,7 +2482,8 @@ function updateGoalDisplay() {
 
     const remaining =
         Math.max(
-            target - current,
+            target -
+            current,
             0
         );
 
@@ -2037,7 +2493,8 @@ function updateGoalDisplay() {
             "goalName"
         )
         .textContent =
-        "🎯 " + goal.name;
+        "🎯 " +
+        goal.name;
 
 
     document
@@ -2105,7 +2562,10 @@ document
                 );
 
 
-            if (name === null) return;
+            if (
+                name === null
+            )
+                return;
 
 
             const targetInput =
@@ -2115,7 +2575,9 @@ document
                 );
 
 
-            if (targetInput === null)
+            if (
+                targetInput === null
+            )
                 return;
 
 
@@ -2126,21 +2588,31 @@ document
                 );
 
 
-            if (currentInput === null)
+            if (
+                currentInput === null
+            )
                 return;
 
 
             const target =
                 Number(
-                    String(targetInput)
-                        .replace(/,/g, "")
+                    String(
+                        targetInput
+                    ).replace(
+                        /,/g,
+                        ""
+                    )
                 );
 
 
             const current =
                 Number(
-                    String(currentInput)
-                        .replace(/,/g, "")
+                    String(
+                        currentInput
+                    ).replace(
+                        /,/g,
+                        ""
+                    )
                 );
 
 
@@ -2193,7 +2665,9 @@ document
                     "Delete your savings goal?"
                 )
             ) {
+
                 return;
+
             }
 
 
@@ -2208,7 +2682,9 @@ document
     );
 
 
-/* INSIGHTS */
+/* =====================================================
+   INSIGHTS
+====================================================== */
 
 function updateInsights() {
 
@@ -2216,8 +2692,10 @@ function updateInsights() {
         transactions.filter(
             function(transaction) {
 
-                return transaction.type ===
-                    "expense";
+                return (
+                    transaction.type ===
+                    "expense"
+                );
 
             }
         );
@@ -2233,14 +2711,22 @@ function updateInsights() {
                 transaction.category;
 
 
-            if (!categoryTotals[category]) {
+            if (
+                !categoryTotals[
+                    category
+                ]
+            ) {
 
-                categoryTotals[category] = 0;
+                categoryTotals[
+                    category
+                ] = 0;
 
             }
 
 
-            categoryTotals[category] +=
+            categoryTotals[
+                category
+            ] +=
                 Number(
                     transaction.amount
                 );
@@ -2249,29 +2735,37 @@ function updateInsights() {
     );
 
 
-    let topCategory = "None";
+    let topCategory =
+        "None";
+
+
     let topAmount = 0;
 
 
-    Object.keys(categoryTotals)
-        .forEach(
-            function(category) {
+    Object.keys(
+        categoryTotals
+    )
+    .forEach(
+        function(category) {
 
-                if (
-                    categoryTotals[category] >
-                    topAmount
-                ) {
+            if (
+                categoryTotals[
+                    category
+                ] > topAmount
+            ) {
 
-                    topAmount =
-                        categoryTotals[category];
+                topAmount =
+                    categoryTotals[
+                        category
+                    ];
 
-                    topCategory =
-                        category;
-
-                }
+                topCategory =
+                    category;
 
             }
-        );
+
+        }
+    );
 
 
     document
@@ -2289,7 +2783,9 @@ function updateInsights() {
         function(transaction) {
 
             if (
-                Number(transaction.amount) >
+                Number(
+                    transaction.amount
+                ) >
                 largestExpense
             ) {
 
@@ -2309,7 +2805,9 @@ function updateInsights() {
             "largestExpense"
         )
         .textContent =
-        money(largestExpense);
+        money(
+            largestExpense
+        );
 
 
     document
@@ -2353,11 +2851,15 @@ function updateInsights() {
     let savingsRate = 0;
 
 
-    if (income > 0) {
+    if (
+        income > 0
+    ) {
 
         savingsRate =
-            ((income - expenses) /
-                income) * 100;
+            (
+                (income - expenses) /
+                income
+            ) * 100;
 
     }
 
@@ -2384,7 +2886,9 @@ function updateInsights() {
         );
 
 
-    if (expenses === 0) {
+    if (
+        expenses === 0
+    ) {
 
         advice.textContent =
             "Start recording your expenses so I can give you useful spending advice.";
@@ -2401,7 +2905,9 @@ function updateInsights() {
 }
 
 
-/* CHART */
+/* =====================================================
+   CHART
+====================================================== */
 
 function updateChart() {
 
@@ -2411,7 +2917,8 @@ function updateChart() {
         );
 
 
-    if (!canvas) return;
+    if (!canvas)
+        return;
 
 
     const categoryTotals = {};
@@ -2424,7 +2931,9 @@ function updateChart() {
                 transaction.type !==
                 "expense"
             ) {
+
                 return;
+
             }
 
 
@@ -2432,15 +2941,22 @@ function updateChart() {
                 transaction.category;
 
 
-            if (!categoryTotals[category]) {
+            if (
+                !categoryTotals[
+                    category
+                ]
+            ) {
 
-                categoryTotals[category] =
-                    0;
+                categoryTotals[
+                    category
+                ] = 0;
 
             }
 
 
-            categoryTotals[category] +=
+            categoryTotals[
+                category
+            ] +=
                 Number(
                     transaction.amount
                 );
@@ -2459,7 +2975,9 @@ function updateChart() {
         labels.map(
             function(label) {
 
-                return categoryTotals[label];
+                return categoryTotals[
+                    label
+                ];
 
             }
         );
@@ -2472,20 +2990,35 @@ function updateChart() {
     }
 
 
+    if (
+        typeof Chart ===
+        "undefined"
+    ) {
+
+        return;
+
+    }
+
+
     chart =
         new Chart(
-            canvas.getContext("2d"),
+            canvas.getContext(
+                "2d"
+            ),
             {
 
-                type: "doughnut",
+                type:
+                    "doughnut",
 
                 data: {
 
-                    labels: labels,
+                    labels:
+                        labels,
 
                     datasets: [{
 
-                        data: values
+                        data:
+                            values
 
                     }]
 
@@ -2493,15 +3026,18 @@ function updateChart() {
 
                 options: {
 
-                    responsive: true,
+                    responsive:
+                        true,
 
-                    maintainAspectRatio: false,
+                    maintainAspectRatio:
+                        false,
 
                     plugins: {
 
                         legend: {
 
-                            position: "bottom"
+                            position:
+                                "bottom"
 
                         }
 
@@ -2515,7 +3051,9 @@ function updateChart() {
 }
 
 
-/* MONTHLY */
+/* =====================================================
+   MONTHLY SUMMARY
+====================================================== */
 
 function updateMonthlySummary() {
 
@@ -2525,7 +3063,9 @@ function updateMonthlySummary() {
         );
 
 
-    if (!selector.value) {
+    if (
+        !selector.value
+    ) {
 
         const today =
             new Date();
@@ -2609,7 +3149,8 @@ function updateMonthlySummary() {
         )
         .textContent =
         money(
-            income - expenses
+            income -
+            expenses
         );
 
 }
@@ -2625,7 +3166,9 @@ document
     );
 
 
-/* EXPORT */
+/* =====================================================
+   EXPORT
+====================================================== */
 
 document
     .getElementById(
@@ -2693,48 +3236,65 @@ document
                 );
 
 
-            link.href = url;
+            link.href =
+                url;
+
 
             link.download =
                 "THE-FATE-BUDGET-TRACKER.csv";
 
 
-            document.body.appendChild(link);
+            document.body.appendChild(
+                link
+            );
+
 
             link.click();
+
 
             link.remove();
 
 
-            URL.revokeObjectURL(url);
+            URL.revokeObjectURL(
+                url
+            );
 
         }
     );
 
 
-/* SCROLL */
+/* =====================================================
+   SCROLL
+====================================================== */
 
 function scrollToSection(id) {
 
     const section =
-        document.getElementById(id);
+        document.getElementById(
+            id
+        );
 
 
-    if (!section) return;
+    if (!section)
+        return;
 
 
     section.scrollIntoView({
 
-        behavior: "smooth",
+        behavior:
+            "smooth",
 
-        block: "start"
+        block:
+            "start"
 
     });
 
 }
 
 
-/* QUICK ACTIONS */
+/* =====================================================
+   QUICK ACTIONS
+====================================================== */
 
 document
     .getElementById(
@@ -2751,7 +3311,8 @@ document
                 .reset();
 
 
-            editingIndex = -1;
+            editingIndex =
+                -1;
 
 
             document
@@ -2861,7 +3422,9 @@ document
     );
 
 
-/* DARK MODE */
+/* =====================================================
+   DARK MODE
+====================================================== */
 
 function applyTheme() {
 
@@ -2871,7 +3434,9 @@ function applyTheme() {
         );
 
 
-    if (savedTheme === "dark") {
+    if (
+        savedTheme === "dark"
+    ) {
 
         document.body.classList.add(
             "dark-mode"
@@ -2925,7 +3490,9 @@ document
 
             localStorage.setItem(
                 THEME_KEY,
-                dark ? "dark" : "light"
+                dark
+                    ? "dark"
+                    : "light"
             );
 
 
@@ -2938,7 +3505,9 @@ document
     );
 
 
-/* UPDATE */
+/* =====================================================
+   UPDATE APP
+====================================================== */
 
 function updateApp() {
 
@@ -2960,10 +3529,12 @@ function updateApp() {
 
 
 /* =====================================================
-   PWA SERVICE WORKER REGISTRATION
+   PWA SERVICE WORKER
 ====================================================== */
 
-if ("serviceWorker" in navigator) {
+if (
+    "serviceWorker" in navigator
+) {
 
     window.addEventListener(
         "load",
@@ -3000,7 +3571,9 @@ if ("serviceWorker" in navigator) {
 }
 
 
-/* START */
+/* =====================================================
+   START
+====================================================== */
 
 loadTransactions();
 
@@ -3009,6 +3582,8 @@ setToday();
 applyTheme();
 
 updateApp();
+
+setupPINLock();
 
 </script>
 
